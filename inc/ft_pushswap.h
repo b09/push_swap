@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/13 20:56:40 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/14 20:21:10 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,16 @@
 # define B_pos		checker->pos_b
 # define LENGTH		checker->len
 # define ARGV		checker->argv
+# define SWAP(a, b) \
+    { \
+        (a) ^= (b); \
+        (b) ^= (a); \
+        (a) ^= (b); \
+    }
 
+# define SWAP22(a, b) ((a) ^= (b)) + ((b) ^= (a)) + ((a) ^= (b))
 
+# define MULP(a, b) a * b
 
 typedef struct	s_checker
 {
@@ -42,6 +50,8 @@ struct	s_pushswap
 	void	*prev;
 	void	*next;
 }		t_pushswap;
+
+typedef int (*func_pointer)(t_checker *);
 
 #endif
 

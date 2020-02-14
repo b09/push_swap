@@ -6,13 +6,14 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/06/03 16:52:44 by bprado         #+#    #+#                 #
-#    Updated: 2020/02/10 17:20:30 by bprado        ########   odam.nl          #
+#    Updated: 2020/02/14 14:30:21 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	= checker
 
-CFLAGS	= -Wall -Wextra -Werror -g
+# CFLAGS	= -Wall -Wextra -Werror -g
+CFLAGS	= #-Wall -Wextra -Werror -g
 
 SRC 	= $(wildcard src/*.c)
 
