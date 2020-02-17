@@ -1,16 +1,18 @@
 {\rtf1\ansi\ansicpg1252\cocoartf1671\cocoasubrtf600
 {\fonttbl\f0\froman\fcharset0 Times-Italic;\f1\froman\fcharset0 Times-Roman;\f2\froman\fcharset0 Times-Bold;
-}
+\f3\fnil\fcharset0 LucidaGrande;\f4\fnil\fcharset0 LucidaGrande-Bold;}
 {\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red0\green0\blue255;\red0\green0\blue255;
-\red251\green2\blue7;\red0\green0\blue255;\red251\green2\blue7;}
+\red251\green2\blue7;}
 {\*\expandedcolortbl;;\cssrgb\c0\c0\c0;\cssrgb\c0\c0\c100000;\cssrgb\c1680\c19835\c100000;
-\cssrgb\c100000\c14913\c0;\cssrgb\c1680\c19835\c100000;\cssrgb\c100000\c14913\c0;}
+\cssrgb\c100000\c14913\c0;}
+{\*\listtable{\list\listtemplateid1\listhybrid{\listlevel\levelnfc23\levelnfcn23\leveljc0\leveljcn0\levelfollow0\levelstartat1\levelspace360\levelindent0{\*\levelmarker \{hyphen\}}{\leveltext\leveltemplateid1\'01\uc0\u8259 ;}{\levelnumbers;}\fi-360\li720\lin720 }{\listname ;}\listid1}}
+{\*\listoverridetable{\listoverride\listid1\listoverridecount0\ls1}}
 \margl1440\margr1440\vieww20540\viewh20700\viewkind0
 \deftab720
 \pard\pardeftab720\partightenfactor0
 
 \f0\i\fs36 \cf2 \expnd0\expndtw0\kerning0
-Summary:\uc0\u8232 This project will make you sort data on a stack, with a limited set of instructions, using the lowest possible number of actions. To succeed you will have to manipulate various types of algorithms and choose the most appropriate solution \cf2 (of many) \cf2 for an optimized data sorting. 
+Summary:\uc0\u8232 This project will make you sort data on a stack, with a limited set of instructions, using the lowest possible number of actions. To succeed you will have to manipulate various types of algorithms and choose the most appropriate solution (of many) for an optimized data sorting. 
 \f1\i0\fs24 \cf2 \
 \pard\pardeftab720\sl520\sa240\partightenfactor0
 
@@ -23,50 +25,101 @@ V.1 Game rules
 A	- contains a random number of either positive or negative numbers without any duplicates. \
 B	- empty\
 \uc0\u8232 \'95 Sort in ascending order numbers into stack A.\u8232 \'95 Operations at your disposal: \
-\pard\pardeftab720\li1674\fi-813\partightenfactor0
-\cf2 \uc0\u8232 
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0\cf2 \kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f1 	}\expnd0\expndtw0\kerning0
+\uc0\u8232 
 \f2\b sa :	
 \f1\b0 \cf4 swap a\cf2  - swap first 2 elements at top of stack A. \
-			Do nothing if there is only one or no elements). \
+{\listtext	
+\f3 \uc0\u8259 
+\f1 	}	Do nothing if there is only one or no elements). \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f1 	}\expnd0\expndtw0\kerning0
 \uc0\u8232 
 \f2\b sb :	
 \f1\b0 \cf4 swap b\cf2  \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f1 	}\expnd0\expndtw0\kerning0
 \uc0\u8232 
 \f2\b ss :	
 \f1\b0 \cf4 sa + sb\cf2  at the same time.\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f1 	}\expnd0\expndtw0\kerning0
 \uc0\u8232 
 \f2\b pa :	
 \f1\b0 \cf4 push a\cf2  - take first element at top of b and place at the top of a. \
-			Do nothing if b is empty.\
+{\listtext	
+\f3 \uc0\u8259 
+\f1 	}	Do nothing if b is empty.\
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f1 	}\expnd0\expndtw0\kerning0
 \uc0\u8232 
 \f2\b pb :	
 \f1\b0 \cf4 push b\cf2  \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f1 	}\expnd0\expndtw0\kerning0
 \uc0\u8232 
 \f2\b ra :	
 \f1\b0 \cf4 rotate a\cf2  - shift up all elements of stack a by 1. First element becomes \uc0\u8232 		the last one. \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f1 	}\expnd0\expndtw0\kerning0
 \uc0\u8232 
 \f2\b rb :	
 \f1\b0 \cf4 rotate b\cf2  - shift up all elements of stack b by 1. \
-			The first element becomes the last one. \
+{\listtext	
+\f3 \uc0\u8259 
+\f1 	}	The first element becomes the last one. \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f1 	}\expnd0\expndtw0\kerning0
 \uc0\u8232 
 \f2\b rr :	
 \f1\b0 \cf4 ra + rb\cf2  at the same time. \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f1 	}\expnd0\expndtw0\kerning0
 \uc0\u8232 
 \f2\b rra :	
 \f1\b0 \cf4 reverse rotate a\cf2  - shift down all elements of stack a by 1. \
-			The last element becomes the first one. \
+{\listtext	
+\f3 \uc0\u8259 
+\f1 	}	The last element becomes the first one. \
+\ls1\ilvl0\kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f1 	}\expnd0\expndtw0\kerning0
 \
-\pard\pardeftab720\li1674\fi-43\partightenfactor0
-
-\f2\b \cf2 rrb :	
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0
+\f2\b \cf2 \kerning1\expnd0\expndtw0 {\listtext	
+\f4 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+rrb :	
 \f1\b0 \cf4 reverse rotate b\cf2  - shift down all elements of stack b by 1.\
-		The last element becomes the first one. \
+{\listtext	
+\f3 \uc0\u8259 
+\f1 	}The last element becomes the first one. \
+\pard\tx220\tx720\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0\cf2 \kerning1\expnd0\expndtw0 {\listtext	
+\f3 \uc0\u8259 
+\f1 	}\expnd0\expndtw0\kerning0
 \
-\pard\tx1675\tx2257\tx2516\tx2873\tx3247\pardeftab720\li1633\fi-22\partightenfactor0
-
-\f2\b \cf2 rrr :		
+\pard\tx220\tx720\tx1675\tx2257\tx2516\tx2873\tx3247\pardeftab720\li720\fi-720\partightenfactor0
+\ls1\ilvl0
+\f2\b \cf2 \kerning1\expnd0\expndtw0 {\listtext	
+\f4 \uc0\u8259 
+\f2 	}\expnd0\expndtw0\kerning0
+rrr :		
 \f1\b0 \cf4 rra + rrb\cf2  at the same time. \
-\
+\pard\tx1675\tx2257\tx2516\tx2873\tx3247\pardeftab720\li1633\fi-22\partightenfactor0
+\cf2 \
 \pard\pardeftab720\sl520\sa240\partightenfactor0
 
 \f2\b\fs45\fsmilli22667 \cf2 \
@@ -80,14 +133,14 @@ INPUT
 \f1\b0 \cf2 \
 \'95 checker will:\
 \
-	- get \cf2 a list of integers\cf2  (stack A) \cf2 as an argument\cf2 . \
+	- get a list of integers (stack A) as an argument. \
 		first argument (first int) should be at the top of the stack.\
 		If no argument is given, checker stops and displays nothing. \
 \
 	- wait and read instructions on the standard input, \
 		each instruction will be followed by \'92\\n\'92\
 \
-	- execute \cf2 the instructions\cf2  on the stack received as an argument. \
+	- execute the instructions on the stack received as an argument. \
 \
 \
 
@@ -101,8 +154,8 @@ Every other case\
 \
 \'95 In case of error,\
 		- display \'93Error\'94 followed by a \'92\\n\'92 on the 
-\f2\b \cf2 standard error
-\f1\b0 \cf2 . \
+\f2\b standard error
+\f1\b0 . \
 		- Errors include: arguments are not integers, arguments are bigger than an integer, \
 		there are duplicates, an instruction don\'92t exist and/or is incorrectly formatted. \
 \pard\pardeftab720\partightenfactor0
@@ -113,22 +166,22 @@ Every other case\
 \pard\pardeftab720\partightenfactor0
 
 \f2\b\fs45\fsmilli22667 \cf2 V.4 The \'93push_swap\'94 program 
-\f1\b0\fs24 \
+\f1\b0\fs24 \cf2 \
 \pard\tx720\pardeftab720\fi713\partightenfactor0
 
 \fs36 \cf2 \
 \pard\tx720\pardeftab720\fi713\partightenfactor0
 
-\f2\b \cf6 INPUT
+\f2\b \cf4 INPUT
 \f1\b0 \cf2 \
-\cf2 \'95 \cf2 push_swap will \
+\'95 push_swap will \
 		- receive a list of integers (stack A). \
 		The first argument should be at the top of the stack. \uc0\u8232 \
 
-\f2\b \cf7 OUTPUT
+\f2\b \cf5 OUTPUT
 \f1\b0 \cf2 \
-\cf2 \'95 \cf2 display smallest list of instructions to sort stack A, the smallest number being at the top of the stack. \uc0\u8232 		- Instructions must be separated by a \'92\\n\'92 and nothing else. \u8232 \
-\cf2 \'95 \cf2 In case of error\
+\'95 display smallest list of instructions to sort stack A, the smallest number being at the top of the stack. \uc0\u8232 		- Instructions must be separated by a \'92\\n\'92 and nothing else. \u8232 \
+\'95 In case of error\
 		- display Error followed by a \'92\\n\'92 on the standard error. \
 		- Errors include for example: some arguments aren\'92t integers, \
 		some arguments are bigger than an integer, and/or there are duplicates. 
@@ -151,8 +204,9 @@ Checker:\
 \
 \
 \
+\pard\pardeftab720\partightenfactor0
 
-\fs24 \
+\fs24 \cf2 \
 \pard\tx720\pardeftab720\partightenfactor0
 
 \fs32 \cf2 \

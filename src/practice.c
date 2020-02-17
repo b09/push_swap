@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:05:47 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/14 21:21:22 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/17 21:03:15 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,97 @@ void	test_func_pointer_aa(t_checker *checker)
 	printf("special result, string value is aa!!!\n");
 }
 
-int		swap(int *a)
+int		swap(int *a, int length)
 {
-	return ((a[0] ^= a[1]) + (a[1] ^= a[0]) + (a[0] ^= a[1]));
+	if (a && length > 1)
+	{
+		a[0] ^= a[1];
+		a[1] ^= a[0];
+		a[0] ^= a[1];
+	}
+	return (1);
 }
+
+
+/*
+
+pos = 0;
+
+swap2(a, a + 1, pos)
+	a[(pos % len)]
+
+
+
+if 
+ */
+
+
+
+int		swap2(int *a, int *b, int pos)
+{
+	at index [(pos % len)]
+	if (a && length > 1)
+	{
+		*a ^= *b;
+		*b ^= *a;
+		*a ^= *b;
+	}
+	return (1);
+}
+
+
+
+int		push(char push, t_checker *checker)
+{
+	// at index [(pos % len)]
+	if (push)
+	{
+		a[(A_pos % LEN_A)] ^= b[(B_pos % LEN_B)];
+		*b ^= *a;
+		*a ^= *b;
+	}
+	return (1);
+}
+
+// how can swap be used if the position variable is at the end of the int array?
+void	rotate(char rotate, int *pos, int len)
+{
+	if (rotate)
+	{
+		if (*pos < len)
+			++(*pos);
+		else if (*pos == len)
+			*pos = 0;
+	}
+	else
+	{
+		if (*pos > 0)
+			--(*pos);
+		else if (*pos == 0)
+			*pos == len;
+	}
+}
+
+
+/*
+
+ pa :	push a - take first element at top of b and place at the top of a. 
+			Do nothing if b is empty.
+ pb :	push b 
+
+
+ ra :	rotate a - shift up all elements of stack a by 1. First element becomes  		the last one. 
+ rb :	rotate b - shift up all elements of stack b by 1. 
+			The first element becomes the last one. 
+ rr :	ra + rb at the same time. 
+ rra :	reverse rotate a - shift down all elements of stack a by 1. 
+			The last element becomes the first one. 
+
+rrb :	reverse rotate b - shift down all elements of stack b by 1.
+		The last element becomes the first one. 
+
+rrr :
+ */
 
 
 
@@ -53,9 +140,9 @@ int		swap(int *a)
 
 void	lots_of_ifs(t_checker *checker, char *str)
 {
-	(*(short*)str == *(short*)"sa") && swap(A);
-	(*(short*)str == *(short*)"sb") && swap(B);
-	// (*(short*)str == *(short*)"ss") && swap(A[0], A[1]) && swap(B[0], B[1]);
+	(*(short*)str == *(short*)"sa") && swap(A, LEN_A);
+	(*(short*)str == *(short*)"sb") && swap(B, LEN_B);
+	(*(short*)str == *(short*)"ss") && swap(A, LEN_A) && swap(B[0], B[1]);
 	// (*(short*)str == *(short*)"pa") && swap(A[0], A[1]);
 	// (*(short*)str == *(short*)"pb") && swap(A[0], A[1]);
 	// (*(short*)str == *(short*)"ra") && swap(A[0], A[1]);
