@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/19 19:27:20 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/19 21:10:22 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@
 # define IND_A		(A_pos % LEN_A)
 # define IND_B		(B_pos % LEN_B)
 # define STCK_A		checker->stck_a
-# define NODE_B		checker->node_b
+# define STCK_B		checker->stck_b
 # define DATA_A		STCK_A->data
-# define DATA_B		NODE_B->data
+# define DATA_B		STCK_B->data
 # define NEXT_A		STCK_A->next
-# define NEXT_B		NODE_B->next
+# define NEXT_B		STCK_B->next
 # define PREV_A		STCK_A->previous
-# define PREV_B		NODE_B->previous
+# define PREV_B		STCK_B->previous
 # define HASH		1 << 3
 // # define SWAP(a, b) \
 //     { \
@@ -61,7 +61,7 @@ typedef struct		s_checker
 	int				len_a;
 	int				len_b;
 	t_node			*stck_a;
-	t_node			*node_b;
+	t_node			*stck_b;
 	char			**argv;
 }					t_checker;
 
