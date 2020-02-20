@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/19 21:10:22 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/20 18:38:07 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # define NEXT_B		STCK_B->next
 # define PREV_A		STCK_A->previous
 # define PREV_B		STCK_B->previous
-# define HASH		1 << 3
 // # define SWAP(a, b) \
 //     { \
 //         (a) ^= (b); \
@@ -75,6 +74,14 @@ struct				s_pushswap
 
 
 typedef int (*func_pointer)(t_checker *);
+
+// ************* read stdin, call correct operation for stacks *********
+int			execute_op_code2(char *operation, t_checker *checker);
+int			execute_op_code(char *operation, t_checker *checker);
+void		manipulate_stacks(t_checker *checker);
+
+
+
 
 #endif
 

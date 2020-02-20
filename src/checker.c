@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/19 21:06:30 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/20 18:38:05 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,6 @@ int			main(int argc, char **argv)
 	print_content_lnkd_list(&checker);
 
 
-
-	// once string has content, perform op code on stack
-	// str = "";
-	// while (str != NULL)
-	// {
-	// 	printf("%s\n", str);
-	// 	str = read_stdin();
-	// }
-
 	manipulate_stacks(&checker);
 
 
@@ -56,22 +47,31 @@ int			main(int argc, char **argv)
 	return (0);
 }
 
-
-void		manipulate_stacks(t_checker *checker)
+// must delete old node, reconnect links of old node correctly
+// and create new node, connect new links of new node correctly
+t_node		*delete_and_create_node(t_node *old, t_node *new)
 {
-	char 		*operation;
+	t_node		*head;
+	t_node		*temp;
+	int			i;
 
-	operation = read_stdin();
-	while (operation != NULL)
-	{
-		if (!ft_memcmp("sa", operation, 2))
-			swap()
-	}
+	// new malloced node, head is address
+	head = malloc(sizeof(t_node));
+	ft_bzero(STCK_A, sizeof(t_node));
+	head->data = old->data;
+
+	temp = malloc(sizeof(t_node));
+	NEXT_A = temp;
+	temp->previous = STCK_A;
+	STCK_A = temp;
+	DATA_A = ft_atoi(ARGV[i]);
+	NEXT_A = head;
+	NEXT_A->previous = STCK_A;
+	return (head);
+
 }
 
 
-
-// printf("line: %s, size: %d, argv: %d\n", __func__, LEN_A, ft_atoi(ARGV[1]));
 
 
 t_node		*create_lnkd_lst(t_checker *checker, int size)
