@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/20 18:38:05 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/21 19:17:12 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ int			main(int argc, char **argv)
 	checker.argv = argv;
 	checker.stck_a = create_lnkd_lst(&checker, argc - 1);
 	// init_checker(&checker, argc, argv);
-	print_content_lnkd_list(&checker);
+	// print_content_lnkd_list(&checker);
 
 
 	manipulate_stacks(&checker);
 
+	print_content_lnkd_list(&checker);
 
 
 	return (0);
@@ -49,27 +50,27 @@ int			main(int argc, char **argv)
 
 // must delete old node, reconnect links of old node correctly
 // and create new node, connect new links of new node correctly
-t_node		*delete_and_create_node(t_node *old, t_node *new)
-{
-	t_node		*head;
-	t_node		*temp;
-	int			i;
+// t_node		*delete_and_create_node(t_node *old, t_node *new)
+// {
+// 	t_node		*head;
+// 	t_node		*temp;
+// 	int			i;
 
-	// new malloced node, head is address
-	head = malloc(sizeof(t_node));
-	ft_bzero(STCK_A, sizeof(t_node));
-	head->data = old->data;
+// 	// new malloced node, head is address
+// 	head = malloc(sizeof(t_node));
+// 	ft_bzero(STCK_A, sizeof(t_node));
+// 	head->data = old->data;
 
-	temp = malloc(sizeof(t_node));
-	NEXT_A = temp;
-	temp->previous = STCK_A;
-	STCK_A = temp;
-	DATA_A = ft_atoi(ARGV[i]);
-	NEXT_A = head;
-	NEXT_A->previous = STCK_A;
-	return (head);
+// 	temp = malloc(sizeof(t_node));
+// 	NEXT_A = temp;
+// 	temp->previous = STCK_A;
+// 	STCK_A = temp;
+// 	DATA_A = ft_atoi(ARGV[i]);
+// 	NEXT_A = head;
+// 	NEXT_A->previous = STCK_A;
+// 	return (head);
 
-}
+// }
 
 
 
@@ -133,16 +134,33 @@ void		print_content_lnkd_list(t_checker *checker)
 
 
 	head = STCK_A;
-	printf("first number:%d\n", DATA_A);
+	printf("STCK_A[0]:%d addr: %p\n", DATA_A, STCK_A);
 	STCK_A = STCK_A->next;
 
-
-	while (STCK_A != head)
+	int i = 1;
+	while (STCK_A != head && STCK_A != NULL && i < 100)
 	{
-		printf("number:%d\n", DATA_A);
+		printf("%s[%d]:%d addr: %p\n", "STCK_A", i++, DATA_A, STCK_A);
 		STCK_A = STCK_A->next;
 	}
 
-	printf("HEAD address: %p\nSTCK address: %p\n", head, STCK_A);
-	
+	i = 1;
+	head = STCK_B;
+	while (STCK_B != head && STCK_B != NULL && i < 100)
+	{
+		printf("%s[%d]:%d addr: %p\n", "STCK_B", i++, DATA_A, STCK_A);
+		STCK_A = STCK_A->next;
+	}
+
+	printf("HEAD address: %p\nSTCK address: %p\n\n\n", head, STCK_A);
+	printf("STCK_B[0]:%d addr: %p\n", DATA_B, STCK_B);
 }
+
+
+
+/*
+	assign data
+	if b not empty
+		
+
+ */
