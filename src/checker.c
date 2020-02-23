@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/21 19:17:12 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/23 18:56:11 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			main(int argc, char **argv)
 	checker.argv = argv;
 	checker.stck_a = create_lnkd_lst(&checker, argc - 1);
 	// init_checker(&checker, argc, argv);
-	// print_content_lnkd_list(&checker);
+	print_content_lnkd_list(&checker);
 
 
 	manipulate_stacks(&checker);
@@ -144,16 +144,17 @@ void		print_content_lnkd_list(t_checker *checker)
 		STCK_A = STCK_A->next;
 	}
 
-	i = 1;
+	i = 0;
 	head = STCK_B;
-	while (STCK_B != head && STCK_B != NULL && i < 100)
+	// STCK_B = STCK_B->next;
+	printf("head of b: %p\n", STCK_B);
+	while (STCK_B != NULL && i < 10)
 	{
-		printf("%s[%d]:%d addr: %p\n", "STCK_B", i++, DATA_A, STCK_A);
-		STCK_A = STCK_A->next;
+		printf("%s[%d]:%d addr: %p\n", "STCK_B", i++, DATA_B, STCK_B);
+		STCK_B = STCK_B->next;
 	}
-
-	printf("HEAD address: %p\nSTCK address: %p\n\n\n", head, STCK_A);
-	printf("STCK_B[0]:%d addr: %p\n", DATA_B, STCK_B);
+	// STCK_B = STCK_B->next;
+	// printf("HEAD address: %p\nSTCK address: %p data: %d\n\n\n", head, STCK_B, DATA_B);
 }
 
 

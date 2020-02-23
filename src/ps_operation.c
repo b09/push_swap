@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 17:54:11 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/21 19:13:55 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/23 19:29:34 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int			execute_op_code(char *operation, t_checker *checker)
 	{
 		printf("%s\n", operation);
 		push(&STCK_B, &STCK_A);
-		printf("stack a: %p  stack b: %p\n", STCK_A, STCK_B);
+		// printf("stack a: %p  stack b: %p\n", STCK_A, STCK_B);
 	}
 	else
 		return (execute_op_code2(operation, checker));
@@ -118,36 +118,76 @@ void		swap(t_node *stack, int length)
 
 
 // 			push(		STCK_B, 		STCK_A);
+// void		push(t_node **stack1, t_node **stack2)
+// {
+// 	t_node		*temp;
+
+// 	// printf("stack1: %p  stack2: %p\n", *stack1, *stack2);
+// 	if (*stack2 != NULL)
+// 	{
+
+// 		temp->data = (*stack2)->data;
+
+// 		if (*stack1 != NULL)
+// 		{
+
+// 			temp->next = *stack1;
+// 			temp->previous = (*stack1)->previous;
+// 			(*stack1)->previous->next = temp;
+
+// 			(*stack1)->previous = temp;
+// 		}
+// 		else
+// 		{
+
+// 			temp->previous = temp;
+// 			temp->next = temp;
+// 		}
+
+// 		*stack1 = temp;
+
+// 		(*stack2)->previous->next = (*stack2)->next;
+// 		(*stack2)->next->previous = (*stack2)->previous;
+
+// 		if ((*stack2)->next != *stack2)
+// 			*stack2 = (*stack2)->next;
+// 		else if ((*stack2)->next == *stack2)
+// 			*stack2 = NULL;
+// 	}
+// }
+
+
+
 void		push(t_node **stack1, t_node **stack2)
 {
 	t_node		*temp;
 
+	// printf("stack1: %p  stack2: %p\n", *stack1, *stack2);
 	if (*stack2 != NULL)
 	{
-		// assign data
-		temp->data = (*stack2)->data;
-		// adjust stack_a pointers
+		temp = *stack2;
+
 		if (*stack1 != NULL)
 		{
+
 			temp->next = *stack1;
 			temp->previous = (*stack1)->previous;
 			(*stack1)->previous->next = temp;
-			(*stack1)->next->previous = temp;
+
 			(*stack1)->previous = temp;
 		}
 		else
 		{
+
 			temp->previous = temp;
 			temp->next = temp;
 		}
-		// head of stack_1 placed on new node
+
 		*stack1 = temp;
-		// adjust stack_2 pointers
+
 		(*stack2)->previous->next = (*stack2)->next;
 		(*stack2)->next->previous = (*stack2)->previous;
-		// free loose node
-		temp = *stack2;
-		// head of stack_b placed on next node;
+
 		if ((*stack2)->next != *stack2)
 			*stack2 = (*stack2)->next;
 		else if ((*stack2)->next == *stack2)
