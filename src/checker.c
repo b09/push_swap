@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/23 18:56:11 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/24 20:49:18 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,11 +143,17 @@ void		print_content_lnkd_list(t_checker *checker)
 		printf("%s[%d]:%d addr: %p\n", "STCK_A", i++, DATA_A, STCK_A);
 		STCK_A = STCK_A->next;
 	}
+	printf("\n\n");
 
 	i = 0;
-	head = STCK_B;
-	// STCK_B = STCK_B->next;
-	printf("head of b: %p\n", STCK_B);
+	// head = STCK_B;
+	// printf("STCK_B[0]addr: %p", STCK_B);
+	// if (STCK_B != NULL)
+	// 	printf(" data: %d  next: %p\n", DATA_B, STCK_B->next);
+	// else
+	// 	printf("\n");
+	// // STCK_B = STCK_B->next;
+	// // printf("head of b: %p\n", STCK_B);
 	while (STCK_B != NULL && i < 10)
 	{
 		printf("%s[%d]:%d addr: %p\n", "STCK_B", i++, DATA_B, STCK_B);

@@ -6,14 +6,17 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 17:54:11 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/23 19:29:34 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/24 20:48:44 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pushswap.h"
 
 void		swap(t_node *stack, int length);
-void		push(t_node **stack1, t_node **stack2);
+// void		push(t_node **dest, t_node **src);
+void		push_b(t_checker *checker);
+void	insert_node(t_node *src, t_node **dest);
+void	unlink_node(t_node **node);
 
 
 void		manipulate_stacks(t_checker *checker)
@@ -67,12 +70,17 @@ int			execute_op_code(char *operation, t_checker *checker)
 	else if (!ft_memcmp("pa", operation, 2))
 	{
 		printf("%s\n", operation);
-		push(&STCK_A, &STCK_B);
+		// push(&STCK_A, &STCK_B);
 	}
 	else if (!ft_memcmp("pb", operation, 2))
 	{
 		printf("%s\n", operation);
-		push(&STCK_B, &STCK_A);
+		t_node *node_to_push = STCK_A;
+		unlink_node(&STCK_A);
+		insert_node(node_to_push, &STCK_B);
+
+		// push(&STCK_B, &STCK_A);
+		// push_b(checker);
 		// printf("stack a: %p  stack b: %p\n", STCK_A, STCK_B);
 	}
 	else
@@ -118,24 +126,24 @@ void		swap(t_node *stack, int length)
 
 
 // 			push(		STCK_B, 		STCK_A);
-// void		push(t_node **stack1, t_node **stack2)
+// void		push(t_node **dest, t_node **src)
 // {
 // 	t_node		*temp;
 
-// 	// printf("stack1: %p  stack2: %p\n", *stack1, *stack2);
-// 	if (*stack2 != NULL)
+// 	// printf("dest: %p  src: %p\n", *dest, *src);
+// 	if (*src != NULL)
 // 	{
 
-// 		temp->data = (*stack2)->data;
+// 		// temp->data = (*src)->data;
 
-// 		if (*stack1 != NULL)
+// 		if (*dest != NULL)
 // 		{
 
-// 			temp->next = *stack1;
-// 			temp->previous = (*stack1)->previous;
-// 			(*stack1)->previous->next = temp;
+// 			temp->next = *dest;
+// 			temp->previous = (*dest)->previous;
+// 			(*dest)->previous->next = temp;
 
-// 			(*stack1)->previous = temp;
+// 			(*dest)->previous = temp;
 // 		}
 // 		else
 // 		{
@@ -144,53 +152,162 @@ void		swap(t_node *stack, int length)
 // 			temp->next = temp;
 // 		}
 
-// 		*stack1 = temp;
+// 		*dest = temp;
 
-// 		(*stack2)->previous->next = (*stack2)->next;
-// 		(*stack2)->next->previous = (*stack2)->previous;
+// 		(*src)->previous->next = (*src)->next;
+// 		(*src)->next->previous = (*src)->previous;
 
-// 		if ((*stack2)->next != *stack2)
-// 			*stack2 = (*stack2)->next;
-// 		else if ((*stack2)->next == *stack2)
-// 			*stack2 = NULL;
+// 		if ((*src)->next != *src)
+// 			*src = (*src)->next;
+// 		else if ((*src)->next == *src)
+// 			*src = NULL;
 // 	}
 // }
 
 
 
-void		push(t_node **stack1, t_node **stack2)
+// void		push(t_node **dest, t_node **src)
+// {
+// 	t_node		**temp;
+
+// 	// printf("dest: %p  src: %p\n", *dest, *src);
+// 	if (*src != NULL)
+// 	{
+// 		temp = src;
+
+// 		if (*dest != NULL)
+// 		{
+
+// 			(*temp)->next = *dest;
+// 			(*temp)->previous = (*dest)->previous;
+// 			(*dest)->previous->next = (*temp);
+
+// 			(*dest)->previous = (*temp);
+// 		}
+// 		else
+// 		{
+
+// 			(*temp)->previous = (*temp);
+// 			(*temp)->next = (*temp);
+// 		}
+
+// 		*dest = *temp;
+
+// 		(*src)->previous->next = (*src)->next;
+// 		(*src)->next->previous = (*src)->previous;
+
+// 		if ((*src)->next != *src)
+// 			*src = (*src)->next;
+// 		else if ((*src)->next == *src)
+// 			*src = NULL;
+// 	}
+// }
+
+
+// void		push(t_checker *checker)
+// {
+// 	t_node		*temp;
+
+// 	// printf("dest: %p  src: %p\n", *dest, *src);
+// 	if (STCK_A != NULL)
+// 		return ;
+// 		// temp->data = (*src)->data;
+// 	temp = STCK_A;
+// 	if (STCK_B != NULL)
+// 	{
+// 		temp->next = STCK_B;
+// 		temp->previous = STCK_B->previous;
+// 		STCK_B->previous->next = temp;
+// 		STCK_B->previous = temp;
+// 	}
+// 	else
+// 	{
+// 		temp->previous = temp;
+// 		temp->next = temp;
+// 	}
+
+// 	STCK_B = temp;
+
+// 	STCK_A->previous->next = STCK_A->next;
+// 	STCK_A->next->previous = STCK_A->previous;
+
+// 	if (STCK_A->next != STCK_A)
+// 		STCK_A = STCK_A->next;
+// 	else if (STCK_A->next == STCK_A)
+// 		STCK_A = NULL;
+// }
+
+// void		push(t_node **src)
+void		push_b(t_checker *checker)
 {
 	t_node		*temp;
 
-	// printf("stack1: %p  stack2: %p\n", *stack1, *stack2);
-	if (*stack2 != NULL)
+	if (STCK_A == NULL)
+		return ;
+		// temp->data = (*src)->data;
+
+	STCK_A->previous->next = STCK_A->next;
+	STCK_A->next->previous = STCK_A->previous;
+	temp = STCK_A;
+	STCK_A = STCK_A->next;
+
+	
+	insert_node(temp, &STCK_B);
+
+	printf("2b: %p  2a: %p\n", STCK_A, STCK_B);
+
+}
+
+
+void	unlink_node(t_node **node)
+{
+	t_node *temp;
+
+	temp = (*node)->next;
+	if (*node == NULL)
+		return ;
+	if ((*node)->next == *node)
 	{
-		temp = *stack2;
+		*node = NULL;
+		return ;
+	}
+	(*node)->previous->next = (*node)->next;
+	(*node)->next->previous = (*node)->previous;
+	*node = temp;
 
-		if (*stack1 != NULL)
-		{
 
-			temp->next = *stack1;
-			temp->previous = (*stack1)->previous;
-			(*stack1)->previous->next = temp;
+}
 
-			(*stack1)->previous = temp;
-		}
-		else
-		{
 
-			temp->previous = temp;
-			temp->next = temp;
-		}
 
-		*stack1 = temp;
-
-		(*stack2)->previous->next = (*stack2)->next;
-		(*stack2)->next->previous = (*stack2)->previous;
-
-		if ((*stack2)->next != *stack2)
-			*stack2 = (*stack2)->next;
-		else if ((*stack2)->next == *stack2)
-			*stack2 = NULL;
+void	insert_node(t_node *src, t_node **dest)
+{
+	if (*dest != NULL)
+	{
+		src->next = *dest;
+		src->previous = (*dest)->previous;
+		(*dest)->next->previous = src;
+		(*dest)->previous->next = src;
+		*dest = src;
+	}
+	else
+	{
+		src->next = src;
+		src->previous = src;
+		*dest = src;
 	}
 }
+
+
+
+
+// void MoveNode(struct Node** destRef, struct Node** sourceRef)
+// {
+//     // if the source list empty, do nothing
+//     if (*sourceRef == NULL)
+//         return;
+//     struct Node* newNode = *sourceRef;    // the front source node
+//     *sourceRef = (*sourceRef)->next;    // Advance the source pointer
+//     newNode->next = *destRef;    // Link the old dest off the new Node
+//     *destRef = newNode;            // Move dest to point to the new Node
+// }
