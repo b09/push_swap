@@ -135,3 +135,50 @@
 // 	else if (STCK_A->next == STCK_A)
 // 		STCK_A = NULL;
 // }
+
+
+/*
+
+
+
+
+//*********************  print linked list  ************************************
+
+void		print_content_lnkd_list(t_checker *checker)
+{
+	t_node		*head;
+
+
+	head = STCK_A;
+	printf("STCK_A[0]:%d addr: %p\n", DATA_A, STCK_A);
+	STCK_A = STCK_A->next;
+
+	int i = 1;
+	while (STCK_A != NULL && i < 100)
+	{
+		printf("%s[%d]:%d addr: %p\n", "STCK_A", i++, DATA_A, STCK_A);
+		STCK_A = STCK_A->next;
+	}
+	printf("\n\n");
+
+	STCK_A = head;
+	i = 0;
+	head = STCK_B;
+	// printf("STCK_B[0]addr: %p", STCK_B);
+	// if (STCK_B != NULL)
+	// 	printf(" data: %d  next: %p\n", DATA_B, STCK_B->next);
+	// else
+	// 	printf("\n");
+	// // STCK_B = STCK_B->next;
+	// // printf("head of b: %p\n", STCK_B);
+	while (STCK_B != NULL && i < 10)
+	{
+		printf("%s[%d]:%d addr: %p\n", "STCK_B", i++, DATA_B, STCK_B);
+		STCK_B = STCK_B->next;
+	}
+	STCK_B = head;
+	// STCK_B = STCK_B->next;
+	// printf("HEAD address: %p\nSTCK address: %p data: %d\n\n\n", head, STCK_B, DATA_B);
+}
+
+ */
