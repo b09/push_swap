@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/20 18:38:07 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/25 19:43:29 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,27 @@ typedef int (*func_pointer)(t_checker *);
 int			execute_op_code2(char *operation, t_checker *checker);
 int			execute_op_code(char *operation, t_checker *checker);
 void		manipulate_stacks(t_checker *checker);
+static void			swap(t_node *stack, char io);//, int length);
+// void		push(t_node **dest, t_node **src);
+void				push_b(t_checker *checker);
+static void			insert_node(t_node *src, t_node **dest);
+static t_node		*unlink_node(t_node **node);
+static void			rotate(t_node **node, char io);
+void				print_content_lnkd_list(t_checker *checker);
+void		init_checker(t_checker *checker, int argc, char **argv);
+t_node		*first_node(t_node *head, t_checker *checker);
+t_node		*create_lnkd_lst(t_checker *checker, int size);
+void		print_content_lnkd_list(t_checker *checker);
+char		*read_stdin(void);
+void		manipulate_stacks(t_checker *checker);
+int			validate_argv(int argc, char **argv);
+void		delete_lnkd_list(t_node **list);
+void		verify_order_of_data(t_checker *checker);
+
 
 
 
 
 #endif
-
 
 
