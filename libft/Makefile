@@ -6,7 +6,7 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/29 17:19:55 by bprado         #+#    #+#                 #
-#    Updated: 2019/12/09 12:30:17 by bprado        ########   odam.nl          #
+#    Updated: 2020/02/26 19:53:58 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -146,13 +146,13 @@ FLAGS = -Wall -Wextra -Werror
 # 		get_next_line.o \
 
 SRC 	= *.c
-s 	= $(SRC:.c=.o)
+OBJ 	= $(SRC:.c=.o)
 
 all: $(NAME)
 
 $(NAME): 
 		gcc $(FLAGS) -c $(SRC) -I ./includes
-		ar rcs $(NAME) $(s)
+		ar rcs $(NAME) $(OBJ)
 
 
 clean:
