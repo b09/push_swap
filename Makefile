@@ -6,31 +6,34 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/06/03 16:52:44 by bprado         #+#    #+#                 #
-#    Updated: 2020/02/14 14:30:21 by bprado        ########   odam.nl          #
+#    Updated: 2020/02/26 17:20:19 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 	= checker
+NAME 			= checker
 
 # CFLAGS	= -Wall -Wextra -Werror -g
 CFLAGS	= #-Wall -Wextra -Werror -g
 
-SRC 	= $(wildcard src/*.c)
+# SRC 	= $(wildcard src/*.c)
 
-LIB 	= ./libft
+CHECKER_ SRC	= src/checker.c src/ps_operation.c
 
-LIB_A	= ./libft/libft.a
+LIB 			= ./libft
 
-INC 	= -I inc -I libft/includes
+LIB_A			= ./libft/libft.a
 
-OBJ		= $(patsubst src/%.c,obj/%.o,$(SRC))
+INC 			= -I inc -I libft/includes
+
+OBJ				= $(patsubst src/%.c,obj/%.o,$(SRC))
 
 
 all: $(NAME)
 
 $(NAME): $(OBJ) libft/libft.a
 	@echo "compiling ..."
-	$(CC) -o $@ $(CFLAGS) $(INC) $(SRC) $(LIB_A)
+	$(CC) -o $@ $(CFLAGS) $(INC) $(CHECKER_SRC) $(LIB_A)
+	# $(CC) -o $@ $(CFLAGS) $(INC) $(SRC) $(LIB_A)
 	@echo "Done !!!"
 
 obj/%.o: src/%.c inc/ft_pushswap.h

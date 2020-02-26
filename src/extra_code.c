@@ -142,7 +142,7 @@
 
 
 
-//*********************  print linked list  ************************************
+*********************  print linked list  ************************************
 
 void		print_content_lnkd_list(t_checker *checker)
 {

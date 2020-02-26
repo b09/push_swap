@@ -6,13 +6,13 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 17:54:11 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/25 19:28:49 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/26 17:18:17 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_pushswap.h"
 
-void			manipulate_stacks(t_checker *checker)
+int				manipulate_stacks(t_checker *checker)
 {
 	char		*operation;
 	char		i;
@@ -24,25 +24,30 @@ void			manipulate_stacks(t_checker *checker)
 		print_content_lnkd_list(checker);
 	}
 	if (i == 0)
-		write(2, "Error\n", 7);
+	{
+		delete_lnkd_list(checker);
+		ft_putstr_fd("Error\n", 2);
+		return (0);
+	}
+	return (1);
 }
 
 int				execute_op_code2(char *operation, t_checker *checker)
 {
-	if (!ft_memcmp("ra", operation, 2))
+	if (!ft_memcmp("ra", operation, 3))
 		rotate(&STCK_A, 0);
-	else if (!ft_memcmp("rb", operation, 2))
+	else if (!ft_memcmp("rb", operation, 3))
 		rotate(&STCK_B, 0);
-	else if (!ft_memcmp("rr", operation, 2))
+	else if (!ft_memcmp("rr", operation, 3))
 	{
 		rotate(&STCK_A, 0);
 		rotate(&STCK_B, 0);
 	}
-	else if (!ft_memcmp("rra", operation, 3))
+	else if (!ft_memcmp("rra", operation, 4))
 		rotate(&STCK_A, 1);
-	else if (!ft_memcmp("rrb", operation, 3))
+	else if (!ft_memcmp("rrb", operation, 4))
 		rotate(&STCK_B, 1);
-	else if (!ft_memcmp("rrr", operation, 3))
+	else if (!ft_memcmp("rrr", operation, 4))
 	{
 		rotate(&STCK_A, 1);
 		rotate(&STCK_B, 1);
@@ -54,18 +59,18 @@ int				execute_op_code2(char *operation, t_checker *checker)
 
 int				execute_op_code(char *operation, t_checker *checker)
 {
-	if (!ft_memcmp("sa", operation, 2))
+	if (!ft_memcmp("sa", operation, 3))
 		swap(STCK_A, 1);
-	else if (!ft_memcmp("sb", operation, 2))
+	else if (!ft_memcmp("sb", operation, 3))
 		swap(STCK_B, 1);
-	else if (!ft_memcmp("ss", operation, 2))
+	else if (!ft_memcmp("ss", operation, 3))
 	{
 		swap(STCK_A, 1);
 		swap(STCK_B, 1);
 	}
-	else if (!ft_memcmp("pa", operation, 2))
+	else if (!ft_memcmp("pa", operation, 3))
 		insert_node(unlink_node(&STCK_B), &STCK_A);
-	else if (!ft_memcmp("pb", operation, 2))
+	else if (!ft_memcmp("pb", operation, 3))
 		insert_node(unlink_node(&STCK_A), &STCK_B);
 	else
 		return (execute_op_code2(operation, checker));
@@ -88,7 +93,7 @@ static void		swap(t_node *stack, char io)
 	stack->data ^= stack->previous->data;
 }
 
-static t_node	*unlink_node(t_node **node)
+t_node			*unlink_node(t_node **node)
 {
 	t_node		*unlinked_node;
 
@@ -101,7 +106,7 @@ static t_node	*unlink_node(t_node **node)
 	return (unlinked_node);
 }
 
-static void		insert_node(t_node *src, t_node **dest)
+void			insert_node(t_node *src, t_node **dest)
 {
 	if (src == NULL)
 		return ;
