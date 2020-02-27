@@ -6,12 +6,14 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/26 20:29:58 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/27 17:29:55 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
-
+/*
+ ** must validate strings of input; "1 2 3 4" as well as "1" "2" "3" "4"
+*/
 int				main(int argc, char **argv)
 {
 	t_ps_obj	obj;
@@ -53,7 +55,6 @@ void			verify_order_of_data(t_ps_obj *obj)
 		ft_putstr("KO\n");
 }
 
-void			verify_order_of_data(t_ps_obj *obj);
 char			*read_stdin(void)
 {
 	char		*str;

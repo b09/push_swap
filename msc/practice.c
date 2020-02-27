@@ -6,11 +6,11 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:05:47 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/19 16:24:46 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/27 14:03:58 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_pushswap.h"
+#include "ft_push_swap.h"
 
 // char	*read_stdin(void)
 // {

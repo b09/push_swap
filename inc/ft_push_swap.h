@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado         #+#    #+#                */
-/*   Updated: 2020/02/26 20:31:17 by bprado        ########   odam.nl         */
+/*   Updated: 2020/02/27 16:32:33 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,8 @@
 #include "libft.h"
 #include <stdio.h>
 
-// # define A			obj->a_stack
-// # define B			obj->b_stack
-// # define A_pos		obj->pos_a
-// # define B_pos		obj->pos_b
-// # define LEN_A		obj->len_a
-// # define LEN_B		obj->len_b
+
 # define ARGV		obj->argv
-// # define IND_A		(A_pos % LEN_A)
-// # define IND_B		(B_pos % LEN_B)
 # define STCK_A		obj->stck_a
 # define STCK_B		obj->stck_b
 # define DATA_A		STCK_A->data
@@ -52,11 +45,11 @@ typedef struct		s_ps_obj
 
 void			verify_order_of_data(t_ps_obj *obj);
 char			*read_stdin(void);
-void			delete_lnkd_list(t_ps_obj *obj, t_node **list);
+void			delete_lnkd_list(t_ps_obj *obj, t_node **list); //
 int				validate_argv(int argc, char **argv);
 t_node			*create_lnkd_lst(t_ps_obj *obj, int size);
 void			print_content_lnkd_list(t_ps_obj *obj);
-void    		swap(t_node *stack, char io);
+void    		swap(t_node *stack, char io);					//
 t_node			*unlink_node(t_node **node);
 void			insert_node(t_node *src, t_node **dest);
 void			rotate(t_node **node, char io);
@@ -64,12 +57,4 @@ int				manipulate_stacks(t_ps_obj *obj);
 int				execute_op_code2(char *operation, t_ps_obj *obj);
 int				execute_op_code(char *operation, t_ps_obj *obj);
 
-
-
-
-
-
-
 #endif
-
-
