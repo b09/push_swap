@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado         #+#    #+#                */
-/*   Updated: 2020/03/02 20:50:45 by bprado        ########   odam.nl         */
+/*   Updated: 2020/03/03 18:01:35 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define STCK_A		obj->stck_a
 # define STCK_B		obj->stck_b
 # define LEN		obj->len
+# define LEN_B		obj->len_b
 # define SORTED		obj->sorted
 # define PIVOT		obj->pivot
 # define ARRAY		obj->array
@@ -59,8 +60,8 @@ int				validate_argv(int argc, char **argv);
 t_node			*create_lnkd_lst(t_ps_obj *obj, int size);
 void			print_content_lnkd_list(t_ps_obj *obj);
 void    		swap(t_node *stack, char io);					//
-t_node			*unlink_node(t_node **node);
-void			insert_node(t_node *src, t_node **dest);
+t_node			*unlink_node(t_node **node, char forward);
+void			insert_node(t_node *src, t_node **dest, char forward);
 void			rotate(t_node **node, char io);
 int				manipulate_stacks(t_ps_obj *obj);
 int				execute_op_code2(char *operation, t_ps_obj *obj);
@@ -68,11 +69,26 @@ int				execute_op_code(char *operation, t_ps_obj *obj);
 
 // ******************************************* push_swap funcs
 void			print_array(t_ps_obj *obj);
-void			delete_array_of_sorted_ints(t_ps_obj *obj);
-void			sorted_array(t_ps_obj *obj);
+void			delete_sorted_array(t_ps_obj *obj);
+void			create_and_srt_array(t_ps_obj *obj);
 void			return_to_head(t_ps_obj *obj);
+void			sort_lnkd_lst(t_ps_obj *obj);
+int				remove_spaces_digits_minus(char *str);
+t_node			*create_lnkd_lst_single_string(t_ps_obj *obj);
+
+
+
 
 
 
 
 #endif
+
+
+/*
+	validate_argv
+	create_linked_list
+	create_and_sort_array
+	sort_linked_list
+		divide_a
+*/

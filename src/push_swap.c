@@ -6,18 +6,18 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:58:41 by bprado         #+#    #+#                */
-/*   Updated: 2020/03/02 21:00:31 by bprado        ########   odam.nl         */
+/*   Updated: 2020/03/03 17:12:24 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-void			sorted_array(t_ps_obj *obj);
 void			divide_a(t_ps_obj *obj);
 
 
 
-
+// len is dependant on argv having individual strings for each argument
+// if all args are contained whithin the first line, LEN will be incorrect
 int				main(int argc, char **argv)
 {
 	t_ps_obj	obj;
@@ -26,16 +26,18 @@ int				main(int argc, char **argv)
 
 	ft_bzero(&obj, sizeof(obj));
 	if (argc < 2 || !argv || !validate_argv(argc, argv))
-		return (0);
-	printf("push_swap(): %s\n", argv[0]);
+		return (-1);
+	// printf("push_swap(): %s\n", argv[0]);
 	obj.len = argc - 1;
 	obj.argv = argv;
 	obj.stck_a = create_lnkd_lst(&obj, argc - 1);
-	// print_content_lnkd_list(&obj);
-	sorted_array(&obj);
+
+	create_and_srt_array(&obj);
 	// print_array(&obj);
 
-	divide_a(&obj);
+	print_content_lnkd_list(&obj);
+	sort_lnkd_lst(&obj);
+	printf("After sort_lnkd_list()\n");
 	print_content_lnkd_list(&obj);
 
 
@@ -44,11 +46,34 @@ int				main(int argc, char **argv)
 	// 	return (-1);
 	// verify_order_of_data(&obj);
 	delete_lnkd_list(&obj, &(obj.stck_a));
-	delete_array_of_sorted_ints(&obj);
-	printf("address of stack_a after freeing list: %p\n", obj.stck_a);
-	printf("address of stack_a after freeing list: %p\n", obj.array);
+	delete_sorted_array(&obj);
+	// printf("address of stack_a after freeing list: %p\n", obj.stck_a);
+	// printf("address of array after freeing list: %p\n", obj.array);
 	return (0);
 }
+
+
+void			sort_lnkd_lst(t_ps_obj *obj)
+{
+	// divide_a(obj);
+	// insert_node(unlink_node(&STCK_A), &STCK_B);
+	// insert_node(unlink_node(&STCK_A), &STCK_B);
+	// insert_node(unlink_node(&STCK_A), &STCK_B);
+	// insert_node(unlink_node(&STCK_A), &STCK_B);
+	// insert_node(unlink_node(&STCK_A), &STCK_B);
+	rotate(&STCK_A, 1);
+	// rotate(&STCK_A, 1);
+	// rotate(&STCK_A, 1);
+	// rotate(&STCK_A, 1);
+	// rotate(&STCK_A, 1);
+	// rotate(&STCK_A, 1);
+	// rotate(&STCK_A, 1);
+	// rotate(&STCK_A, 1);
+	// rotate(&STCK_A, 1);
+	// rotate(&STCK_A, 1);
+	
+}
+
 
 
 // push_to_b, which is not a function rather a call to insertnode() and
@@ -59,17 +84,23 @@ void			divide_a(t_ps_obj *obj)
 	int			pivot;
 	int			current_len;
 	t_node		*temp;
+
 	if (ARRAY)
 		pivot = obj->array[((LEN - SORTED) / 2) + SORTED - 1];
+
 	current_len = 0;
 	while (NEXT_A != NULL)
 	{
 		temp = NEXT_A;
 		if (DATA_A >= pivot)
+		{
 			insert_node(unlink_node(&STCK_A), &STCK_B);
+			--LEN;
+			++LEN_B;
+		}
 		// ++current_len;
 		STCK_A = temp;
-		printf("line:%d, address:%p, data:%d pivot:%d\n", __LINE__, STCK_A, DATA_A, pivot);
+	// printf("line:%d, address:%p, data:%d pivot:%d\n", __LINE__, STCK_A, DATA_A, pivot);
 	}
 	// return_to_head(obj);
 }

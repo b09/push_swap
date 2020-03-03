@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:00:19 by bprado         #+#    #+#                */
-/*   Updated: 2020/03/02 20:52:55 by bprado        ########   odam.nl         */
+/*   Updated: 2020/03/03 16:38:59 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void			print_array(t_ps_obj *obj)
 	i = 0;
 	while (LEN && i < LEN)
 	{
-		printf("array[%d]:%d\n", i, obj->array[i]);
+		printf("array[%d]:%d  LEN:%d\n", i, obj->array[i], LEN);
 		i++;
 	}
 }
 
-void			delete_array_of_sorted_ints(t_ps_obj *obj)
+void			delete_sorted_array(t_ps_obj *obj)
 {
 	if (obj->array != NULL)
 	{
@@ -33,7 +33,7 @@ void			delete_array_of_sorted_ints(t_ps_obj *obj)
 	}
 }
 
-void			sorted_array(t_ps_obj *obj)
+void			create_and_srt_array(t_ps_obj *obj)
 {
 	int			*array;
 	int			i;
