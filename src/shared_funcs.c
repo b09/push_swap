@@ -195,18 +195,19 @@ void    		swap(t_node *stack, char io)
 }
 
 
-t_node			*unlink_node(t_node **node, char forward)
+t_node			*unlink_node(t_node **node, char get_first_node)
 {
 	t_node		*unlinked_node;
 
 	unlinked_node = *node;
 	if (*node == NULL)
 		return (NULL);
-	if (forward)
+	if (get_first_node)
 	{
 		if ((*node)->next != NULL)
 			(*node)->next->previous = NULL;
 		*node = (*node)->next;
+		unlinked_node->next = NULL;
 	}
 	else
 	{
@@ -217,29 +218,29 @@ t_node			*unlink_node(t_node **node, char forward)
 	return (unlinked_node);
 }
 
-void			insert_node(t_node *src, t_node **dest, char forward)
+void			insert_node(t_node *loose_node, t_node **dest, char add_to_end)
 {
-	if (src == NULL)
+	if (loose_node == NULL)
 		return ;
-	if (*dest != NULL && forward)
+	if (*dest != NULL && !add_to_end)
 	{
-		src->next = *dest;
-		src->previous = NULL;
-		(*dest)->previous = src;
-		*dest = src;
+		loose_node->next = *dest;
+		loose_node->previous = NULL;
+		(*dest)->previous = loose_node;
+		*dest = loose_node;
 	}
-	else if (*dest != NULL && !forward)
+	else if (*dest != NULL && add_to_end)
 	{
-		src->previous = *dest;
-		src->next = NULL;
-		(*dest)->next = src;
-		*dest = src;
+		loose_node->previous = *dest;
+		loose_node->next = NULL;
+		(*dest)->next = loose_node;
+		*dest = loose_node;
 	}
 	else
 	{
-		src->next = NULL;
-		src->previous = NULL;
-		*dest = src;
+		loose_node->next = NULL;
+		loose_node->previous = NULL;
+		*dest = loose_node;
 	}
 }
 
@@ -248,38 +249,51 @@ void			push(t_node **src, t_node **dest)
 	insert_node(unlink_node(src, 1), dest, 1);
 }
 
-void			rotate(t_node **node, char io)
+void			beginning_or_end_lnkd_lst(t_node **node, char go_to_end)
 {
-	t_node		*head;
+	if (go_to_end)
+	{
+		while ((*node)->next != NULL)
+			*node = (*node)->next;
+		return ;
+	}
+	else
+	{
+		while ((*node)->previous != NULL)
+			*node = (*node)->previous;
+		return ;
+	}
+}
+
+void			rotate(t_node **node, char rotate_down)
+{
+	t_node		*loose_node;
 	t_node		*temp;
 	
 	if (*node == NULL)
 		return ;
-	if (io)
+	if (rotate_down)
 	{
-		head = unlink_node(node, 1);
 		temp = (*node)->next;
-		head->next = NULL;
-		while ((*node)->next != NULL)
-			*node = (*node)->next;
-		(*node)->next = head;
+		loose_node = unlink_node(node, 1);
+		beginning_or_end_lnkd_lst(node, 1);
+		insert_node(loose_node, node, 1);
 		*node = temp;
 		return ;
 	}
 	else
 	{
+		beginning_or_end_lnkd_lst(node, 1);
+		loose_node = unlink_node(node, 0);
+		// temp = (*node)->next; // must be changed
+		// loose_node->previous= NULL;
 		while ((*node)->next != NULL)
 			*node = (*node)->next;
-		head = unlink_node(node, 0);
-		temp = (*node)->next;
-		head->next = NULL;
-		while ((*node)->next != NULL)
-			*node = (*node)->next;
-		(*node)->next = head;
+		(*node)->next = loose_node;
 		*node = temp;
 		return ;
 	}
-	*node = head;
+	*node = loose_node;
 }
 
 void			rotate(t_node **node, char io)
