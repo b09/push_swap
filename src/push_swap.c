@@ -53,24 +53,38 @@ int				main(int argc, char **argv)
 }
 
 
-void			sort_lnkd_lst(t_ps_obj *obj)
+void			sort_lnkd_lst(t_ps_obj *obj, int pivot)
 {
 	// divide_a(obj);
-	// insert_node(unlink_node(&STCK_A), &STCK_B);
-	// insert_node(unlink_node(&STCK_A), &STCK_B);
-	// insert_node(unlink_node(&STCK_A), &STCK_B);
-	// insert_node(unlink_node(&STCK_A), &STCK_B);
-	// insert_node(unlink_node(&STCK_A), &STCK_B);
-	rotate(&STCK_A, 1);
 	// rotate(&STCK_A, 1);
-	// rotate(&STCK_A, 1);
-	// rotate(&STCK_A, 1);
-	// rotate(&STCK_A, 1);
-	// rotate(&STCK_A, 1);
-	// rotate(&STCK_A, 1);
-	// rotate(&STCK_A, 1);
-	// rotate(&STCK_A, 1);
-	// rotate(&STCK_A, 1);
+	/*
+	separate stack_a by pivot into stack_b
+	int array of size of arrays, each an int element of the array
+	stating the size of the pivoted section
+	while stack_a is greater than 3 elements
+		find a pivot for the array of unsorted elements and
+			push elements to stack_b
+		keep a size of the number of elements for that frame which 
+		is sorted
+		each sorted action will increase iterator until iterator is 
+		the same size as current 
+	*/
+	// if not sorted before
+	if (ARRAY && pivot == 0)
+		pivot = obj->array[((LEN - SORTED) / 2) + SORTED - 1];
+	else
+	{
+		pivot = 
+	}
+	
+
+	// divide_a can be called, at which point all elements of stck_a have
+	// been divided by pivot
+	// while stack_a (length - sorted) is > 3
+	//		new_pivot equals
+	// define the end state, with three elements
+	
+
 	
 }
 
@@ -99,6 +113,11 @@ void			divide_a(t_ps_obj *obj)
 			--LEN;
 			++LEN_B;
 		}
+		else
+		{
+			rotate(&STCK_A, 1);
+		}
+		
 		// ++current_len;
 		STCK_A = temp;
 	// printf("line:%d, address:%p, data:%d pivot:%d\n", __LINE__, STCK_A, DATA_A, pivot);

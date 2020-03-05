@@ -42,7 +42,7 @@ typedef	struct		s_node
 
 typedef struct		s_ps_obj
 {
-	int				pivot;
+	int				current_pivot;
 	int				len;
 	int				len_b;
 	int				sorted;
