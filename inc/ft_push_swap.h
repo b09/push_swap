@@ -60,9 +60,13 @@ int				validate_argv(int argc, char **argv);
 t_node			*create_lnkd_lst(t_ps_obj *obj, int size);
 void			print_content_lnkd_list(t_ps_obj *obj);
 void    		swap(t_node *stack, char io);					//
-t_node			*unlink_node(t_node **node, char forward);
-void			insert_node(t_node *src, t_node **dest, char forward);
-void			rotate(t_node **node, char io);
+// t_node			*unlink_node(t_node **node, char forward);
+t_node			*unlink_node(t_node **node, char get_first_node);
+// void			insert_node(t_node *src, t_node **dest, char forward);
+void			insert_node(t_node *loose_node, t_node **dest, char add_to_end);
+// void			rotate(t_node **node, char io);
+void			rotate(t_node **node, char insert_at_end);
+
 int				manipulate_stacks(t_ps_obj *obj);
 int				execute_op_code2(char *operation, t_ps_obj *obj);
 int				execute_op_code(char *operation, t_ps_obj *obj);
@@ -75,6 +79,10 @@ void			return_to_head(t_ps_obj *obj);
 void			sort_lnkd_lst(t_ps_obj *obj);
 int				remove_spaces_digits_minus(char *str);
 t_node			*create_lnkd_lst_single_string(t_ps_obj *obj);
+void			push(t_node **src, t_node **dest);
+void			beginning_or_end_lnkd_lst(t_node **node, char go_to_end);
+
+
 
 
 

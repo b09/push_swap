@@ -69,9 +69,11 @@ int				execute_op_code(char *operation, t_ps_obj *obj)
 		swap(STCK_B, 1);
 	}
 	else if (!ft_memcmp("pa", operation, 3))
-		insert_node(unlink_node(&STCK_B), &STCK_A);
+		push(&STCK_B, &STCK_A);
+		// insert_node(unlink_node(&STCK_B), &STCK_A);
 	else if (!ft_memcmp("pb", operation, 3))
-		insert_node(unlink_node(&STCK_A), &STCK_B);
+		push(&STCK_A, &STCK_B);
+		// insert_node(unlink_node(&STCK_A), &STCK_B);
 	else
 		return (execute_op_code2(operation, obj));
 	return (1);

@@ -94,7 +94,8 @@ void			divide_a(t_ps_obj *obj)
 		temp = NEXT_A;
 		if (DATA_A >= pivot)
 		{
-			insert_node(unlink_node(&STCK_A), &STCK_B);
+			// insert_node(unlink_node(&STCK_A), &STCK_B);
+			push(&STCK_A, &STCK_B);
 			--LEN;
 			++LEN_B;
 		}
