@@ -28,9 +28,12 @@ int				main(int argc, char **argv)
 	if (argc < 2 || !argv || !validate_argv(argc, argv))
 		return (-1);
 	// printf("push_swap(): %s\n", argv[0]);
+
 	obj.len = argc - 1;
 	obj.argv = argv;
 	obj.stck_a = create_lnkd_lst(&obj, argc - 1);
+	if (LEN < 4)
+		return (solve_for_three());
 
 	create_and_srt_array(&obj);
 	// print_array(&obj);
@@ -55,6 +58,29 @@ int				main(int argc, char **argv)
 
 void			sort_lnkd_lst(t_ps_obj *obj, int pivot)
 {
+
+	while (obj->unsorted_a > 3)
+		divide_a;
+	if (obj->unsorted_a <= 3)
+		sort_last_elemtents_of_a();
+	
+	//*********************
+	//	recursive sort
+	// *************
+	/*
+	if unsorted_a == 0 && len_b == 0
+		return ;
+	get_median();
+	if unsorted_a > 0
+		divide_a();
+	else
+		divide_b();
+	sort_lnkd_lst();
+	*/
+
+
+
+
 	// divide_a(obj);
 	// rotate(&STCK_A, 1);
 	/*
@@ -63,10 +89,10 @@ void			sort_lnkd_lst(t_ps_obj *obj, int pivot)
 	stating the size of the pivoted section
 	while stack_a is greater than 3 elements
 		find a pivot for the array of unsorted elements and
-			push elements to stack_b
-		keep a size of the number of elements for that frame which 
+		push elements to stack_b
+	keep a size of the number of elements for that frame which 
 		is sorted
-		each sorted action will increase iterator until iterator is 
+	each sorted action will increase iterator until iterator is 
 		the same size as current 
 	*/
 	// if not sorted before
@@ -122,7 +148,96 @@ void			divide_a(t_ps_obj *obj)
 		STCK_A = temp;
 	// printf("line:%d, address:%p, data:%d pivot:%d\n", __LINE__, STCK_A, DATA_A, pivot);
 	}
+
+	// write case where stack_a contains three elements or less, therefore not needing to push to stack_b
+
+
+
+
+
+
+
+	if (LEN == 2)
+	{
+		if (DATA_A > obj->next->data)
+		{
+			swap(STCK_A, 1);
+			++SORTED;
+			++SORTED;
+		}
+		1, 2, 3
+		1, 3, 2
+
+	}
+
+
+
 	// return_to_head(obj);
+}
+
+
+
+// func will not yet work with more than three elements; ie, if there are other elements in the stack that have
+// been sorted
+
+
+// worst case: [6, 5, 4,][1, 2, 3]
+		// 		sorted		unsort.
+// swap_a, rotate, swap_a, rev_rot, swap_a
+
+void			sort_three(t_ps_obj *obj)
+{
+
+}
+
+void			sort_three_or_less(t_ps_obj *obj)
+{
+	t_node		*temp;
+
+	temp = 0;
+	if (LEN == 1)
+		SORTED = LEN;
+	else if (LEN - SORTED == 2)		//add something to expression that checks SORTED int
+	{
+		if (STCK_A > NEXT_A->data)
+			swap(STCK_A, 1);
+		SORTED = LEN;
+	}
+	else
+	{
+		temp = DATA_A > NEXT_A->data ? STCK_A : NEXT_A;
+		temp = temp->data > NEXT_A->next->data ? temp : NEXT_A->next;
+		++SORTED;
+		if (temp == STCK_A)
+		{
+			// ++SORTED;
+			swap(STCK_A, 1);
+			rotate(&STCK_A, 1);
+			swap(STCK_A, 1);
+			rotate(&STCK_A, 0);
+			swap(STCK_A, 1);
+			
+			sort_three_or_less(obj);
+		}
+		else if (temp == NEXT_A)
+		{
+			// ++SORTED;
+			rotate(&STCK_A , 0);
+			sort_three_or_less(obj);
+		}
+		// else
+	}
+}
+
+void			divide_b(t_ps_obj *obj)
+{
+	// struct should have iterator which is the index of the current median in the median[]
+	if (ARRAY)
+		pivot = obj->array[((LEN_B - (median[median_index] / 2)) + SORTED - 1];
+
+	if (median[median_index] <= 3)
+
+
 }
 
 

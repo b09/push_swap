@@ -46,6 +46,7 @@ typedef struct		s_ps_obj
 	int				len;
 	int				len_b;
 	int				sorted;
+	int				med_i;
 	int				*medians;
 	t_node			*stck_a;
 	t_node			*stck_b;
@@ -59,7 +60,8 @@ void			delete_lnkd_list(t_ps_obj *obj, t_node **list); //
 int				validate_argv(int argc, char **argv);
 t_node			*create_lnkd_lst(t_ps_obj *obj, int size);
 void			print_content_lnkd_list(t_ps_obj *obj);
-void    		swap(t_node *stack, char io);					//
+// void    		swap(t_node *stack, char io);	
+void    		swap(t_node *stack, char swap_going_down_list);
 // t_node			*unlink_node(t_node **node, char forward);
 t_node			*unlink_node(t_node **node, char get_first_node);
 // void			insert_node(t_node *src, t_node **dest, char forward);
