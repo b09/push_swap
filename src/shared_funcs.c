@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 19:32:58 by bprado         #+#    #+#                */
-/*   Updated: 2020/03/03 18:06:22 by bprado        ########   odam.nl         */
+/*   Updated: 2020/03/09 20:08:28 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void			delete_lnkd_list(t_ps_obj *obj, t_node **list)
 {
 	while (STCK_B != NULL)
 	{
-		push(&STCK_B, &STCK_A);
-		beginning_or_end_lnkd_lst(&STCK_A, 0);
-		beginning_or_end_lnkd_lst(&STCK_B, 0);
+		push(&STCK_B, &STCK_A, obj);
+		navigate_thru_lnkd_lst(&STCK_A, 0);
+		navigate_thru_lnkd_lst(&STCK_B, 0);
 
 	}
 		// insert_node(unlink_node(&STCK_B), &STCK_A);
@@ -184,8 +184,12 @@ void		print_content_lnkd_list(t_ps_obj *obj)
  ** swap(), unlink_node(), insert_node(), and rotate() may be useful for
  **	push_swap.c
 */
-void    		swap(t_node *stack, char swap_going_down_list)
+void    		swap(t_node *stack, char swap_going_down_list, t_ps_obj *obj)
 {
+	if (stack == STCK_A)
+		ft_putstr("sa\n");
+	else
+		ft_putstr("sb\n");
 	if (stack == NULL)
 		return ;
 	if (swap_going_down_list && stack->next != NULL)
@@ -250,12 +254,21 @@ void			insert_node(t_node *loose_node, t_node **dest, char add_to_end)
 	}
 }
 
-void			push(t_node **src, t_node **dest)
+void			push(t_node **src, t_node **dest, t_ps_obj *obj)
 {
 	insert_node(unlink_node(src, 1), dest, 1);
+	if (*src == STCK_A)
+		ft_putstr("pb\n");
+	else
+		ft_putstr("pa\n");
 }
 
-void			beginning_or_end_lnkd_lst(t_node **node, char go_to_end)
+/*
+**	should rewrite to traverse linked list up to specified point, which would be
+**	necessary for the divide_a && divide_b funcs to not interate over the entire
+**	linked list, rather just the sections that are unsorted
+*/
+void			navigate_thru_lnkd_lst(t_node **node, char go_to_end)
 {
 	if (go_to_end)
 	{
@@ -271,7 +284,7 @@ void			beginning_or_end_lnkd_lst(t_node **node, char go_to_end)
 	}
 }
 
-void			rotate(t_node **node, char insert_at_end)
+void			rotate(t_node **node, char insert_at_end, t_ps_obj *obj)
 {
 	t_node		*loose_node;
 	// t_node		*temp;
@@ -282,27 +295,35 @@ void			rotate(t_node **node, char insert_at_end)
 	{
 		// temp = (*node)->next;
 		loose_node = unlink_node(node, 1);
-		beginning_or_end_lnkd_lst(node, 1);
+		navigate_thru_lnkd_lst(node, 1);
 		insert_node(loose_node, node, 1);
-		beginning_or_end_lnkd_lst(node, 0);
+		navigate_thru_lnkd_lst(node, 0);
 		// *node = temp;
-		return ;
+		// return ;
 	}
 	else
 	{
-		beginning_or_end_lnkd_lst(node, 1);
+		navigate_thru_lnkd_lst(node, 1);
 		loose_node = unlink_node(node, 0);
-		beginning_or_end_lnkd_lst(node, 0);
+		navigate_thru_lnkd_lst(node, 0);
 		insert_node(loose_node, node, 0);
-		beginning_or_end_lnkd_lst(node, 0);
+		navigate_thru_lnkd_lst(node, 0);
 		// // temp = (*node)->next; // must be changed
 		// // loose_node->previous= NULL;
 		// while ((*node)->next != NULL)
 		// 	*node = (*node)->next;
 		// (*node)->next = loose_node;
 		// *node = temp;
-		return ;
+		// return ;
 	}
+	if (*node == STCK_A && insert_at_end == 0)
+		ft_putstr("ra\n");
+	else if (*node == STCK_A && insert_at_end == 1)
+		ft_putstr("rra\n");
+	else if (*node != STCK_A && insert_at_end == 0)
+		ft_putstr("rb\n");
+	else
+		ft_putstr("rrb\n");
 	// *node = loose_node;
 }
 

@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:00:19 by bprado         #+#    #+#                */
-/*   Updated: 2020/03/03 16:38:59 by bprado        ########   odam.nl         */
+/*   Updated: 2020/03/09 18:56:09 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void			create_and_srt_array(t_ps_obj *obj)
 	i = 0;
 	while (LEN && i < (LEN - 1))
 	{
-		if (array[i] > array[i + 1])
+		if (array[i] < array[i + 1])
 		{
 			array[i] ^= array[i + 1];
 			array[i + 1] ^= array[i];
