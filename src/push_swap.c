@@ -6,13 +6,13 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:58:41 by bprado         #+#    #+#                */
-/*   Updated: 2020/03/09 20:08:27 by bprado        ########   odam.nl         */
+/*   Updated: 2020/03/11 19:33:49 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-void			divide_a_rotate(t_ps_obj *obj);
+void			divide_a_rotate(t_ps_obj *obj, char next);
 
 
 
@@ -60,12 +60,19 @@ int				main(int argc, char **argv)
 void			sort_lnkd_lst(t_ps_obj *obj)
 {
 	int pivot;
+	char	i;
 
-
-	while (LEN > 3)
+	i = 1;
+	while (LEN > 3 || LEN_B)
 	{
-		divide_a(obj);
-		// header must be moved if any elements are in place in stack_a (sorted)
+		while (LEN > 3)
+		{ 
+			i = i ? 0 : 1;
+			divide_a_rotate(obj, i);
+			// header must be moved if any elements are in place in stack_a (sorted)
+		}
+		
+
 	}
 	// while (obj->unsorted_a > 3)
 	// 	divide_a;
@@ -129,65 +136,28 @@ void			sort_lnkd_lst(t_ps_obj *obj)
 **	must stop dividing until sorted nodes have been reached
 **	must reverse rotate as nodes will be behind head
 */
-void			divide_a_rotate(t_ps_obj *obj)
+void			divide_a_rotate(t_ps_obj *obj, char next_or_previous)
 {
-	int			pivot;
+	// int			pivot;
 	int			current_len;
 	t_node		*temp;
 
 	if (ARRAY)
-		pivot = obj->array[((LEN - SORTED) / 2) + SORTED - 1];
+		PIVOT = obj->array[((LEN - SORTED) / 2) + SORTED - 1];
 
 	current_len = 0;
-	while (NEXT_A != NULL && current_len < MAX_LEN)
+	temp = next_or_previous ? NEXT_A : PREV_A;
+
+	while (temp != NULL && current_len < MAX_LEN)
 	{
-		temp = NEXT_A;
-		if (DATA_A < pivot)
-		{
-			push(&STCK_A, &STCK_B, obj);
-			--LEN;
-			++LEN_B;
-		}
-		else
-		{
-			rotate(&STCK_A, 1, obj);
-		}
+		temp = next_or_previous ? NEXT_A : PREV_A;
+		DATA_A < PIVOT ? push(&STCK_A, &STCK_B, obj) : rotate(&STCK_A, 1, obj);
+		obj->medians[obj->med_i] += DATA_A < PIVOT ? 1 : 0;
 		++current_len;
 		STCK_A = temp;
 	}
-	// return_to_head(obj);
+	++(obj->med_i);
 }
-
-void			divide_a_reverse_rotate(t_ps_obj *obj)
-{
-	int			pivot;
-	int			current_len;
-	t_node		*temp;
-
-	if (ARRAY)
-		pivot = obj->array[((LEN - SORTED) / 2) + SORTED - 1];
-
-	current_len = 0;
-	while (PREV_A != NULL && current_len < MAX_LEN)
-	{
-		temp = NEXT_A;
-		if (DATA_A < pivot)
-		{
-			push(&STCK_A, &STCK_B, obj);
-			--LEN;
-			++LEN_B;
-		}
-		else
-		{
-			rotate(&STCK_A, 1, obj);
-		}
-		++current_len;
-		STCK_A = temp;
-	}
-	// return_to_head(obj);
-}
-
-
 
 
 
@@ -229,27 +199,31 @@ void			sort_three_or_less(t_ps_obj *obj)
 
 
 
-
-
-
-
-
-
-
 /*
 **	smallest ints should be added last to stack_a, to keep smallest ints in
 **	stack_b
 */
-// void			divide_b(t_ps_obj *obj)
-// {
-// 	// struct should have iterator which is the index of the current median in the median[]
-// 	if (ARRAY)
-// 		pivot = obj->array[((LEN_B - (median[median_index] / 2)) + SORTED - 1];
+void			divide_b(t_ps_obj *obj)
+{
+	// struct should have iterator which is the index of the current median in the median[]
+	if (ARRAY)
+		PIVOT = obj->array[((LEN_B - (median[median_index] / 2)) + SORTED - 1];
 
-// 	if (median[median_index] <= 3)
+	if (median[median_index] <= 3)
 
 
-// }
+	if (obj->medians[obj->med_i] <= 2)
+	{
+		
+	}
+
+		if (DATA_B >= PIVOT)
+		{
+			push(&STCK_B, &STCK_A, obj);
+			--LEN_B;
+			++LEN;
+		}
+}
 
 
 

@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado         #+#    #+#                */
-/*   Updated: 2020/03/09 20:08:29 by bprado        ########   odam.nl         */
+/*   Updated: 2020/03/11 18:08:43 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef	struct		s_node
 
 typedef struct		s_ps_obj
 {
-	int				current_pivot;
+	int				pivot;
 	int				len;
 	int				len_b;
 	int				sorted;

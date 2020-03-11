@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 19:32:58 by bprado         #+#    #+#                */
-/*   Updated: 2020/03/09 20:08:28 by bprado        ########   odam.nl         */
+/*   Updated: 2020/03/11 19:05:36 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,9 +258,17 @@ void			push(t_node **src, t_node **dest, t_ps_obj *obj)
 {
 	insert_node(unlink_node(src, 1), dest, 1);
 	if (*src == STCK_A)
+	{
 		ft_putstr("pb\n");
+		--LEN;
+		++LEN_B;
+	}
 	else
+	{
 		ft_putstr("pa\n");
+		--LEN_B;
+		++LEN;
+	}
 }
 
 /*
