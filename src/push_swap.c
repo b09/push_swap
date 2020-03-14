@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:58:41 by bprado         #+#    #+#                */
-/*   Updated: 2020/03/12 20:04:32 by bprado        ########   odam.nl         */
+/*   Updated: 2020/03/13 16:04:48 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int				main(int argc, char **argv)
 	// print_array(&obj);
 
 	print_content_lnkd_list(&obj);
-	// sort_lnkd_lst(&obj);
-	sort_three_or_less(&obj);
+	sort_lnkd_lst(&obj);
+	// sort_three_or_less(&obj);
 	printf("After sort_three_or_less(&obj)\n");
 	print_content_lnkd_list(&obj);
 
@@ -67,7 +67,7 @@ void			sort_lnkd_lst(t_ps_obj *obj)
 {
 	int pivot;
 
-	while (LEN > 3 || LEN_B)
+	while (UNSORTED || LEN_B)
 	{
 		while (UNSORTED > 3)
 		{
@@ -77,14 +77,10 @@ void			sort_lnkd_lst(t_ps_obj *obj)
 			// header must be moved if any elements are in place in stack_a (sorted)
 		}
 		sort_three_or_less(obj);
-		divide_b(obj, UNSRT_BTTM_A ? 0 : 1);
+		if (LEN_B)
+			divide_b(obj, UNSRT_BTTM_A ? 0 : 1);
 		// j = j ? 0 : 1;
-
-		
-
 	}
-
-	
 }
 
 
@@ -97,6 +93,14 @@ void			sort_lnkd_lst(t_ps_obj *obj)
 **	must reverse rotate as nodes will be behind head from previous rotations
 **	cases:
 **		- first iteration
+
+
+		print_content_lnkd_list(obj);
+		int ch;
+		while ((ch = getchar()) != '\n' && ch != EOF);
+		// printf("Press enter to continue...");
+		// getchar();
+		printf("pivot: %d, unsorted: %d, data_a: %d\n", PIVOT, UNSORTED, DATA_A);
 */
 void			divide_a(t_ps_obj *obj, char next_or_previous)
 {
@@ -104,10 +108,10 @@ void			divide_a(t_ps_obj *obj, char next_or_previous)
 	t_node		*temp;
 
 	if (ARRAY)
-		PIVOT = obj->array[(UNSORTED / 2) + SORTED - 1];
-
+		PIVOT = obj->array[((UNSORTED) / 2) + SORTED - 1];
 	current_len = 0;
 	temp = next_or_previous ? NEXT_A : PREV_A;
+
 
 	// only sort part of stack that needs sorting
 	while (temp != NULL && current_len < UNSORTED)
@@ -123,6 +127,7 @@ void			divide_a(t_ps_obj *obj, char next_or_previous)
 			// keep record of presorted stack pushed to bottom of same stack
 			UNSRT_BTTM_A += next_or_previous ? 1 : -1;
 		}
+	printf("pivot index in array: %d	unsorted: %d\n", ((UNSORTED) / 2), SORTED);
 		// increase int in array representing presorted segments in stack_b
 		// obj->medians[obj->med_i] +=	DATA_A < PIVOT ? 1 : 0;
 		// incrementer compared with unsorted int, unsorted int decrease by other func

@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 19:32:58 by bprado         #+#    #+#                */
-/*   Updated: 2020/03/12 19:51:43 by bprado        ########   odam.nl         */
+/*   Updated: 2020/03/13 16:14:26 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -260,7 +260,8 @@ void			push(t_node **src, t_node **dest, t_ps_obj *obj)
 	if (*src == STCK_A)
 	{
 		ft_putstr("pb\n");
-		++MEDIANS[MED_I];
+		printf("%s, value: %p\n", __func__, obj->medians);
+		++(obj->medians[obj->med_i]);
 		--LEN;
 		++LEN_B;
 	}
@@ -326,13 +327,13 @@ void			rotate(t_node **node, char insert_at_end, t_ps_obj *obj)
 		// return ;
 	}
 	if (*node == STCK_A && insert_at_end == 0)
-		ft_putstr("ra\n");
-	else if (*node == STCK_A && insert_at_end == 1)
 		ft_putstr("rra\n");
+	else if (*node == STCK_A && insert_at_end == 1)
+		ft_putstr("ra\n");
 	else if (*node != STCK_A && insert_at_end == 0)
-		ft_putstr("rb\n");
-	else
 		ft_putstr("rrb\n");
+	else
+		ft_putstr("rb\n");
 	// *node = loose_node;
 }
 
