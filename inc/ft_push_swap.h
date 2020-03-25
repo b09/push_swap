@@ -54,7 +54,7 @@ typedef struct		s_ps_obj
 	int				med_i;
 	int				unsorted_bottom_a;
 	int				unsorted_bottom_b;
-	int				*medians;
+	int				medians[20];
 	t_node			*stck_a;
 	t_node			*stck_b;
 	char			**argv;
@@ -91,6 +91,8 @@ t_node			*create_lnkd_lst_single_string(t_ps_obj *obj);
 void			push(t_node **src, t_node **dest, t_ps_obj *obj);
 void			navigate_thru_lnkd_lst(t_node **node, char go_to_end);
 void			sort_three_or_less(t_ps_obj *obj);
+void			print_medians(t_ps_obj *obj);
+
 
 
 

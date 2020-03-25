@@ -142,6 +142,17 @@ t_node			*create_lnkd_lst(t_ps_obj *obj, int size)
 	return (head);
 }
 
+void		print_medians(t_ps_obj *obj)
+{
+	int		i = 0;
+
+	while (i < 10)
+	{
+		printf("median[%d]:%d\n", i, MEDIANS[i]);
+		i++;
+	}
+}
+
 void		print_content_lnkd_list(t_ps_obj *obj)
 {
 	t_node		*head;
@@ -169,7 +180,7 @@ void		print_content_lnkd_list(t_ps_obj *obj)
 	// 	printf("\n");
 	// // STCK_B = STCK_B->next;
 	// // printf("head of b: %p\n", STCK_B);
-	while (STCK_B != NULL && i < 10)
+	while (STCK_B != NULL && i < 100)
 	{
 		printf("%s[%d]:%d addr: %p\n", "STCK_B", i++, DATA_B, STCK_B);
 		STCK_B = STCK_B->next;
@@ -204,27 +215,34 @@ void    		swap(t_node *stack, char swap_going_down_list, t_ps_obj *obj)
 	stack->data ^= stack->previous->data;
 }
 
-
+/*
+**	must account for final node
+*/
 t_node			*unlink_node(t_node **node, char get_first_node)
 {
 	t_node		*unlinked_node;
 
 	unlinked_node = *node;
-	if (*node == NULL)
-		return (NULL);
-	if (get_first_node)
+	if (*node == NULL || ((*node)->next == NULL && (*node)->previous == NULL))
+	{
+		*node = NULL;
+	}
+	else if (get_first_node)
 	{
 		if ((*node)->next != NULL)
 			(*node)->next->previous = NULL;
 		*node = (*node)->next;
 		unlinked_node->next = NULL;
 	}
-	else
+	else if (!get_first_node)
 	{
+		printf("Leiretxu\n");
+		// printf("%s address:%p data:%d\n", __func__, *node, (*node)->data);
 		if ((*node)->previous != NULL)
 			(*node)->previous->next = NULL;
 		*node = (*node)->previous;
 	}
+	// printf("outside %s address:%p data:%d\n", __func__, *node, (*node)->data);
 	return (unlinked_node);
 }
 
@@ -256,11 +274,12 @@ void			insert_node(t_node *loose_node, t_node **dest, char add_to_end)
 
 void			push(t_node **src, t_node **dest, t_ps_obj *obj)
 {
-	insert_node(unlink_node(src, 1), dest, 1);
+	// printf("%s, A:%p B:%p\n", __func__, STCK_A, STCK_B);
+	insert_node(unlink_node(src, 1), dest, 0);
 	if (*src == STCK_A)
 	{
+		// printf("%s, A:%p B:%p\n", __func__, STCK_A, STCK_B);
 		ft_putstr("pb\n");
-		printf("%s, value: %p\n", __func__, obj->medians);
 		++(obj->medians[obj->med_i]);
 		--LEN;
 		++LEN_B;
@@ -271,6 +290,7 @@ void			push(t_node **src, t_node **dest, t_ps_obj *obj)
 		--LEN_B;
 		++LEN;
 	}
+	printf("%p %d\n", STCK_A, DATA_A);
 }
 
 /*
@@ -294,48 +314,85 @@ void			navigate_thru_lnkd_lst(t_node **node, char go_to_end)
 	}
 }
 
+void			decrease_unsrt_bttm_macro(t_node **node, char insert_at_end, t_ps_obj *obj)
+{
+	if (insert_at_end)
+		return ;
+	if (*node == STCK_A && UNSRT_BTTM_A)
+		--UNSRT_BTTM_A;
+	else if (*node == STCK_B && UNSRT_BTTM_B)
+		--UNSRT_BTTM_B;
+}
+
 void			rotate(t_node **node, char insert_at_end, t_ps_obj *obj)
 {
 	t_node		*loose_node;
-	// t_node		*temp;
 	
-	if (*node == NULL)
+	if (*node == NULL || ((*node)->next == NULL && (*node)->previous == NULL))
 		return ;
-	if (insert_at_end)
-	{
-		// temp = (*node)->next;
-		loose_node = unlink_node(node, 1);
+	if (!insert_at_end)
 		navigate_thru_lnkd_lst(node, 1);
-		insert_node(loose_node, node, 1);
-		navigate_thru_lnkd_lst(node, 0);
-		// *node = temp;
-		// return ;
-	}
-	else
-	{
-		navigate_thru_lnkd_lst(node, 1);
-		loose_node = unlink_node(node, 0);
-		navigate_thru_lnkd_lst(node, 0);
-		insert_node(loose_node, node, 0);
-		navigate_thru_lnkd_lst(node, 0);
-		// // temp = (*node)->next; // must be changed
-		// // loose_node->previous= NULL;
-		// while ((*node)->next != NULL)
-		// 	*node = (*node)->next;
-		// (*node)->next = loose_node;
-		// *node = temp;
-		// return ;
-	}
-	if (*node == STCK_A && insert_at_end == 0)
-		ft_putstr("rra\n");
-	else if (*node == STCK_A && insert_at_end == 1)
-		ft_putstr("ra\n");
-	else if (*node != STCK_A && insert_at_end == 0)
-		ft_putstr("rrb\n");
-	else
-		ft_putstr("rb\n");
-	// *node = loose_node;
+	loose_node = unlink_node(node, insert_at_end);
+	navigate_thru_lnkd_lst(node, insert_at_end);
+	insert_node(loose_node, node, insert_at_end);
+	navigate_thru_lnkd_lst(node, 0);
+
+	if (*node != NULL && insert_at_end == 0)
+		ft_putchar('r');
+	(*node == STCK_A) ? ft_putstr("ra") : ft_putstr("rb");
+
+	decrease_unsrt_bttm_macro(node, insert_at_end, obj);
 }
+
+// void			rotate(t_node **node, char insert_at_end, t_ps_obj *obj)
+// {
+// 	t_node		*loose_node;
+// 	// t_node		*temp;
+	
+// 	if (*node == NULL || ((*node)->next == NULL && (*node)->previous == NULL))
+// 	{
+// 		// printf("nothing to %s in %s()\n", __func__, __func__);
+// 		return ;
+// 	}
+// 	if (insert_at_end)
+// 	{
+// 		// temp = (*node)->next;
+// 		loose_node = unlink_node(node, 1);
+// 		navigate_thru_lnkd_lst(node, 1);
+// 		insert_node(loose_node, node, 1);
+// 		navigate_thru_lnkd_lst(node, 0);
+// 		// *node = temp;
+// 		// return ;
+// 	}
+// 	else
+// 	{
+// 		navigate_thru_lnkd_lst(node, 1);
+// 		loose_node = unlink_node(node, 0);
+// 		// printf("show head: %p data: %d\n", *node, (*node)->data);
+// 		navigate_thru_lnkd_lst(node, 0);
+// 		// printf("2 show head: %p data: %d\n", *node, (*node)->data);
+// 		insert_node(loose_node, node, 0);
+// 		navigate_thru_lnkd_lst(node, 0);
+// 		// printf("3 show head: %p data: %d\n", *node, (*node)->data);
+// 		// print_content_lnkd_list(obj);
+// 		// // temp = (*node)->next; // must be changed
+// 		// // loose_node->previous= NULL;
+// 		// while ((*node)->next != NULL)
+// 		// 	*node = (*node)->next;
+// 		// (*node)->next = loose_node;
+// 		// *node = temp;
+// 		// return ;
+// 	}
+// 	if (*node == STCK_A && insert_at_end == 0)
+// 		ft_putstr("rra\n");
+// 	else if (*node == STCK_A && insert_at_end == 1)
+// 		ft_putstr("ra\n");
+// 	else if (*node != STCK_A && insert_at_end == 0)
+// 		ft_putstr("rrb\n");
+// 	else
+// 		ft_putstr("rb\n");
+// 	// *node = loose_node;
+// }
 
 // void			rotate(t_node **node, char io)
 // {
