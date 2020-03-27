@@ -17,6 +17,9 @@ void			sort_lnkd_lst(t_ps_obj *obj);
 void			divide_a(t_ps_obj *obj, char next_or_previous);
 void			sort_three_or_less(t_ps_obj *obj);
 void			divide_b(t_ps_obj *obj, char next_or_previous);
+void			divide(t_ps_obj *obj, char next_or_previous, t_node **node);
+void			assign_pivot(t_ps_obj *obj, t_node *stack);
+
 
 
 
@@ -44,8 +47,7 @@ int				main(int argc, char **argv)
 
 	print_content_lnkd_list(&obj);
 	// print_array(&obj);
-	// sort_lnkd_lst(&obj);
-	rotate(&(obj.stck_a), 1, &obj);
+	sort_lnkd_lst(&obj);
 	// sort_three_or_less(&obj);
 	// printf("After sort_three_or_less(&obj)\n");
 	print_content_lnkd_list(&obj);
@@ -248,10 +250,10 @@ int				main(int argc, char **argv)
 
 
 
-// /*
-// **	smallest ints should be added last to stack_a, to keep smallest ints in
-// **	stack_b
-// */
+// // /*
+// // **	smallest ints should be added last to stack_a, to keep smallest ints in
+// // **	stack_b
+// // */
 // void			divide_b(t_ps_obj *obj, char next_or_previous)
 // {
 // 	int			current_len;
@@ -373,7 +375,36 @@ int				main(int argc, char **argv)
 */
 
 
+void			print_struct(t_ps_obj *obj)
+{
+	printf("a:%p b:%p len:%d len_b:%d sorted:%d pivot:%d unsorted:%d unsrt_a:%d unsrt_b:%d median[i]:%d med_i:%d\n", STCK_A, STCK_B, LEN, LEN_B, SORTED, PIVOT, UNSORTED, UNSRT_BTTM_A, UNSRT_BTTM_B, MEDIANS[MED_I], MED_I);
+}
 
+
+void			assign_pivot(t_ps_obj *obj, t_node *stack)
+{
+	int			i;
+
+	i = 0;
+	if (stack == STCK_A && ARRAY)
+	{
+		PIVOT = obj->array[((UNSORTED) / 2) + SORTED - 1];
+		if (UNSORTED <= 5 && UNSORTED >= 3)
+			PIVOT = obj->array[LEN - (UNSORTED - 2)];
+		else if (UNSORTED < 3)
+			PIVOT = obj->array[LEN - 1];
+	}
+	else if (stack == STCK_B && ARRAY)
+	{
+		i = MEDIANS[MED_I] >= 0 ? MEDIANS[MED_I] : -MEDIANS[MED_I];
+		PIVOT = obj->array[LEN + (i / 2)];
+		if (i <= 5 && i >= 3)
+			PIVOT = obj->array[LEN + (i - 2)];
+		if (i < 3)
+			PIVOT = obj->array[LEN];
+
+	}
+}
 
 
 
@@ -383,18 +414,39 @@ void			sort_lnkd_lst(t_ps_obj *obj)
 	int			current_len;
 
 	current_len = LEN;
-	while (current_len - SORTED || LEN_B)
+	while (SORTED != current_len)
 	{
+		printf("beginning of %s\n", __func__);
 		print_content_lnkd_list(obj);
+		print_struct(obj);
 		while (UNSORTED > 3)
-			divide_a(obj, UNSRT_BTTM_A ? 0 : 1);
-
-		while (UNSORTED <= 3 && UNSRT_BTTM_A)
+		{
+			// divide_a(obj, UNSRT_BTTM_A ? 0 : 1);
+			printf("divide a");
+			divide(obj, UNSRT_BTTM_A ? 0 : 1, &STCK_A);
+			++MED_I;
+		}
+		// unstr_bttm_a must be increased and decreased correctly
+		while (UNSORTED <= 3 && UNSRT_BTTM_A && LEN > 3 && SORTED != 0)
+		{
+			int ch;
+			while ((ch = getchar()) != '\n' && ch != EOF);
+			print_struct(obj);
 			rotate(&STCK_A, 0, obj);
+		}
 
 		sort_three_or_less(obj);
 		if (LEN_B)
-			divide_b(obj, UNSRT_BTTM_B ? 0 : 1);
+		{
+			printf("divide b med_i:%d\n", MED_I);
+			--MED_I;
+			divide(obj, MEDIANS[MED_I] < 0 ? 0 : 1, &STCK_B);
+			MEDIANS[MED_I] = UNSRT_BTTM_B ? -UNSRT_BTTM_B : MEDIANS[MED_I];
+			MED_I += UNSRT_BTTM_B ? 1 : 0;
+			UNSRT_BTTM_B = 0;
+		}
+		printf("end of %s\n", __func__);
+		print_struct(obj);
 	}
 }
 
@@ -406,6 +458,8 @@ void			sort_three_or_less(t_ps_obj *obj)
 	t_node		*temp;
 
 	temp = 0;
+	printf("inside %s sorted:%d len:%d len_b:%d unsorted:%d, data:%d median[i]:%d med_i:%d\n", __func__, SORTED, LEN, LEN_B, UNSORTED, DATA_A, MEDIANS[MED_I], MED_I);
+	print_content_lnkd_list(obj);
 	if (LEN == 1 || UNSORTED == 2)
 	{
 		if (UNSORTED == 2 && DATA_A > NEXT_A->data)
@@ -427,28 +481,43 @@ void			sort_three_or_less(t_ps_obj *obj)
 		}
 		sort_three_or_less(obj);
 	}
+	printf("exiting %s sorted:%d len:%d len_b:%d unsorted:%d, data:%d median[i]:%d med_i:%d\n", __func__, SORTED, LEN, LEN_B, UNSORTED, DATA_A, MEDIANS[MED_I], MED_I);
 }
 
 
 
-
-void	assign_pivot(t_ps_obj *obj, t_node *stack)
+void			divide(t_ps_obj *obj, char one_or_zero, t_node **node)
 {
-	if (stack == STCK_A && ARRAY)
-	{
-		PIVOT = obj->array[((UNSORTED) / 2) + SORTED - 1];
-		if (UNSORTED == 5)
-			PIVOT = obj->array[LEN - 3];
-		else if (UNSORTED == 4)
-			PIVOT = obj->array[LEN - 2];
-		else if (UNSORTED <= 3)
-			PIVOT = obj->array[LEN - 1];
+	int			length;
+	int			i;
+	int ch;
 
-	}
-	else if (stack == STCK_B && ARRAY)
+	i = 0;
+	assign_pivot(obj, *node);
+	length = node == &STCK_A ? LEN - SORTED : MEDIANS[MED_I];
+	length = MEDIANS[MED_I] < 0 ? -length : length;
+	printf("inside %s unsorted: %d sorted:%d len:%d data addr:%p nextdata:none pivot:%d UNSRT_BTT_A:%d UNSRT_BTTM_B:%d i:%d one_zero:%d length:%d median[i]:%d med_i:%d\n", __func__, UNSORTED, SORTED, LEN, (*node), PIVOT, UNSRT_BTTM_A, UNSRT_BTTM_B, i, one_or_zero, length, MEDIANS[MED_I], MED_I);
+	while (*node != NULL && i <= length)
 	{
-		/* code */
+		while ((ch = getchar()) != '\n' && ch != EOF);
+		printf("inside %s unsorted: %d sorted:%d len:%d data addr:%p nextdata:none pivot:%d UNSRT_BTT_A:%d UNSRT_BTTM_B:%d i:%d one_zero:%d length:%d median[i]:%d med_i:%d\n", __func__, UNSORTED, SORTED, LEN, (*node), PIVOT, UNSRT_BTTM_A, UNSRT_BTTM_B, i, one_or_zero, length, MEDIANS[MED_I], MED_I);
+
+		if (((!one_or_zero && i > 0) || (one_or_zero && i < length)) && \
+			((node == &STCK_A && (*node)->data < PIVOT) || \
+			(node == &STCK_B && (*node)->data >= PIVOT)))
+		{
+			printf("line:%d sorted:%d\n", __LINE__, SORTED);
+			push(node, node == &STCK_A ? &STCK_B : &STCK_A, obj);
+			printf("line:%d sorted:%d\n", __LINE__, SORTED);
+			if (i < length && !one_or_zero)
+				rotate(node, 0, obj);
+		}
+		else if (i < length)
+			rotate(node, one_or_zero, obj);
+		++i;
 	}
+	printf("exiting %s unsorted: %d sorted:%d length:%d node addr:%p nextdata:none pivot:%d UNSRT_BTT_A:%d UNSRT_BTTM_B: %d median[i]:%d med_i:%d stacks:\n", __func__, UNSORTED, SORTED, LEN, (*node), PIVOT, UNSRT_BTTM_A, UNSRT_BTTM_B, MEDIANS[MED_I], MED_I);
+	print_content_lnkd_list(obj);
 }
 
 
@@ -456,54 +525,38 @@ void	assign_pivot(t_ps_obj *obj, t_node *stack)
 void			divide_a(t_ps_obj *obj, char next_or_previous)
 {
 	int			current_len;
-	t_node		*temp;
 
 	assign_pivot(obj, STCK_A);
 	current_len = LEN;
-	temp = STCK_A;
-	// while (temp != NULL && current_len - SORTED)
 	while (STCK_A != NULL && current_len - SORTED)
 	{
 		if (next_or_previous)
 		{
-			temp = NEXT_A;
 			if (DATA_A < PIVOT)
 				push(&STCK_A, &STCK_B, obj);
 			else
 				rotate(&STCK_A, 1, obj);
-			STCK_A = temp;
 		}
 		else
 		{
 			rotate(&STCK_A, 0, obj);
 			if (DATA_A < PIVOT)
 				push(&STCK_A, &STCK_B, obj);
-			// temp = LEN > 1 ? STCK_A : NULL;
 		}
 		--current_len;
 	}
-	++(obj->med_i);
 }
-
-
 
 
 void			divide_b(t_ps_obj *obj, char next_or_previous)
 {
 	int			current_len;
 	t_node		*temp;
-
-	if (!MEDIANS[MED_I] && MED_I > 0)
-		--MED_I;
-	if (ARRAY)
-		PIVOT = obj->array[LEN + (MEDIANS[MED_I] / 2)];
+		
 	current_len = 0;
-	if (LEN_B == 1)
-		push(&STCK_B, &STCK_A, obj);
-	temp = STCK_B;
-	while (temp != NULL && current_len < MEDIANS[MED_I])
+
+	while (STCK_B != NULL && MEDIANS[MED_I])
 	{
-		temp = NEXT_B;
 		if (next_or_previous)
 		{
 			if (DATA_B >= PIVOT || (LEN_B == 1 && current_len == 0))
@@ -516,10 +569,7 @@ void			divide_b(t_ps_obj *obj, char next_or_previous)
 			rotate(&STCK_B, 0, obj);
 			if (DATA_B >= PIVOT)
 				push(&STCK_B, &STCK_A, obj);
-			temp = LEN_B >= 1 ? STCK_B : NULL;
 		}
-		++current_len;
-		STCK_B = LEN_B == 1 ? STCK_B : temp;
 	}
 	MEDIANS[MED_I] = UNSRT_BTTM_B ? UNSRT_BTTM_B : 0;
 	MED_I -= MEDIANS[MED_I] <= 0 && MED_I > 0 ? 1 : 0;
