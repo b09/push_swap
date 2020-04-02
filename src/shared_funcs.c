@@ -163,7 +163,7 @@ void		print_content_lnkd_list(t_ps_obj *obj)
 	STCK_A = STCK_A->next;
 
 	int i = 1;
-	while (STCK_A != NULL && i < 100)
+	while (STCK_A != NULL)// && i < 100)
 	{
 		printf("%s[%d]:%d addr: %p\n", "STCK_A", i++, DATA_A, STCK_A);
 		STCK_A = STCK_A->next;
@@ -238,7 +238,7 @@ t_node			*unlink_node(t_node **node, char get_first_node)
 	}
 	else if (!get_first_node)
 	{
-		printf("Leiretxu\n");
+		// printf("Leiretxu\n");
 		// printf("%s address:%p data:%d\n", __func__, *node, (*node)->data);
 		if ((*node)->previous != NULL)
 			(*node)->previous->next = NULL;
@@ -290,13 +290,15 @@ void			push(t_node **src, t_node **dest, t_ps_obj *obj)
 	{
 		ft_putstr("pa\n");
 		// --MEDIANS[MED_I];
-		// --LEN_B;
-		// ++LEN;
-	printf("func: %s line:%d sorted:%d median[i]:%d len:%d len_b:%d med_i: %d\n", __func__, __LINE__, SORTED, MEDIANS[MED_I], LEN, LEN_B, MED_I);
-		obj->medians[obj->med_i] -= 1;
-	printf("func: %s line:%d sorted:%d median[i]:%d len:%d len_b:%d med_i: %d\n", __func__, __LINE__, SORTED, MEDIANS[MED_I], LEN, LEN_B, MED_I);
-		obj->len_b--;
-		obj->len++;
+		--LEN_B;
+		++LEN;
+	// printf("func: %s line:%d sorted:%d median[i]:%d len:%d len_b:%d med_i: %d\n", __func__, __LINE__, SORTED, MEDIANS[MED_I], LEN, LEN_B, MED_I);
+		// obj->medians[obj->med_i] -= 1; // rotate should also alter this decrement
+		// within divide b, as not all elements will be pushed, (and therefore 
+		// arrive here to be decreased)
+	// printf("func: %s line:%d sorted:%d median[i]:%d len:%d len_b:%d med_i: %d\n", __func__, __LINE__, SORTED, MEDIANS[MED_I], LEN, LEN_B, MED_I);
+		// obj->len_b--;
+		// obj->len++;
 	}
 }
 
@@ -334,9 +336,9 @@ void			unsrt_bttm_macro(t_node **node, char insert_at_end, t_ps_obj *obj)
 	{
 		if (*node == STCK_A)
 			--UNSRT_BTTM_A;
+		// else if (*node == STCK_B)
+		// 	--UNSRT_BTTM_B;
 	}
-	// 	else if (*node == STCK_B)
-	// 		--UNSRT_BTTM_B;
 	// }
 }
 

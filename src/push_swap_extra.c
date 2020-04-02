@@ -12,16 +12,17 @@
 
 #include "ft_push_swap.h"
 
-void			print_array(t_ps_obj *obj)
+void			print_array(t_ps_obj *obj, int length)
 {
 	int		i;
 
 	i = 0;
-	while (LEN && i < LEN)
+	while (i < length)
 	{
-		printf("array[%d]:%d  LEN:%d\n", i, obj->array[i], LEN);
+		printf("array[%d]:%d\n", i, obj->array[i]);
 		i++;
 	}
+	print_medians(obj);
 }
 
 void			delete_sorted_array(t_ps_obj *obj)

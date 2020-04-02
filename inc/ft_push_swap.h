@@ -26,6 +26,7 @@
 # define SORTED			obj->sorted
 # define PIVOT			obj->pivot
 # define ARRAY			obj->array
+# define HOLDER			obj->holder
 # define UNSORTED		LEN - SORTED
 # define UNSRT_BTTM_A	obj->unsorted_bottom_a
 # define UNSRT_BTTM_B	obj->unsorted_bottom_b
@@ -51,6 +52,7 @@ typedef struct		s_ps_obj
 	int				len;
 	int				len_b;
 	int				sorted;
+	int				holder;
 	int				med_i;
 	int				unsorted_bottom_a;
 	int				unsorted_bottom_b;
@@ -81,7 +83,7 @@ int				execute_op_code2(char *operation, t_ps_obj *obj);
 int				execute_op_code(char *operation, t_ps_obj *obj);
 
 // ******************************************* push_swap funcs
-void			print_array(t_ps_obj *obj);
+void			print_array(t_ps_obj *obj, int length);
 void			delete_sorted_array(t_ps_obj *obj);
 void			create_and_srt_array(t_ps_obj *obj);
 void			return_to_head(t_ps_obj *obj);
@@ -92,6 +94,7 @@ void			push(t_node **src, t_node **dest, t_ps_obj *obj);
 void			navigate_thru_lnkd_lst(t_node **node, char go_to_end);
 void			sort_three_or_less(t_ps_obj *obj);
 void			print_medians(t_ps_obj *obj);
+
 
 
 
