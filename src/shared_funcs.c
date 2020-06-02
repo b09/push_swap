@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/26 19:32:58 by bprado         #+#    #+#                */
-/*   Updated: 2020/06/02 18:25:25 by bprado        ########   odam.nl         */
+/*   Created: 2020/02/26 19:32:58 by bprado        #+#    #+#                 */
+/*   Updated: 2020/06/02 18:58:32 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +127,10 @@ t_node			*create_lnkd_lst(t_ps_obj *obj, int size)
 		while (size)
 		{
 			DATA_A = ft_atoi(ARGV[i]);
-			temp = ft_memalloc(sizeof(t_node));
-			NEXT_A = temp;
-			temp->previous = STCK_A;
+			NEXT_A = ft_memalloc(sizeof(t_node));
+			NEXT_A->previous = STCK_A;
 			STCK_A = NEXT_A;
-			--size;
-			++i;
+			++i && --size;
 		}
 		DATA_A = ft_atoi(ARGV[i]);
 		NEXT_A = NULL;

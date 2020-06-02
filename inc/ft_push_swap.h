@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/27 18:13:22 by bprado         #+#    #+#                */
-/*   Updated: 2020/06/02 15:36:26 by bprado        ########   odam.nl         */
+/*   Created: 2020/01/27 18:13:22 by bprado        #+#    #+#                 */
+/*   Updated: 2020/06/02 18:42:30 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define UNSORTED		LEN - SORTED
 # define UNSRT_BTTM_A	obj->unsorted_bottom_a
 # define UNSRT_BTTM_B	obj->unsorted_bottom_b
-# define MEDS		obj->medians
+# define MEDS			obj->medians
 # define MED_I			obj->med_i
 # define DATA_A			STCK_A->data
 # define DATA_B			STCK_B->data
@@ -87,7 +87,7 @@ static void		sort_lnkd_lst(t_ps_obj *obj);
 // void			sort_three_or_less(t_ps_obj *obj);
 void			print_array(t_ps_obj *obj, int length);
 void			delete_sorted_array(t_ps_obj *obj);
-void			create_and_srt_array(t_ps_obj *obj);
+void			create_and_srt_array(t_ps_obj *obj, int i);
 void			return_to_head(t_ps_obj *obj);
 int				remove_spaces_digits_minus(char *str);
 t_node			*create_lnkd_lst_single_string(t_ps_obj *obj);

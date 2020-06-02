@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/02 19:00:19 by bprado         #+#    #+#                */
-/*   Updated: 2020/06/02 18:27:21 by bprado        ########   odam.nl         */
+/*   Created: 2020/03/02 19:00:19 by bprado        #+#    #+#                 */
+/*   Updated: 2020/06/02 18:42:53 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,13 @@ void			delete_sorted_array(t_ps_obj *obj)
 	}
 }
 
-void			create_and_srt_array(t_ps_obj *obj)
+void			create_and_srt_array(t_ps_obj *obj, int i)
 {
 	int			*array;
-	int			i;
 	t_node		*head;
 
 	head = STCK_A;
 	array = ft_memalloc(sizeof(int) * LEN);
-	i = 0;
 	while (i < LEN && STCK_A != NULL)
 	{
 		array[i] = DATA_A;

@@ -5,15 +5,16 @@
 /*                                                     +:+                    */
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/19 13:05:02 by bprado         #+#    #+#                */
-/*   Updated: 2020/06/02 18:26:24 by bprado        ########   odam.nl         */
+/*   Created: 2020/02/19 13:05:02 by bprado        #+#    #+#                 */
+/*   Updated: 2020/06/02 18:38:33 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
 /*
- ** must validate strings of input; "1 2 3 4" as well as "1" "2" "3" "4"
+**	must validate strings of input; "1 2 3 4" as well as "1" "2" "3" "4"
+**	print_content_lnkd_list(&obj);
 */
 
 int				main(int argc, char **argv)
@@ -27,12 +28,10 @@ int				main(int argc, char **argv)
 	obj.len = argc - 1;
 	obj.argv = argv;
 	obj.stck_a = create_lnkd_lst(&obj, argc - 1);
-	print_content_lnkd_list(&obj);
 	if (!manipulate_stacks(&obj))
 		return (0);
 	verify_order_of_data(&obj);
 	delete_lnkd_list(&obj, &(obj.stck_a));
-	printf("address of stack_a after freeing list: %p\n", obj.stck_a);
 	return (0);
 }
 

@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/26 18:58:41 by bprado         #+#    #+#                */
-/*   Updated: 2020/06/02 18:26:53 by bprado        ########   odam.nl         */
+/*   Created: 2020/02/26 18:58:41 by bprado        #+#    #+#                 */
+/*   Updated: 2020/06/02 18:42:02 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int				main(int argc, char **argv)
 	obj.len = argc - 1;
 	obj.argv = argv;
 	obj.stck_a = create_lnkd_lst(&obj, argc - 1);
-	create_and_srt_array(&obj);
+	create_and_srt_array(&obj, 0);
 	sort_lnkd_lst(&obj);
 	delete_lnkd_list(&obj, &(obj.stck_a));
 	delete_sorted_array(&obj);
