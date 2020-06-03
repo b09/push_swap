@@ -6,34 +6,11 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:58:41 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/02 18:42:02 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/03 18:52:24 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
-
-/*
-**	argv may contain a single string of multiple ints, in which case
-**	obj.len will be reassigned by create_lnkd_lst_single_string() later on
-*/
-
-int				main(int argc, char **argv)
-{
-	t_ps_obj	obj;
-	char		*str;
-
-	ft_bzero(&obj, sizeof(obj));
-	if (argc < 2 || !argv || !validate_argv(argc, argv))
-		return (-1);
-	obj.len = argc - 1;
-	obj.argv = argv;
-	obj.stck_a = create_lnkd_lst(&obj, argc - 1);
-	create_and_srt_array(&obj, 0);
-	sort_lnkd_lst(&obj);
-	delete_lnkd_list(&obj, &(obj.stck_a));
-	delete_sorted_array(&obj);
-	return (0);
-}
 
 /*
 **	the executable will receive a list of unsorted ints. a copy of all ints
@@ -75,8 +52,7 @@ static void		sort_three_or_less(t_ps_obj *obj)
 	temp = 0;
 	if (LEN == 1 || UNSORTED == 2 || UNSORTED == 1)
 	{
-		if (UNSORTED == 2 && DATA_A > NEXT_A->data)
-			swap(STCK_A, 1, obj);
+		UNSORTED == 2 && DATA_A > NEXT_A->data && swap(STCK_A, 1, obj);
 		SORTED = LEN;
 	}
 	else if (SORTED != LEN)
@@ -86,10 +62,8 @@ static void		sort_three_or_less(t_ps_obj *obj)
 		++SORTED;
 		if (temp == STCK_A || temp == NEXT_A)
 		{
-			if (temp == STCK_A)
-				swap(STCK_A, 1, obj);
-			rotate(&STCK_A, 1, obj);
-			swap(STCK_A, 1, obj);
+			temp == STCK_A && swap(STCK_A, 1, obj);
+			rotate(&STCK_A, 1, obj) && swap(STCK_A, 1, obj);
 			rotate(&STCK_A, 0, obj);
 		}
 		sort_three_or_less(obj);
@@ -100,7 +74,10 @@ static int		helper_for_divide(t_ps_obj *obj, t_node **node)
 {
 	if (((node == &STCK_A && (*node)->data < PIVOT) || \
 		(node == &STCK_B && (*node)->data >= PIVOT)))
-		return (1);
+		{
+			push(node, node == &STCK_A ? &STCK_B : &STCK_A, obj);
+			return (1);
+		}
 	return (0);
 }
 
@@ -116,19 +93,12 @@ static void		divide(t_ps_obj *obj, char one_zero, t_node **node)
 	one_zero = length <= 3 && MED_I == 0 && node == &STCK_B ? 1 : one_zero;
 	while (*node != NULL && i < length)
 	{
+		if (LEN + LEN_B <= 6 && LEN == 3 && node == &STCK_A)
+			return ;
 		if (one_zero)
-		{
-			if (helper_for_divide(obj, node))
-				push(node, node == &STCK_A ? &STCK_B : &STCK_A, obj);
-			else
-				rotate(node, one_zero, obj);
-		}
+			!helper_for_divide(obj, node) && rotate(node, one_zero, obj);
 		else
-		{
-			rotate(node, one_zero, obj);
-			if (helper_for_divide(obj, node))
-				push(node, node == &STCK_A ? &STCK_B : &STCK_A, obj);
-		}
+			rotate(node, one_zero, obj) && helper_for_divide(obj, node);
 		++i;
 	}
 }
@@ -160,4 +130,30 @@ static void		sort_lnkd_lst(t_ps_obj *obj)
 			UNSRT_BTTM_B = 0;
 		}
 	}
+}
+
+/*
+**	argv may contain a single string of multiple ints, in which case
+**	obj.len will be reassigned by create_lnkd_lst_single_string() later on
+*/
+
+int				main(int argc, char **argv)
+{
+	t_ps_obj	obj;
+	char		*str;
+
+	ft_bzero(&obj, sizeof(obj));
+	if (argc < 2 || !argv || !validate_argv(argc, argv))
+		return (-1);
+	obj.len = argc - 1;
+	obj.argv = argv;
+	obj.stck_a = create_lnkd_lst(&obj, argc - 1);
+	if (check_if_unsorted(&obj, 0))
+	{
+		create_and_srt_array(&obj, 0);
+		sort_lnkd_lst(&obj);
+		delete_sorted_array(&obj);
+	}
+	delete_lnkd_list(&obj, &(obj.stck_a));
+	return (0);
 }

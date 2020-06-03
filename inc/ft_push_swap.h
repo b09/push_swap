@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/02 18:42:30 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/03 19:03:19 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 
 #include "libft.h"
 #include <stdio.h>
-
 
 # define ARGV			obj->argv
 # define STCK_A			obj->stck_a
@@ -63,27 +62,27 @@ typedef struct		s_ps_obj
 	int				*array;
 }					t_ps_obj;
 
-void			verify_order_of_data(t_ps_obj *obj);
+// void			verify_order_of_data(t_ps_obj *obj);
 char			*read_stdin(void);
 void			delete_lnkd_list(t_ps_obj *obj, t_node **list); //
 int				validate_argv(int argc, char **argv);
 t_node			*create_lnkd_lst(t_ps_obj *obj, int size);
 void			print_content_lnkd_list(t_ps_obj *obj);
 // void    		swap(t_node *stack, char io);	
-void    		swap(t_node *stack, char swap_going_down_list, t_ps_obj *obj);
+int	    		swap(t_node *stack, char swap_going_down_list, t_ps_obj *obj);
 // t_node			*unlink_node(t_node **node, char forward);
 t_node			*unlink_node(t_node **node, char get_first_node);
 // void			insert_node(t_node *src, t_node **dest, char forward);
 void			insert_node(t_node *loose_node, t_node **dest, char add_to_end);
 // void			rotate(t_node **node, char io);
-void			rotate(t_node **node, char insert_at_end, t_ps_obj *obj);
+int				rotate(t_node **node, char insert_at_end, t_ps_obj *obj);
 
-int				manipulate_stacks(t_ps_obj *obj);
-int				execute_op_code2(char *operation, t_ps_obj *obj);
-int				execute_op_code(char *operation, t_ps_obj *obj);
+// int				manipulate_stacks(t_ps_obj *obj);
+// int				execute_op_code2(char *operation, t_ps_obj *obj);
+// int				execute_op_code(char *operation, t_ps_obj *obj);
 
 // ******************************************* push_swap funcs
-static void		sort_lnkd_lst(t_ps_obj *obj);
+// static void		sort_lnkd_lst(t_ps_obj *obj);
 // void			sort_three_or_less(t_ps_obj *obj);
 void			print_array(t_ps_obj *obj, int length);
 void			delete_sorted_array(t_ps_obj *obj);
@@ -94,27 +93,6 @@ t_node			*create_lnkd_lst_single_string(t_ps_obj *obj);
 void			push(t_node **src, t_node **dest, t_ps_obj *obj);
 void			navigate_thru_lnkd_lst(t_node **node, char go_to_end);
 void			print_medians(t_ps_obj *obj);
-
-
-
-
-
-
-
-
-
-
-
+int				check_if_unsorted(t_ps_obj *obj, int i);
 
 #endif
-
-
-/*
-	validate_argv
-	create_linked_list
-	create_and_sort_array
-	sort_linked_list
-		divide_a
-			sort_three_or_less
-		divide_b
-*/

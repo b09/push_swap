@@ -6,24 +6,11 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:00:19 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/02 18:42:53 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/03 18:54:21 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
-
-void			print_array(t_ps_obj *obj, int length)
-{
-	int		i;
-
-	i = 0;
-	while (i < length)
-	{
-		printf("array[%d]:%d\n", i, obj->array[i]);
-		i++;
-	}
-	print_medians(obj);
-}
 
 void			delete_sorted_array(t_ps_obj *obj)
 {
@@ -61,4 +48,21 @@ void			create_and_srt_array(t_ps_obj *obj, int i)
 	}
 	obj->array = array;
 	STCK_A = head;
+}
+
+int				check_if_unsorted(t_ps_obj *obj, int i)
+{
+	t_node		*unsorted_input;
+
+	unsorted_input = STCK_A;
+	i = 0;
+	while (unsorted_input)
+	{
+
+		if (unsorted_input->next && \
+			unsorted_input->data > unsorted_input->next->data)
+			return (1);
+		unsorted_input = unsorted_input->next;
+	}
+	return (0);
 }
