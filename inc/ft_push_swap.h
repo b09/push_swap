@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/03 19:03:19 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/04 18:16:42 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,15 @@
 # define NEXT_B			STCK_B->next
 # define PREV_A			STCK_A->previous
 # define PREV_B			STCK_B->previous
+
+// *** COLORS ***
+#define C_RED     "\x1b[31m"
+#define C_GREEN   "\x1b[32m"
+#define C_YELLOW  "\x1b[33m"
+#define C_BLUE    "\x1b[34m"
+#define C_MAGENTA "\x1b[35m"
+#define C_CYAN    "\x1b[36m"
+#define C_RESET   "\x1b[0m"
 
 typedef	struct		s_node
 {
@@ -94,5 +103,7 @@ void			push(t_node **src, t_node **dest, t_ps_obj *obj);
 void			navigate_thru_lnkd_lst(t_node **node, char go_to_end);
 void			print_medians(t_ps_obj *obj);
 int				check_if_unsorted(t_ps_obj *obj, int i);
+int				repeats_in_sorted_array(t_ps_obj *obj);
+
 
 #endif

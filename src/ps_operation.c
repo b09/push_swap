@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 17:54:11 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/03 19:03:20 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/04 18:59:51 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int				rotate(t_node **node, char insert_at_end, t_ps_obj *obj)
 	(*node == STCK_A) ? ft_putstr("ra\n") : ft_putstr("rb\n");
 	insert_at_end && *node == STCK_A && ++UNSRT_BTTM_A;
 	insert_at_end && *node == STCK_B && ++UNSRT_BTTM_B;
-	!insert_at_end && *node == STCK_A && ++UNSRT_BTTM_A;
+	!insert_at_end && *node == STCK_A && --UNSRT_BTTM_A;
 	return (1);
 }
 

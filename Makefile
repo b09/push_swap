@@ -6,70 +6,14 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/06/03 16:52:44 by bprado        #+#    #+#                  #
-#    Updated: 2020/06/03 18:27:37 by bprado        ########   odam.nl          #
+#    Updated: 2020/06/04 18:16:07 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
-
-
-# NAME 			= checker push_swap
-
-# # CFLAGS	= -Wall -Wextra -Werror -g
-# CFLAGS	= #-Wall -Wextra -Werror -g
-
-# SRC 	= $(wildcard src/*.c)
-
-# # CHECKER_ SRC	= src/checker.c src/ps_operation.c
-
-# LIB 			= ./libft
-
-# LIB_A			= ./libft/libft.a
-
-# INC 			= -I inc -I libft/includes
-
-# OBJ				= $(patsubst src/%.c,obj/%.o,$(SRC))
-
-
-# all: $(NAME)
-
-# checker: $(OBJ) libft/libft.a
-# 	@echo "compiling ..."
-# 	$(CC) -o $@ $(CFLAGS) $(INC) $(SRC) $(LIB_A)
-# 	@echo "Done !!!"
-
-# push_swap:
-
-# obj/%.o: src/%.c inc/ft_push_swap.h
-# 	@mkdir -p obj
-# 	$(CC) -c $(CFLAGS) $(INC) -o $@ $<
-# 	@echo "obj files done ..."
-
-# libft/libft.a: $(wildcard libft/*.c)
-# 	@$(MAKE) -C $(LIB)
-
-# clean:
-# 	@echo "cleaning ..."
-# 	@make clean -C $(LIB)
-# 	@rm -rf obj
-
-# fclean:	clean
-# 	@make fclean -C $(LIB)
-# 	@rm -rf $(NAME) test
-
-# test: test.c $(NAME)
-# 	@$(CC) -o $@ -Wall -Wextra -g $(INC) $^
-
-# re:	fclean all
-
-
-
-
-
-
 
 NAME			= checker
 
 # CFLAGS	= -Wall -Wextra -Werror -g
-CFLAGS	= #-Wall -Wextra -Werror -g
+CFLAGS	= -g
 
 NAME_PS 		= push_swap
 
@@ -92,7 +36,6 @@ LIB_A			= ./libft/libft.a
 INC 			= -I inc -I libft/includes
 
 OBJ				= $(patsubst src/%.c,obj/%.o,$(SRC_C))
-
 
 all: $(NAME) $(NAME_PS)
 

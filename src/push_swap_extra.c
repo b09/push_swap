@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:00:19 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/03 18:54:21 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/04 17:02:27 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,25 @@ int				check_if_unsorted(t_ps_obj *obj, int i)
 			unsorted_input->data > unsorted_input->next->data)
 			return (1);
 		unsorted_input = unsorted_input->next;
+	}
+	return (0);
+}
+
+int				repeats_in_sorted_array(t_ps_obj *obj)
+{
+	int			i;
+	int			*array;
+
+	i = 0;
+	array = ARRAY;
+	while (LEN && i < (LEN - 1))
+	{
+		if (array[i] == array[i + 1])
+		{
+			ft_putstr("Error: Multiple integers with same value\n");
+			return (1);
+		}
+		i++;
 	}
 	return (0);
 }
