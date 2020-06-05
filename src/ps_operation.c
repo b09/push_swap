@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 17:54:11 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/04 18:59:51 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 18:35:56 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 
 int				swap(t_node *stack, char swap_going_down_list, t_ps_obj *obj)
 {
-	stack == STCK_A ? ft_putstr("sa\n") : ft_putstr("sb\n");
+	if (ft_strcmp(obj->argv[0], "./checker"))
+		stack == STCK_A ? ft_putstr("sa\n") : ft_putstr("sb\n");
 	if (stack == NULL)
 		return (0);
 	if (swap_going_down_list && stack->next != NULL)
@@ -93,38 +94,18 @@ void			push(t_node **src, t_node **dest, t_ps_obj *obj)
 	insert_node(unlink_node(src, 1), dest, 0);
 	if (*src == STCK_A)
 	{
-		ft_putstr("pb\n");
+		if (ft_strcmp(obj->argv[0], "./checker"))
+			ft_putstr("pb\n");
 		++(MEDS[MED_I]);
 		--LEN;
 		++LEN_B;
 	}
 	else
 	{
-		ft_putstr("pa\n");
+		if (ft_strcmp(obj->argv[0], "./checker"))
+			ft_putstr("pa\n");
 		--LEN_B;
 		++LEN;
-	}
-}
-
-/*
-**	should rewrite to traverse linked list up to specified point, which would be
-**	necessary for the divide_a && divide_b funcs to not interate over the entire
-**	linked list, rather just the sections that are unsorted
-*/
-
-void			navigate_thru_lnkd_lst(t_node **node, char go_to_end)
-{
-	if (go_to_end)
-	{
-		while ((*node)->next != NULL)
-			*node = (*node)->next;
-		return ;
-	}
-	else
-	{
-		while ((*node)->previous != NULL)
-			*node = (*node)->previous;
-		return ;
 	}
 }
 
@@ -140,12 +121,14 @@ int				rotate(t_node **node, char insert_at_end, t_ps_obj *obj)
 	navigate_thru_lnkd_lst(node, insert_at_end);
 	insert_node(loose_node, node, insert_at_end);
 	navigate_thru_lnkd_lst(node, 0);
-	if (*node != NULL && insert_at_end == 0)
-		ft_putchar('r');
-	(*node == STCK_A) ? ft_putstr("ra\n") : ft_putstr("rb\n");
+	if (ft_strcmp(obj->argv[0], "./checker"))
+	{
+		if (*node != NULL && insert_at_end == 0)
+			ft_putchar('r');
+		(*node == STCK_A) ? ft_putstr("ra\n") : ft_putstr("rb\n");
+	}
 	insert_at_end && *node == STCK_A && ++UNSRT_BTTM_A;
 	insert_at_end && *node == STCK_B && ++UNSRT_BTTM_B;
 	!insert_at_end && *node == STCK_A && --UNSRT_BTTM_A;
 	return (1);
 }
-

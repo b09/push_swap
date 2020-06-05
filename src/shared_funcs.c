@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 19:32:58 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/03 18:59:02 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 18:33:42 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int				validate_argv(int argc, char **argv)
 	return (1);
 }
 
-int				remove_spaces_digits_minus(char *str)
+static int		remove_spaces_digits_minus(char *str)
 {
 	int			i;
 
@@ -111,9 +111,8 @@ t_node			*create_lnkd_lst_single_string(t_ps_obj *obj)
 	return (head);
 }
 
-t_node			*create_lnkd_lst(t_ps_obj *obj, int size)
+t_node			*create_lnkd_lst(t_ps_obj *obj, int size, t_node *head)
 {
-	t_node		*head;
 	t_node		*temp;
 	int			i;
 
@@ -130,7 +129,8 @@ t_node			*create_lnkd_lst(t_ps_obj *obj, int size)
 			NEXT_A = ft_memalloc(sizeof(t_node));
 			NEXT_A->previous = STCK_A;
 			STCK_A = NEXT_A;
-			++i && --size;
+			++i;
+			--size;
 		}
 		DATA_A = ft_atoi(ARGV[i]);
 		NEXT_A = NULL;

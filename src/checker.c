@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/03 18:58:38 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 18:35:14 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static int		execute_op_code(char *operation, t_ps_obj *obj)
 **	"i = execute_op_code(operation, obj);" to view stack after every
 **	operation
 */
+
 static int		manipulate_stacks(t_ps_obj *obj)
 {
 	char		*operation;
@@ -108,14 +109,15 @@ static void		verify_order_of_data(t_ps_obj *obj)
 int				main(int argc, char **argv)
 {
 	t_ps_obj	obj;
-	char		*str;
+	t_node		*head;
 
+	head = NULL;
 	ft_bzero(&obj, sizeof(obj));
 	if (argc < 2 || !argv || !validate_argv(argc, argv))
 		return (0);
 	obj.len = argc - 1;
 	obj.argv = argv;
-	obj.stck_a = create_lnkd_lst(&obj, argc - 1);
+	obj.stck_a = create_lnkd_lst(&obj, argc - 1, head);
 	if (!manipulate_stacks(&obj))
 		return (0);
 	verify_order_of_data(&obj);

@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:58:41 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/04 19:02:46 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 18:33:27 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,14 +203,15 @@ static void		sort_lnkd_lst(t_ps_obj *obj)
 int				main(int argc, char **argv)
 {
 	t_ps_obj	obj;
-	char		*str;
+	t_node		*head;
 
+	head = NULL;
 	ft_bzero(&obj, sizeof(obj));
 	if (argc < 2 || !argv || !validate_argv(argc, argv))
 		return (-1);
 	obj.len = argc - 1;
 	obj.argv = argv;
-	obj.stck_a = create_lnkd_lst(&obj, argc - 1);
+	obj.stck_a = create_lnkd_lst(&obj, argc - 1, head);
 	if (check_if_unsorted(&obj, 0))
 	{
 		create_and_srt_array(&obj, 0);

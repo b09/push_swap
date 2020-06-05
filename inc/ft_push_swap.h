@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/04 18:16:42 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 18:33:54 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ typedef struct		s_ps_obj
 char			*read_stdin(void);
 void			delete_lnkd_list(t_ps_obj *obj, t_node **list); //
 int				validate_argv(int argc, char **argv);
-t_node			*create_lnkd_lst(t_ps_obj *obj, int size);
+t_node			*create_lnkd_lst(t_ps_obj *obj, int size, t_node *head);
 void			print_content_lnkd_list(t_ps_obj *obj);
 // void    		swap(t_node *stack, char io);	
 int	    		swap(t_node *stack, char swap_going_down_list, t_ps_obj *obj);
@@ -97,7 +97,7 @@ void			print_array(t_ps_obj *obj, int length);
 void			delete_sorted_array(t_ps_obj *obj);
 void			create_and_srt_array(t_ps_obj *obj, int i);
 void			return_to_head(t_ps_obj *obj);
-int				remove_spaces_digits_minus(char *str);
+// int				remove_spaces_digits_minus(char *str);
 t_node			*create_lnkd_lst_single_string(t_ps_obj *obj);
 void			push(t_node **src, t_node **dest, t_ps_obj *obj);
 void			navigate_thru_lnkd_lst(t_node **node, char go_to_end);

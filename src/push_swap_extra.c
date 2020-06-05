@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:00:19 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/04 17:02:27 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 18:35:45 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ int				check_if_unsorted(t_ps_obj *obj, int i)
 	i = 0;
 	while (unsorted_input)
 	{
-
 		if (unsorted_input->next && \
 			unsorted_input->data > unsorted_input->next->data)
 			return (1);
@@ -84,4 +83,26 @@ int				repeats_in_sorted_array(t_ps_obj *obj)
 		i++;
 	}
 	return (0);
+}
+
+/*
+**	should rewrite to traverse linked list up to specified point, which would be
+**	necessary for the divide_a && divide_b funcs to not interate over the entire
+**	linked list, rather just the sections that are unsorted
+*/
+
+void			navigate_thru_lnkd_lst(t_node **node, char go_to_end)
+{
+	if (go_to_end)
+	{
+		while ((*node)->next != NULL)
+			*node = (*node)->next;
+		return ;
+	}
+	else
+	{
+		while ((*node)->previous != NULL)
+			*node = (*node)->previous;
+		return ;
+	}
 }
