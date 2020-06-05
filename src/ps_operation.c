@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 17:54:11 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/05 19:18:10 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 20:12:13 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 int				swap(t_node *stack, char swap_going_down_list, t_ps_obj *obj)
 {
 	if (ft_strcmp(obj->argv[0], "./checker"))
-		stack == STCK_A ? ft_putstr("sa\n") : ft_putstr("sb\n");
+		stack == obj->stck_a ? ft_putstr("sa\n") : ft_putstr("sb\n");
 	if (stack == NULL)
 		return (0);
 	if (swap_going_down_list && stack->next != NULL)
@@ -36,7 +36,7 @@ int				swap(t_node *stack, char swap_going_down_list, t_ps_obj *obj)
 **	must account for final node
 */
 
-t_node			*unlink_node(t_node **node, char get_first_node)
+static t_node	*unlink_node(t_node **node, char get_first_node)
 {
 	t_node		*unlinked_node;
 
@@ -59,7 +59,7 @@ t_node			*unlink_node(t_node **node, char get_first_node)
 	return (unlinked_node);
 }
 
-void			insert_node(t_node *loose_node, t_node **dest, char add_to_end)
+static void		insert_node(t_node *loose_node, t_node **dest, char add_to_end)
 {
 	if (loose_node == NULL)
 		return ;
@@ -88,20 +88,20 @@ void			insert_node(t_node *loose_node, t_node **dest, char add_to_end)
 void			push(t_node **src, t_node **dest, t_ps_obj *obj)
 {
 	insert_node(unlink_node(src, 1), dest, 0);
-	if (*src == STCK_A)
+	if (*src == obj->stck_a)
 	{
 		if (ft_strcmp(obj->argv[0], "./checker"))
 			ft_putstr("pb\n");
 		++(MEDS[MED_I]);
-		--LEN;
-		++LEN_B;
+		--obj->len;
+		++obj->len_b;
 	}
 	else
 	{
 		if (ft_strcmp(obj->argv[0], "./checker"))
 			ft_putstr("pa\n");
-		--LEN_B;
-		++LEN;
+		--obj->len_b;
+		++obj->len;
 	}
 }
 
@@ -121,10 +121,10 @@ int				rotate(t_node **node, char insert_at_end, t_ps_obj *obj)
 	{
 		if (*node != NULL && insert_at_end == 0)
 			ft_putchar('r');
-		(*node == STCK_A) ? ft_putstr("ra\n") : ft_putstr("rb\n");
+		(*node == obj->stck_a) ? ft_putstr("ra\n") : ft_putstr("rb\n");
 	}
-	insert_at_end && *node == STCK_A && ++UNSRT_BTTM_A;
-	insert_at_end && *node == STCK_B && ++UNSRT_BTTM_B;
-	!insert_at_end && *node == STCK_A && --UNSRT_BTTM_A;
+	insert_at_end && *node == obj->stck_a && ++UNSRT_BTTM_A;
+	insert_at_end && *node == obj->stck_b && ++UNSRT_BTTM_B;
+	!insert_at_end && *node == obj->stck_a && --UNSRT_BTTM_A;
 	return (1);
 }

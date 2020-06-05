@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 19:32:58 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/05 19:09:33 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 20:12:23 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 
 void			delete_lnkd_list(t_ps_obj *obj, t_node **list)
 {
-	while (STCK_B != NULL)
+	while (obj->stck_b != NULL)
 	{
-		push(&STCK_B, &STCK_A, obj);
-		navigate_thru_lnkd_lst(&STCK_A, 0);
-		navigate_thru_lnkd_lst(&STCK_B, 0);
+		push(&obj->stck_b, &obj->stck_a, obj);
+		navigate_thru_lnkd_lst(&obj->stck_a, 0);
+		navigate_thru_lnkd_lst(&obj->stck_b, 0);
 	}
 	if (*list != NULL)
 	{
@@ -89,24 +89,24 @@ t_node			*create_lnkd_lst_single_string(t_ps_obj *obj)
 	int			i;
 
 	head = ft_memalloc(sizeof(t_node));
-	STCK_A = head;
+	obj->stck_a = head;
 	PREV_A = NULL;
 	i = 0;
-	while (ARGV[1][i] != 0)
+	while (obj->argv[1][i] != 0)
 	{
-		DATA_A = ft_atoi(&ARGV[1][i]);
-		i += remove_spaces_digits_minus(&ARGV[1][i]);
-		if (ARGV[1][i])
+		DATA_A = ft_atoi(&obj->argv[1][i]);
+		i += remove_spaces_digits_minus(&obj->argv[1][i]);
+		if (obj->argv[1][i])
 		{
-			++LEN;
+			++obj->len;
 			temp = ft_memalloc(sizeof(t_node));
 			NEXT_A = temp;
-			temp->previous = STCK_A;
-			STCK_A = NEXT_A;
+			temp->previous = obj->stck_a;
+			obj->stck_a = NEXT_A;
 		}
 	}
-	if (i == 0 && ft_strlen(ARGV[1]))
-		DATA_A = ft_atoi(&ARGV[1][i]);
+	if (i == 0 && ft_strlen(obj->argv[1]))
+		DATA_A = ft_atoi(&obj->argv[1][i]);
 	NEXT_A = NULL;
 	return (head);
 }
@@ -119,20 +119,20 @@ t_node			*create_lnkd_lst(t_ps_obj *obj, int size, t_node *head)
 	if (size != 1)
 	{
 		head = ft_memalloc(sizeof(t_node));
-		STCK_A = head;
+		obj->stck_a = head;
 		PREV_A = NULL;
 		i = 1;
 		--size;
 		while (size)
 		{
-			DATA_A = ft_atoi(ARGV[i]);
+			DATA_A = ft_atoi(obj->argv[i]);
 			NEXT_A = ft_memalloc(sizeof(t_node));
-			NEXT_A->previous = STCK_A;
-			STCK_A = NEXT_A;
+			NEXT_A->previous = obj->stck_a;
+			obj->stck_a = NEXT_A;
 			++i;
 			--size;
 		}
-		DATA_A = ft_atoi(ARGV[i]);
+		DATA_A = ft_atoi(obj->argv[i]);
 		NEXT_A = NULL;
 	}
 	else

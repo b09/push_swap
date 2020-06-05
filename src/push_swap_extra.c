@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:00:19 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/05 18:35:45 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 20:12:22 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,16 @@ void			create_and_srt_array(t_ps_obj *obj, int i)
 	int			*array;
 	t_node		*head;
 
-	head = STCK_A;
-	array = ft_memalloc(sizeof(int) * LEN);
-	while (i < LEN && STCK_A != NULL)
+	head = obj->stck_a;
+	array = ft_memalloc(sizeof(int) * obj->len);
+	while (i < obj->len && obj->stck_a != NULL)
 	{
 		array[i] = DATA_A;
-		STCK_A = NEXT_A;
+		obj->stck_a = NEXT_A;
 		i++;
 	}
 	i = 0;
-	while (LEN && i < (LEN - 1))
+	while (obj->len && i < (obj->len - 1))
 	{
 		if (array[i] < array[i + 1])
 		{
@@ -47,14 +47,14 @@ void			create_and_srt_array(t_ps_obj *obj, int i)
 		i++;
 	}
 	obj->array = array;
-	STCK_A = head;
+	obj->stck_a = head;
 }
 
 int				check_if_unsorted(t_ps_obj *obj, int i)
 {
 	t_node		*unsorted_input;
 
-	unsorted_input = STCK_A;
+	unsorted_input = obj->stck_a;
 	i = 0;
 	while (unsorted_input)
 	{
@@ -73,7 +73,7 @@ int				repeats_in_sorted_array(t_ps_obj *obj)
 
 	i = 0;
 	array = ARRAY;
-	while (LEN && i < (LEN - 1))
+	while (obj->len && i < (obj->len - 1))
 	{
 		if (array[i] == array[i + 1])
 		{

@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:58:41 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/05 18:49:49 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 20:17:38 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,22 @@ static void		assign_pivot(t_ps_obj *obj, t_node *stack)
 	int			i;
 
 	i = 0;
-	if (stack == STCK_A && ARRAY)
+	if (stack == obj->stck_a && ARRAY)
 	{
-		PIVOT = obj->array[((UNSORTED) / 2) + SORTED - 1];
-		if (UNSORTED <= 5 && UNSORTED >= 3)
-			PIVOT = obj->array[LEN - (UNSORTED - 2)];
-		else if (UNSORTED < 3)
-			PIVOT = obj->array[LEN - 1];
+		PIVOT = obj->array[((obj->len - obj->sorted) / 2) + obj->sorted - 1];
+		if (obj->len - obj->sorted <= 5 && obj->len - obj->sorted >= 3)
+			PIVOT = obj->array[obj->len - (obj->len - obj->sorted - 2)];
+		else if (obj->len - obj->sorted < 3)
+			PIVOT = obj->array[obj->len - 1];
 	}
-	else if (stack == STCK_B && ARRAY)
+	else if (stack == obj->stck_b && ARRAY)
 	{
 		i = MEDS[MED_I] >= 0 ? MEDS[MED_I] : -MEDS[MED_I];
-		PIVOT = obj->array[LEN + (i / 2) - 1];
+		PIVOT = obj->array[obj->len + (i / 2) - 1];
 		if (i == 5)
-			PIVOT = obj->array[LEN + 3];
+			PIVOT = obj->array[obj->len + 3];
 		else if (i <= 3)
-			PIVOT = obj->array[LEN_B < 3 ? LEN + LEN_B - 1 : LEN + i - 1];
+			PIVOT = obj->array[obj->len_b < 3 ? obj->len + obj->len_b - 1 : obj->len + i - 1];
 	}
 }
 
@@ -50,21 +50,21 @@ static void		sort_three_or_less(t_ps_obj *obj)
 	t_node		*temp;
 
 	temp = 0;
-	if (LEN == 1 || UNSORTED == 2 || UNSORTED == 1)
+	if (obj->len == 1 || obj->len - obj->sorted == 2 || obj->len - obj->sorted == 1)
 	{
-		UNSORTED == 2 && DATA_A > NEXT_A->data && swap(STCK_A, 1, obj);
-		SORTED = LEN;
+		obj->len - obj->sorted == 2 && DATA_A > NEXT_A->data && swap(obj->stck_a, 1, obj);
+		obj->sorted = obj->len;
 	}
-	else if (SORTED != LEN)
+	else if (obj->sorted != obj->len)
 	{
-		temp = DATA_A > NEXT_A->data ? STCK_A : NEXT_A;
+		temp = DATA_A > NEXT_A->data ? obj->stck_a : NEXT_A;
 		temp = temp->data > NEXT_A->next->data ? temp : NEXT_A->next;
-		++SORTED;
-		if (temp == STCK_A || temp == NEXT_A)
+		++obj->sorted;
+		if (temp == obj->stck_a || temp == NEXT_A)
 		{
-			temp == STCK_A && swap(STCK_A, 1, obj);
-			rotate(&STCK_A, 1, obj) && swap(STCK_A, 1, obj);
-			rotate(&STCK_A, 0, obj);
+			temp == obj->stck_a && swap(obj->stck_a, 1, obj);
+			rotate(&obj->stck_a, 1, obj) && swap(obj->stck_a, 1, obj);
+			rotate(&obj->stck_a, 0, obj);
 		}
 		sort_three_or_less(obj);
 	}
@@ -74,21 +74,21 @@ static int		helper_for_divide(t_ps_obj *obj, t_node **node, char io)
 {
 	if (io)
 	{
-		if (((node == &STCK_A && (*node)->data < PIVOT) || \
-		(node == &STCK_B && (*node)->data >= PIVOT)))
+		if (((node == &obj->stck_a && (*node)->data < PIVOT) || \
+		(node == &obj->stck_b && (*node)->data >= PIVOT)))
 		{
-			push(node, node == &STCK_A ? &STCK_B : &STCK_A, obj);
+			push(node, node == &obj->stck_a ? &obj->stck_b : &obj->stck_a, obj);
 			return (1);
 		}
 		return (0);
 	}
 	else
 	{
-		if ((UNSRT_BTTM_A == LEN || UNSRT_BTTM_B == LEN_B))
+		if ((UNSRT_BTTM_A == obj->len || UNSRT_BTTM_B == obj->len_b))
 		{
-			if (node == &STCK_A)
+			if (node == &obj->stck_a)
 				UNSRT_BTTM_A = 0;
-			else if (node == &STCK_B)
+			else if (node == &obj->stck_b)
 				UNSRT_BTTM_B = 0;
 			return (1);
 		}
@@ -103,14 +103,14 @@ static void		divide(t_ps_obj *obj, char one_zero, t_node **node)
 
 	i = 0;
 	assign_pivot(obj, *node);
-	length = node == &STCK_A ? LEN - SORTED : MEDS[MED_I];
+	length = node == &obj->stck_a ? obj->len - obj->sorted : MEDS[MED_I];
 	length = MEDS[MED_I] < 0 ? -length : length;
-	one_zero = length <= 3 && MED_I == 0 && node == &STCK_B ? 1 : one_zero;
+	one_zero = length <= 3 && MED_I == 0 && node == &obj->stck_b ? 1 : one_zero;
 	if (helper_for_divide(obj, node, 0))
 		one_zero = 1;
 	while (*node != NULL && i < length)
 	{
-		if (LEN + LEN_B <= 6 && LEN == 3 && node == &STCK_A)
+		if (obj->len + obj->len_b <= 6 && obj->len == 3 && node == &obj->stck_a)
 			return ;
 		if (one_zero)
 			!helper_for_divide(obj, node, 1) && rotate(node, one_zero, obj);
@@ -124,24 +124,24 @@ void			sort_lnkd_lst(t_ps_obj *obj)
 {
 	int			current_len;
 
-	current_len = LEN;
-	while (SORTED != current_len)
+	current_len = obj->len;
+	while (obj->sorted != current_len)
 	{
-		while (UNSORTED > 3)
+		while (obj->len - obj->sorted > 3)
 		{
-			divide(obj, UNSRT_BTTM_A ? 0 : 1, &STCK_A);
+			divide(obj, UNSRT_BTTM_A ? 0 : 1, &obj->stck_a);
 			++MED_I;
 		}
-		while (UNSORTED <= 3 && UNSRT_BTTM_A && LEN > 3 && SORTED != 0)
-			rotate(&STCK_A, 0, obj);
+		while (obj->len - obj->sorted <= 3 && UNSRT_BTTM_A && obj->len > 3 && obj->sorted != 0)
+			rotate(&obj->stck_a, 0, obj);
 		sort_three_or_less(obj);
-		UNSRT_BTTM_A = LEN == 3 && SORTED == 3 ? 0 : UNSRT_BTTM_A;
-		if (LEN_B)
+		UNSRT_BTTM_A = obj->len == 3 && obj->sorted == 3 ? 0 : UNSRT_BTTM_A;
+		if (obj->len_b)
 		{
 			MED_I -= MED_I > 0 ? 1 : 0;
-			HOLDER = LEN_B - (MEDS[MED_I] < 0 ? -MEDS[MED_I] : MEDS[MED_I]);
-			divide(obj, MEDS[MED_I] < 0 && MED_I > 0 ? 0 : 1, &STCK_B);
-			HOLDER = LEN_B - HOLDER;
+			HOLDER = obj->len_b - (MEDS[MED_I] < 0 ? -MEDS[MED_I] : MEDS[MED_I]);
+			divide(obj, MEDS[MED_I] < 0 && MED_I > 0 ? 0 : 1, &obj->stck_b);
+			HOLDER = obj->len_b - HOLDER;
 			MEDS[MED_I] = UNSRT_BTTM_B != 0 ? -HOLDER : HOLDER;
 			MED_I += MEDS[MED_I] != 0 ? 1 : 0;
 			UNSRT_BTTM_B = 0;
