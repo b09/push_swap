@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/05 18:33:54 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 18:50:19 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int				rotate(t_node **node, char insert_at_end, t_ps_obj *obj);
 // int				execute_op_code(char *operation, t_ps_obj *obj);
 
 // ******************************************* push_swap funcs
-// static void		sort_lnkd_lst(t_ps_obj *obj);
+void			sort_lnkd_lst(t_ps_obj *obj);
 // void			sort_three_or_less(t_ps_obj *obj);
 void			print_array(t_ps_obj *obj, int length);
 void			delete_sorted_array(t_ps_obj *obj);

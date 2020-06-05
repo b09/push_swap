@@ -6,7 +6,7 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/06/03 16:52:44 by bprado        #+#    #+#                  #
-#    Updated: 2020/06/05 18:12:39 by bprado        ########   odam.nl          #
+#    Updated: 2020/06/05 18:48:27 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC_C 	=	src/checker.c \
 SRC_PS	=	src/push_swap.c \
 			src/ps_operation.c \
 			src/shared_funcs.c \
-			src/push_swap_extra.c
+			src/push_swap_extra.c \
+			src/push_swap_main.c
 
 # CHECKER_ SRC	= src/checker.c src/ps_operation.c
 

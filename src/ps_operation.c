@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 17:54:11 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/05 18:35:56 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 19:18:10 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,7 @@ int				swap(t_node *stack, char swap_going_down_list, t_ps_obj *obj)
 		stack->data ^= stack->next->data;
 		stack->next->data ^= stack->data;
 		stack->data ^= stack->next->data;
-		return (1);
 	}
-	stack->data ^= stack->previous->data;
-	stack->previous->data ^= stack->data;
-	stack->data ^= stack->previous->data;
 	return (1);
 }
 

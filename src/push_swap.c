@@ -6,52 +6,11 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:58:41 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/05 18:33:27 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/05 18:49:49 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
-
-void			print_array(t_ps_obj *obj, int length)
-{
-	int		i;
-
-	i = 0;
-	while (i < length)
-	{
-		printf("array[%d]:%d\n", i, obj->array[i]);
-		i++;
-	}
-	// print_medians(obj);
-}
-
-void			print_content_lnkd_list(t_ps_obj *obj)
-{
-	t_node		*head;
-	int			i;
-
-	i = 1;
-	head = STCK_A;
-	printf("STCK_A[0]:%d addr: %p\n", DATA_A, STCK_A);
-	STCK_A = STCK_A->next;
-	while (STCK_A != NULL)
-	{
-		printf("%s[%d]:%d addr: %p\n", "STCK_A", i++, DATA_A, STCK_A);
-		STCK_A = STCK_A->next;
-	}
-	printf("\n\n");
-	STCK_A = head;
-	i = 0;
-	head = STCK_B;
-	while (STCK_B != NULL && i < 100)
-	{
-		printf("%s[%d]:%d addr: %p\n", "STCK_B", i++, DATA_B, STCK_B);
-		STCK_B = STCK_B->next;
-		if (STCK_B == NULL)
-			printf("\n");
-	}
-	STCK_B = head;
-}
 
 /*
 **	the executable will receive a list of unsorted ints. a copy of all ints
@@ -116,11 +75,11 @@ static int		helper_for_divide(t_ps_obj *obj, t_node **node, char io)
 	if (io)
 	{
 		if (((node == &STCK_A && (*node)->data < PIVOT) || \
-			(node == &STCK_B && (*node)->data >= PIVOT)))
-			{
-				push(node, node == &STCK_A ? &STCK_B : &STCK_A, obj);
-				return (1);
-			}
+		(node == &STCK_B && (*node)->data >= PIVOT)))
+		{
+			push(node, node == &STCK_A ? &STCK_B : &STCK_A, obj);
+			return (1);
+		}
 		return (0);
 	}
 	else
@@ -137,10 +96,6 @@ static int		helper_for_divide(t_ps_obj *obj, t_node **node, char io)
 	}
 }
 
-		// node == &STCK_A && printf(C_BLUE"stack a "C_RESET);
-		// node == &STCK_B && printf(C_RED"stack b	"C_RESET);
-		// printf("inside %s pivot %d unsrt_a:%d unsrt_b:%d len_a:%d len_b:%d\n", __func__, PIVOT, UNSRT_BTTM_A, UNSRT_BTTM_B, LEN, LEN_B);
-		// print_content_lnkd_list(obj);
 static void		divide(t_ps_obj *obj, char one_zero, t_node **node)
 {
 	int			length;
@@ -165,7 +120,7 @@ static void		divide(t_ps_obj *obj, char one_zero, t_node **node)
 	}
 }
 
-static void		sort_lnkd_lst(t_ps_obj *obj)
+void			sort_lnkd_lst(t_ps_obj *obj)
 {
 	int			current_len;
 
@@ -192,33 +147,4 @@ static void		sort_lnkd_lst(t_ps_obj *obj)
 			UNSRT_BTTM_B = 0;
 		}
 	}
-}
-
-/*
-**	argv may contain a single string of multiple ints, in which case
-**	obj.len will be reassigned by create_lnkd_lst_single_string() later on
-*/
-		// print_array(&obj, obj.len);
-
-int				main(int argc, char **argv)
-{
-	t_ps_obj	obj;
-	t_node		*head;
-
-	head = NULL;
-	ft_bzero(&obj, sizeof(obj));
-	if (argc < 2 || !argv || !validate_argv(argc, argv))
-		return (-1);
-	obj.len = argc - 1;
-	obj.argv = argv;
-	obj.stck_a = create_lnkd_lst(&obj, argc - 1, head);
-	if (check_if_unsorted(&obj, 0))
-	{
-		create_and_srt_array(&obj, 0);
-		if (!repeats_in_sorted_array(&obj))
-			sort_lnkd_lst(&obj);
-	}
-	delete_sorted_array(&obj);
-	delete_lnkd_list(&obj, &(obj.stck_a));
-	return (0);
 }
