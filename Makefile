@@ -6,65 +6,81 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/06/03 16:52:44 by bprado        #+#    #+#                  #
-#    Updated: 2020/06/05 18:48:27 by bprado        ########   odam.nl          #
+#    Updated: 2020/06/07 16:59:36 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME			= checker
+NAME		= 	checker
 
-# CFLAGS	= -Wall -Wextra -Werror -g
-CFLAGS	= -g
+CFLAGS		= 	-Wall -Wextra -Werror
 
-NAME_PS 		= push_swap
+NAME_PS 	= 	push_swap
 
-# SRC 	= $(wildcard src/*.c)
-SRC_C 	=	src/checker.c \
-			src/ps_operation.c \
-			src/shared_funcs.c \
-			src/push_swap_extra.c
+# SRC 		= $(wildcard src/*.c)
+SRC_C 		=	src/checker.c \
+				src/ps_operation.c \
+				src/shared_funcs.c \
+				src/push_swap_extra.c
 
-SRC_PS	=	src/push_swap.c \
-			src/ps_operation.c \
-			src/shared_funcs.c \
-			src/push_swap_extra.c \
-			src/push_swap_main.c
+SRC_PS		=	src/push_swap.c \
+				src/ps_operation.c \
+				src/shared_funcs.c \
+				src/push_swap_extra.c \
+				src/push_swap_main.c
 
 # CHECKER_ SRC	= src/checker.c src/ps_operation.c
 
-LIB 			= ./libft
+LIB 		= 	./libft
 
-LIB_A			= ./libft/libft.a
+LIB_A		= 	./libft/libft.a
 
-INC 			= -I inc -I libft/includes
+INC 		= 	-I inc -I libft/inc
 
-OBJ				= $(patsubst src/%.c,obj/%.o,$(SRC_C))
+OBJ			= 	$(patsubst src/%.c,obj/%.o,$(SRC_C))
+
+CC			=	gcc
+
+# Colors
+PURPLE		= \033[95m
+CYAN		= \033[96m
+DARKCYAN	= \033[36m
+BLUE		= \033[94m
+GREEN		= \033[92m
+YELLOW		= \033[93m
+RED			= \033[91m
+END			= \033[0m
+
+# tput commands
+BOLD		:= `tput bold`
+UNDERLINE	:= `tput smul`
+END_TPUT	:= `tput sgr0`
 
 all: $(NAME) $(NAME_PS)
 
 # $(NAME) must be used to comply to norminette
 
-$(NAME): $(OBJ) libft/libft.a
-	@echo "compiling ..."
-	$(CC) -o $@ $(CFLAGS) $(INC) $(OBJ) $(LIB_A)
-	@echo "Done !!!"
-	# $(CC) -o $@ $(CFLAGS) $(INC) $(CHECKER_SRC) $(LIB_A)
+begin_statement:
+	@printf "$(BOLD) *** Compiling $(NAME) & $(NAME_PS) ***$(END_TPUT)\n"
+
+$(NAME): begin_statement $(OBJ) libft/libft.a
+	@$(CC) -o $@ $(CFLAGS) $(INC) $(OBJ) $(LIB_A)
+	@printf " $(CYAN)$(BOLD)$(UNDERLINE)./$(NAME)$(END)$(END_TPUT) created\n"
+
 
 $(NAME_PS): $(OBJ) libft/libft.a
-	@echo "compiling ..."
-	$(CC) -o $@ $(CFLAGS) $(INC) $(SRC_PS) $(LIB_A)
-	@echo "Done !!!"
-	# $(CC) -o $@ $(CFLAGS) $(INC) $(CHECKER_SRC) $(LIB_A)
+	@$(CC) -o $@ $(CFLAGS) $(INC) $(SRC_PS) $(LIB_A)
+	@printf " $(CYAN)$(BOLD)$(UNDERLINE)./$(NAME_PS)$(END)$(END_TPUT) created\n"
 
 obj/%.o: src/%.c inc/ft_push_swap.h
 	@mkdir -p obj
-	$(CC) -c $(CFLAGS) $(INC) -o $@ $<
-	@echo "obj files done ..."
+	@$(CC) -c $(CFLAGS) $(INC) -o $@ $<
+	@printf " $(GREEN)$(BOLD)✔$(END)$(END_TPUT) Object file for $(PURPLE)$<$(END)\n"
 
 libft/libft.a: $(wildcard libft/*.c)
 	@$(MAKE) -C $(LIB)
 
 clean:
-	@echo "cleaning ..."
+	@printf "Cleaning $(YELLOW)$(BOLD)$(NAME) & $(NAME_PS)$(END)$(END_TPUT)...\n"
 	@make clean -C $(LIB)
 	@rm -rf obj
 

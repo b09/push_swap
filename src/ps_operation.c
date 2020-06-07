@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 17:54:11 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/05 20:12:13 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/07 17:40:08 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
  **	push_swap.c
 */
 
-int				swap(t_node *stack, char swap_going_down_list, t_ps_obj *obj)
+int				swap(t_node *stack, char swap_going_down_list, t_ps *ps)
 {
-	if (ft_strcmp(obj->argv[0], "./checker"))
-		stack == obj->stck_a ? ft_putstr("sa\n") : ft_putstr("sb\n");
+	if (ft_strcmp(ps->argv[0], "./checker"))
+		stack == ps->stck_a ? ft_putstr("sa\n") : ft_putstr("sb\n");
 	if (stack == NULL)
 		return (0);
 	if (swap_going_down_list && stack->next != NULL)
@@ -85,27 +85,27 @@ static void		insert_node(t_node *loose_node, t_node **dest, char add_to_end)
 	}
 }
 
-void			push(t_node **src, t_node **dest, t_ps_obj *obj)
+void			push(t_node **src, t_node **dest, t_ps *ps)
 {
 	insert_node(unlink_node(src, 1), dest, 0);
-	if (*src == obj->stck_a)
+	if (*src == ps->stck_a)
 	{
-		if (ft_strcmp(obj->argv[0], "./checker"))
+		if (ft_strcmp(ps->argv[0], "./checker"))
 			ft_putstr("pb\n");
-		++(MEDS[MED_I]);
-		--obj->len;
-		++obj->len_b;
+		++(ps->meds[ps->m_i]);
+		--ps->len;
+		++ps->len_b;
 	}
 	else
 	{
-		if (ft_strcmp(obj->argv[0], "./checker"))
+		if (ft_strcmp(ps->argv[0], "./checker"))
 			ft_putstr("pa\n");
-		--obj->len_b;
-		++obj->len;
+		--ps->len_b;
+		++ps->len;
 	}
 }
 
-int				rotate(t_node **node, char insert_at_end, t_ps_obj *obj)
+int				rotate(t_node **node, char insert_at_end, t_ps *ps)
 {
 	t_node		*loose_node;
 
@@ -117,14 +117,14 @@ int				rotate(t_node **node, char insert_at_end, t_ps_obj *obj)
 	navigate_thru_lnkd_lst(node, insert_at_end);
 	insert_node(loose_node, node, insert_at_end);
 	navigate_thru_lnkd_lst(node, 0);
-	if (ft_strcmp(obj->argv[0], "./checker"))
+	if (ft_strcmp(ps->argv[0], "./checker"))
 	{
 		if (*node != NULL && insert_at_end == 0)
 			ft_putchar('r');
-		(*node == obj->stck_a) ? ft_putstr("ra\n") : ft_putstr("rb\n");
+		(*node == ps->stck_a) ? ft_putstr("ra\n") : ft_putstr("rb\n");
 	}
-	insert_at_end && *node == obj->stck_a && ++UNSRT_BTTM_A;
-	insert_at_end && *node == obj->stck_b && ++UNSRT_BTTM_B;
-	!insert_at_end && *node == obj->stck_a && --UNSRT_BTTM_A;
+	insert_at_end && *node == ps->stck_a && ++ps->unsrt_btm_a;
+	insert_at_end && *node == ps->stck_b && ++ps->unsrt_btm_b;
+	!insert_at_end && *node == ps->stck_a && --ps->unsrt_btm_a;
 	return (1);
 }

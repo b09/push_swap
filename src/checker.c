@@ -6,54 +6,54 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/05 20:09:05 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/07 17:53:10 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-static int		execute_op_code2(char *operation, t_ps_obj *obj)
+static int		execute_op_code2(char *operation, t_ps *ps)
 {
 	if (!ft_memcmp("ra", operation, 3))
-		rotate(&obj->stck_a, 1, obj);
+		rotate(&ps->stck_a, 1, ps);
 	else if (!ft_memcmp("rb", operation, 3))
-		rotate(&obj->stck_b, 1, obj);
+		rotate(&ps->stck_b, 1, ps);
 	else if (!ft_memcmp("rr", operation, 3))
 	{
-		rotate(&obj->stck_a, 1, obj);
-		rotate(&obj->stck_b, 1, obj);
+		rotate(&ps->stck_a, 1, ps);
+		rotate(&ps->stck_b, 1, ps);
 	}
 	else if (!ft_memcmp("rra", operation, 4))
-		rotate(&obj->stck_a, 0, obj);
+		rotate(&ps->stck_a, 0, ps);
 	else if (!ft_memcmp("rrb", operation, 4))
-		rotate(&obj->stck_b, 0, obj);
+		rotate(&ps->stck_b, 0, ps);
 	else if (!ft_memcmp("rrr", operation, 4))
 	{
-		rotate(&obj->stck_a, 0, obj);
-		rotate(&obj->stck_b, 0, obj);
+		rotate(&ps->stck_a, 0, ps);
+		rotate(&ps->stck_b, 0, ps);
 	}
 	else
 		return (0);
 	return (1);
 }
 
-static int		execute_op_code(char *operation, t_ps_obj *obj)
+static int		execute_op_code(char *operation, t_ps *ps)
 {
 	if (!ft_memcmp("sa", operation, 3))
-		swap(obj->stck_a, 1, obj);
+		swap(ps->stck_a, 1, ps);
 	else if (!ft_memcmp("sb", operation, 3))
-		swap(obj->stck_b, 1, obj);
+		swap(ps->stck_b, 1, ps);
 	else if (!ft_memcmp("ss", operation, 3))
 	{
-		swap(obj->stck_a, 1, obj);
-		swap(obj->stck_b, 1, obj);
+		swap(ps->stck_a, 1, ps);
+		swap(ps->stck_b, 1, ps);
 	}
 	else if (!ft_memcmp("pa", operation, 3))
-		push(&obj->stck_b, &obj->stck_a, obj);
+		push(&ps->stck_b, &ps->stck_a, ps);
 	else if (!ft_memcmp("pb", operation, 3))
-		push(&obj->stck_a, &obj->stck_b, obj);
+		push(&ps->stck_a, &ps->stck_b, ps);
 	else
-		return (execute_op_code2(operation, obj));
+		return (execute_op_code2(operation, ps));
 	return (1);
 }
 
@@ -63,39 +63,44 @@ static int		execute_op_code(char *operation, t_ps_obj *obj)
 **	operation
 */
 
-static int		manipulate_stacks(t_ps_obj *obj)
+static int		manipulate_stacks(t_ps *ps)
 {
 	char		*operation;
 	char		i;
 
 	i = 1;
 	while (get_next_line(0, &operation) > 0 && i)
-		i = execute_op_code(operation, obj);
+	{
+		i = execute_op_code(operation, ps);
+		ft_memdel((void*)&operation);
+	}
+	if (operation)
+		ft_memdel((void*)&operation);
 	if (i == 0)
 	{
-		delete_lnkd_list(obj, &obj->stck_a);
+		delete_lnkd_list(ps, &ps->stck_a);
 		ft_putstr_fd("Error\n", 2);
 		return (0);
 	}
 	return (1);
 }
 
-static void		verify_order_of_data(t_ps_obj *obj)
+static void		verify_order_of_data(t_ps *ps)
 {
 	int			i;
 
-	i = obj->stck_a->data;
-	while (obj->stck_a->next != NULL)
+	i = ps->stck_a->data;
+	while (ps->stck_a->next != NULL)
 	{
-		if (i >= obj->stck_a->next->data)
+		if (i >= ps->stck_a->next->data)
 		{
 			ft_putstr("KO\n");
 			return ;
 		}
-		obj->stck_a = obj->stck_a->next;
-		i = obj->stck_a->data;
+		ps->stck_a = ps->stck_a->next;
+		i = ps->stck_a->data;
 	}
-	if (obj->stck_b == NULL)
+	if (ps->stck_b == NULL)
 		ft_putstr("OK\n");
 	else
 		ft_putstr("KO\n");
@@ -108,19 +113,18 @@ static void		verify_order_of_data(t_ps_obj *obj)
 
 int				main(int argc, char **argv)
 {
-	t_ps_obj	obj;
+	t_ps		ps;
 	t_node		*head;
 
 	head = NULL;
-	ft_bzero(&obj, sizeof(obj));
+	ft_bzero(&ps, sizeof(ps));
 	if (argc < 2 || !argv || !validate_argv(argc, argv))
 		return (0);
-	obj.len = argc - 1;
-	obj.argv = argv;
-	obj.stck_a = create_lnkd_lst(&obj, argc - 1, head);
-	if (!manipulate_stacks(&obj))
+	ps.len = argc - 1;
+	ps.argv = argv;
+	ps.stck_a = create_lnkd_lst(&ps, argc - 1, head);
+	if (!manipulate_stacks(&ps))
 		return (0);
-	verify_order_of_data(&obj);
-	delete_lnkd_list(&obj, &(obj.stck_a));
-	return (0);
+	verify_order_of_data(&ps);
+	delete_lnkd_list(&ps, &(ps.stck_a));
 }

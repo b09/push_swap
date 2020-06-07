@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 19:32:58 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/05 20:12:23 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/07 16:35:28 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,18 @@
 ** in order to
 */
 
-void			delete_lnkd_list(t_ps_obj *obj, t_node **list)
+void			delete_lnkd_list(t_ps *ps, t_node **list)
 {
-	while (obj->stck_b != NULL)
+	while (ps->stck_b != NULL)
 	{
-		push(&obj->stck_b, &obj->stck_a, obj);
-		navigate_thru_lnkd_lst(&obj->stck_a, 0);
-		navigate_thru_lnkd_lst(&obj->stck_b, 0);
+		push(&ps->stck_b, &ps->stck_a, ps);
+		navigate_thru_lnkd_lst(&ps->stck_a, 0);
+		navigate_thru_lnkd_lst(&ps->stck_b, 0);
 	}
 	if (*list != NULL)
 	{
 		if ((*list)->next)
-			delete_lnkd_list(obj, &(*list)->next);
+			delete_lnkd_list(ps, &(*list)->next);
 		free(*list);
 		*list = NULL;
 	}
@@ -82,60 +82,59 @@ static int		remove_spaces_digits_minus(char *str)
 	return (i);
 }
 
-t_node			*create_lnkd_lst_single_string(t_ps_obj *obj)
+t_node			*create_lnkd_lst_single_string(t_ps *ps)
 {
 	t_node		*head;
 	t_node		*temp;
 	int			i;
 
 	head = ft_memalloc(sizeof(t_node));
-	obj->stck_a = head;
-	PREV_A = NULL;
+	ps->stck_a = head;
+	ps->stck_a->previous = NULL;
 	i = 0;
-	while (obj->argv[1][i] != 0)
+	while (ps->argv[1][i] != 0)
 	{
-		DATA_A = ft_atoi(&obj->argv[1][i]);
-		i += remove_spaces_digits_minus(&obj->argv[1][i]);
-		if (obj->argv[1][i])
+		ps->stck_a->data = ft_atoi(&ps->argv[1][i]);
+		i += remove_spaces_digits_minus(&ps->argv[1][i]);
+		if (ps->argv[1][i])
 		{
-			++obj->len;
+			++ps->len;
 			temp = ft_memalloc(sizeof(t_node));
-			NEXT_A = temp;
-			temp->previous = obj->stck_a;
-			obj->stck_a = NEXT_A;
+			ps->stck_a->next = temp;
+			temp->previous = ps->stck_a;
+			ps->stck_a = ps->stck_a->next;
 		}
 	}
-	if (i == 0 && ft_strlen(obj->argv[1]))
-		DATA_A = ft_atoi(&obj->argv[1][i]);
-	NEXT_A = NULL;
+	if (i == 0 && ft_strlen(ps->argv[1]))
+		ps->stck_a->data = ft_atoi(&ps->argv[1][i]);
+	ps->stck_a->next = NULL;
 	return (head);
 }
 
-t_node			*create_lnkd_lst(t_ps_obj *obj, int size, t_node *head)
+t_node			*create_lnkd_lst(t_ps *ps, int size, t_node *head)
 {
-	t_node		*temp;
 	int			i;
 
 	if (size != 1)
 	{
 		head = ft_memalloc(sizeof(t_node));
-		obj->stck_a = head;
-		PREV_A = NULL;
+		ps->stck_a = head;
+		ps->stck_a->previous = NULL;
 		i = 1;
 		--size;
 		while (size)
 		{
-			DATA_A = ft_atoi(obj->argv[i]);
-			NEXT_A = ft_memalloc(sizeof(t_node));
-			NEXT_A->previous = obj->stck_a;
-			obj->stck_a = NEXT_A;
+			ps->stck_a->data = ft_atoi(ps->argv[i]);
+			ps->stck_a->next = ft_memalloc(sizeof(t_node));
+			ps->stck_a->next->previous = ps->stck_a;
+			ps->stck_a = ps->stck_a->next;
 			++i;
 			--size;
 		}
-		DATA_A = ft_atoi(obj->argv[i]);
-		NEXT_A = NULL;
+		ps->stck_a->data = ft_atoi(ps->argv[i]);
+		ps->stck_a->next = NULL;
 	}
 	else
-		head = create_lnkd_lst_single_string(obj);
+		head = create_lnkd_lst_single_string(ps);
 	return (head);
 }

@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/29 17:27:40 by bprado        #+#    #+#                 */
-/*   Updated: 2019/12/11 21:49:45 by bprado        ########   odam.nl         */
+/*   Updated: 2020/04/09 12:50:23 by macbook       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,6 @@ ssize_t				ft_strchr_int(const char *s, int c);
 ssize_t				ft_strrchr_int(const char *s, int c);
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
+char				*ft_strndup(const char *s1, size_t n);
+int					gnl_with_newline(int fd, char **line);
 #endif

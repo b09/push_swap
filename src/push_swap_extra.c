@@ -6,36 +6,36 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:00:19 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/05 20:12:22 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/07 15:18:52 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-void			delete_sorted_array(t_ps_obj *obj)
+void			delete_sorted_array(t_ps *ps)
 {
-	if (obj->array != NULL)
+	if (ps->array != NULL)
 	{
-		free(obj->array);
-		obj->array = NULL;
+		free(ps->array);
+		ps->array = NULL;
 	}
 }
 
-void			create_and_srt_array(t_ps_obj *obj, int i)
+void			create_and_srt_array(t_ps *ps, int i)
 {
 	int			*array;
 	t_node		*head;
 
-	head = obj->stck_a;
-	array = ft_memalloc(sizeof(int) * obj->len);
-	while (i < obj->len && obj->stck_a != NULL)
+	head = ps->stck_a;
+	array = ft_memalloc(sizeof(int) * ps->len);
+	while (i < ps->len && ps->stck_a != NULL)
 	{
-		array[i] = DATA_A;
-		obj->stck_a = NEXT_A;
+		array[i] = ps->stck_a->data;
+		ps->stck_a = ps->stck_a->next;
 		i++;
 	}
 	i = 0;
-	while (obj->len && i < (obj->len - 1))
+	while (ps->len && i < (ps->len - 1))
 	{
 		if (array[i] < array[i + 1])
 		{
@@ -46,15 +46,15 @@ void			create_and_srt_array(t_ps_obj *obj, int i)
 		}
 		i++;
 	}
-	obj->array = array;
-	obj->stck_a = head;
+	ps->array = array;
+	ps->stck_a = head;
 }
 
-int				check_if_unsorted(t_ps_obj *obj, int i)
+int				check_if_unsorted(t_ps *ps, int i)
 {
 	t_node		*unsorted_input;
 
-	unsorted_input = obj->stck_a;
+	unsorted_input = ps->stck_a;
 	i = 0;
 	while (unsorted_input)
 	{
@@ -66,14 +66,14 @@ int				check_if_unsorted(t_ps_obj *obj, int i)
 	return (0);
 }
 
-int				repeats_in_sorted_array(t_ps_obj *obj)
+int				repeats_in_sorted_array(t_ps *ps)
 {
 	int			i;
 	int			*array;
 
 	i = 0;
-	array = ARRAY;
-	while (obj->len && i < (obj->len - 1))
+	array = ps->array;
+	while (ps->len && i < (ps->len - 1))
 	{
 		if (array[i] == array[i + 1])
 		{
