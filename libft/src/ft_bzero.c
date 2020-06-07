@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/14 15:09:46 by bprado        #+#    #+#                 */
-/*   Updated: 2019/01/14 16:24:11 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/07 18:49:20 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	while (n--)
+	while (n)
 	{
 		*(char*)s = 0;
 		++s;
+		--n;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: exam <marvin@codam.nl>                       +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/05 10:23:36 by exam          #+#    #+#                 */
-/*   Updated: 2019/02/05 13:38:04 by exam          ########   odam.nl         */
+/*   Updated: 2020/06/07 18:49:00 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int		check_char(char str, int str_base)
 	i = 0;
 	while (a[i] != 0 && a[i] != str && b[i] != str)
 		++i;
-	(i < str_base) ? (i += 1) : (i = 0);
+	i = (i < str_base) ? (i + 1) : 0;
 	return (i);
 }
 
@@ -56,7 +56,7 @@ int				ft_atoi_base(const char *str, int str_base)
 	}
 	while (check_char(*str, str_base) && *str != 0)
 	{
-		(str_base <= 10) ? (i += (*str - 48)) : (i += add_correct_base(str));
+		i += (str_base <= 10) ? (*str - 48) : add_correct_base(str);
 		i *= str_base;
 		++str;
 	}

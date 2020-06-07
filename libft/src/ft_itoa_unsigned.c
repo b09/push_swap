@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/06 18:11:44 by bprado        #+#    #+#                 */
-/*   Updated: 2019/12/13 19:46:42 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/07 18:51:36 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ char			*ft_itoa_unsigned(unsigned long long nbr, char negative)
 		++i;
 	}
 	holder = nbr;
-	if (!(str = (char*)malloc(sizeof(char) * (i + 1))))
+	str = (char*)malloc(sizeof(char) * (i + 1));
+	if (!str)
 		return (NULL);
 	str[i] = 0;
 	if (negative)

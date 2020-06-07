@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/17 17:45:12 by bprado        #+#    #+#                 */
-/*   Updated: 2019/01/30 18:25:37 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/07 18:45:38 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ int		ft_atoi(const char *str)
 		++str;
 	}
 	while ((*str > 47) && (*str < 58))
-		i = (i * 10) + (*str++ - 48);
+	{
+		i = (i * 10) + (*str - 48);
+		++str;
+	}
 	return ((int)i * j);
 }
