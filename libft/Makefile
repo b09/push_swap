@@ -6,7 +6,7 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/29 17:19:55 by bprado        #+#    #+#                  #
-#    Updated: 2020/04/10 17:15:50 by macbook       ########   odam.nl          #
+#    Updated: 2020/06/07 19:37:06 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,17 +54,11 @@ obj/%.o: src/%.c inc/libft.h
 	@$(CC) -o $@ -c $< $(CFLAGS) -I inc -I .
 
 clean:
-	@printf "Cleaning $(YELLOW)$(BOLD)$(NAME)$(END)$(END_TPUT)..."
+	@printf "Cleaning$(BOLD)   libft object files$(END_TPUT)\n"
 	@rm -rf obj
-	@printf " complete!\n"
 
 fclean: clean
+	@printf "Deleting$(YELLOW)$(BOLD)   $(NAME)$(END)$(END_TPUT)\n"
 	@rm -rf $(NAME)
 
 re: fclean all
-
-# %.o: %.c
-# 	@gcc $(FLAG) -c $< -o $@
-
-# The name of the first prerequisite
-# The file name of the target of the rule.

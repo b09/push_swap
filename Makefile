@@ -6,7 +6,7 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/06/03 16:52:44 by bprado        #+#    #+#                  #
-#    Updated: 2020/06/07 18:00:51 by bprado        ########   odam.nl          #
+#    Updated: 2020/06/07 19:37:24 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -77,14 +77,19 @@ libft/libft.a: $(wildcard libft/*.c)
 	@$(MAKE) -C $(LIB)
 
 clean:
-	@printf "Cleaning $(YELLOW)$(BOLD)$(NAME) & $(NAME_PS)$(END)$(END_TPUT)...\n"
+	@printf "Cleaning$(BOLD)   $(NAME_PS) object files$(END_TPUT)\n"
 	@make clean -C $(LIB)
 	@rm -rf obj
 
-fclean:	clean
-	@make fclean -C $(LIB)
+# removed prerequisite of clean to fclean to eliminte repeated printf text
+fclean:
+	@printf "Cleaning$(BOLD)   $(NAME_PS) object files$(END_TPUT)\n"
+	@printf "Deleting$(YELLOW)$(BOLD)   ./$(NAME) & ./$(NAME_PS)$(END) binaries$(END_TPUT)\n"
+	@rm -rf obj
 	@rm -rf $(NAME) test
 	@rm -rf $(NAME_PS) test
+	@make fclean -C $(LIB)
+	@printf "$(GREEN)$(BOLD)Complete!$(END)$(END_TPUT)\n"
 
 test: test.c $(NAME)
 	@$(CC) -o $@ -Wall -Wextra -g $(INC) $^

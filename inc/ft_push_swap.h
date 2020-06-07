@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/07 17:53:17 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/07 19:01:29 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef	struct		s_node
 	struct s_node	*previous;
 }					t_node;
 
-typedef struct		s_ps_ps
+typedef struct		s_ps
 {
 	int				pivot;
 	int				len;
