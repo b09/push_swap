@@ -6,7 +6,7 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/06/03 16:52:44 by bprado        #+#    #+#                  #
-#    Updated: 2020/06/07 19:37:24 by bprado        ########   odam.nl          #
+#    Updated: 2020/06/10 13:13:01 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,7 +71,8 @@ $(NAME_PS): $(OBJ) libft/libft.a
 obj/%.o: src/%.c inc/ft_push_swap.h
 	@mkdir -p obj
 	@$(CC) -c $(CFLAGS) $(INC) -o $@ $<
-	@printf " $(GREEN)$(BOLD)✔$(END)$(END_TPUT) Object file for $(PURPLE)$<$(END)\n"
+	@printf " $(GREEN)$(BOLD)✔$(END)$(END_TPUT) Object file for $(PURPLE)$<\
+	$(END)\n"
 
 libft/libft.a: $(wildcard libft/*.c)
 	@$(MAKE) -C $(LIB)
@@ -84,8 +85,10 @@ clean:
 # removed prerequisite of clean to fclean to eliminte repeated printf text
 fclean:
 	@printf "Cleaning$(BOLD)   $(NAME_PS) object files$(END_TPUT)\n"
-	@printf "Deleting$(YELLOW)$(BOLD)   ./$(NAME) & ./$(NAME_PS)$(END) binaries$(END_TPUT)\n"
+	@printf "Deleting$(YELLOW)$(BOLD)   ./$(NAME) & ./$(NAME_PS)$(END) \
+	binaries$(END_TPUT)\n"
 	@rm -rf obj
+	@rm -rf $(wildcard *.dSYM)
 	@rm -rf $(NAME) test
 	@rm -rf $(NAME_PS) test
 	@make fclean -C $(LIB)

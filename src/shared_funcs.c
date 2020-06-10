@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 19:32:58 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/07 16:35:28 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/10 13:00:06 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,23 @@ void			delete_lnkd_list(t_ps *ps, t_node **list)
 int				validate_argv(int argc, char **argv)
 {
 	int			i;
+	int			j;
 
 	i = 1;
-	while (i < argc && argc > 2)
+	while (i < argc && argv[i][j] != 0)
 	{
-		if (ft_atoi(argv[i]) == 0 && argv[i][0] != '0')
+		j = 0;
+		while (argv[i][j] != 0)
 		{
-			ft_putstr_fd("Error\n", 2);
-			return (0);
+			if ((!ft_isdigit(argv[i][j]) && argv[i][j] != ' ' && argv[i][j] !=\
+			'-') || (j > 0 && argv[i][j] == '-' && argv[i][j - 1] != ' '))
+				return (0);
+			++j;
 		}
 		++i;
 	}
-	i = 0;
-	while (argc == 2 && argv[1][i] != 0)
-	{
-		if (!ft_isdigit(argv[1][i]) && argv[1][i] != ' ')
-		{
-			ft_putstr_fd("Error\n", 2);
-			return (0);
-		}
-		++i;
-	}
+	if (i == 1 && j == 0)
+		return (0);
 	return (1);
 }
 
@@ -73,68 +69,51 @@ static int		remove_spaces_digits_minus(char *str)
 	int			i;
 
 	i = 0;
+	if (str[i] == '-')
+		++i;
 	while (ft_isdigit(str[i]))
 		++i;
-	while (str[i] == ' ')
-		++i;
-	if (str[i] == '-')
+	while (str[i] == ' ' || str[i] == '\t')
 		++i;
 	return (i);
 }
 
-t_node			*create_lnkd_lst_single_string(t_ps *ps)
+static void		create_lnkd_list_help(t_ps *ps)
 {
-	t_node		*head;
 	t_node		*temp;
+
+	++ps->len;
+	temp = ft_memalloc(sizeof(t_node));
+	ps->stck_a->next = temp;
+	temp->previous = ps->stck_a;
+	ps->stck_a = ps->stck_a->next;
+}
+
+t_node			*create_lnkd_lst(t_ps *ps, int k, t_node *head)
+{
 	int			i;
+	int			j;
 
 	head = ft_memalloc(sizeof(t_node));
 	ps->stck_a = head;
 	ps->stck_a->previous = NULL;
-	i = 0;
-	while (ps->argv[1][i] != 0)
+	i = 1;
+	ps->len = 1;
+	while (i <= k)
 	{
-		ps->stck_a->data = ft_atoi(&ps->argv[1][i]);
-		i += remove_spaces_digits_minus(&ps->argv[1][i]);
-		if (ps->argv[1][i])
+		j = 0;
+		while (ps->argv[i][j] != 0)
 		{
-			++ps->len;
-			temp = ft_memalloc(sizeof(t_node));
-			ps->stck_a->next = temp;
-			temp->previous = ps->stck_a;
-			ps->stck_a = ps->stck_a->next;
+			ps->stck_a->data = ft_atoi(&ps->argv[i][j]);
+			j += remove_spaces_digits_minus(&ps->argv[i][j]);
+			ps->stck_a->next = NULL;
+			if (ps->argv[i][j])
+				create_lnkd_list_help(ps);
 		}
+		++i;
+		if (i <= k && ps->argv[i])
+			create_lnkd_list_help(ps);
 	}
-	if (i == 0 && ft_strlen(ps->argv[1]))
-		ps->stck_a->data = ft_atoi(&ps->argv[1][i]);
 	ps->stck_a->next = NULL;
-	return (head);
-}
-
-t_node			*create_lnkd_lst(t_ps *ps, int size, t_node *head)
-{
-	int			i;
-
-	if (size != 1)
-	{
-		head = ft_memalloc(sizeof(t_node));
-		ps->stck_a = head;
-		ps->stck_a->previous = NULL;
-		i = 1;
-		--size;
-		while (size)
-		{
-			ps->stck_a->data = ft_atoi(ps->argv[i]);
-			ps->stck_a->next = ft_memalloc(sizeof(t_node));
-			ps->stck_a->next->previous = ps->stck_a;
-			ps->stck_a = ps->stck_a->next;
-			++i;
-			--size;
-		}
-		ps->stck_a->data = ft_atoi(ps->argv[i]);
-		ps->stck_a->next = NULL;
-	}
-	else
-		head = create_lnkd_lst_single_string(ps);
 	return (head);
 }

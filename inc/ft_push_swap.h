@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/07 19:01:29 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/10 13:02:14 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,14 @@ void				navigate_thru_lnkd_lst(t_node **node, char go_to_end);
 void				sort_lnkd_lst(t_ps *ps);
 void				delete_lnkd_list(t_ps *ps, t_node **list);
 int					validate_argv(int argc, char **argv);
-t_node				*create_lnkd_lst_single_string(t_ps *ps);
 t_node				*create_lnkd_lst(t_ps *ps, int size, t_node *head);
 
 /*
-**	shared_funcs.c
+**	push_swap_main.c
 */
 
 void				helper_sort_lnkd_lst(t_ps *ps);
+void				print_content_lnkd_list(t_ps *ps);
+void				helper_sort_three(t_ps *ps, t_node *temp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/07 17:53:10 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/10 13:03:00 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,10 @@ int				main(int argc, char **argv)
 	head = NULL;
 	ft_bzero(&ps, sizeof(ps));
 	if (argc < 2 || !argv || !validate_argv(argc, argv))
-		return (0);
+	{
+		ft_putstr_fd("Error\n", 2);
+		return (-1);
+	}
 	ps.len = argc - 1;
 	ps.argv = argv;
 	ps.stck_a = create_lnkd_lst(&ps, argc - 1, head);

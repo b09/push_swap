@@ -6,7 +6,7 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/29 17:19:55 by bprado        #+#    #+#                  #
-#    Updated: 2020/06/07 19:37:06 by bprado        ########   odam.nl          #
+#    Updated: 2020/06/10 13:15:36 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ $(NAME): begin_statement $(OBJ)
 
 obj/%.o: src/%.c inc/libft.h
 	@mkdir -p obj
-	@printf " $(GREEN)$(BOLD)✔$(END)$(END_TPUT) Object file for $(PURPLE)$<$(END)\n"
+	@printf " $(GREEN)$(BOLD)✔$(END)$(END_TPUT) Object file for \
+	$(PURPLE)$<$(END)\n"
 	@$(CC) -o $@ -c $< $(CFLAGS) -I inc -I .
 
 clean:

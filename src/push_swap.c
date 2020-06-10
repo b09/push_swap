@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:58:41 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/07 17:04:16 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/10 12:59:23 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,7 @@ static void		sort_three_or_less(t_ps *ps)
 		ps->stck_a->next->next;
 		++ps->srtd;
 		if (temp == ps->stck_a || temp == ps->stck_a->next)
-		{
-			temp == ps->stck_a && swap(ps->stck_a, 1, ps);
-			rotate(&ps->stck_a, 1, ps) && swap(ps->stck_a, 1, ps);
-			rotate(&ps->stck_a, 0, ps);
-		}
+			helper_sort_three(ps, temp);
 		sort_three_or_less(ps);
 	}
 }
