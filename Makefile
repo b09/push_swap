@@ -6,7 +6,7 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/06/03 16:52:44 by bprado        #+#    #+#                  #
-#    Updated: 2020/06/10 13:13:01 by bprado        ########   odam.nl          #
+#    Updated: 2020/06/10 18:41:59 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,12 @@ CFLAGS		= 	-Wall -Wextra -Werror
 NAME_PS 	= 	push_swap
 
 SRC_C 		=	src/checker.c \
-				src/ps_operation.c \
+				src/core_operations.c \
 				src/shared_funcs.c \
 				src/push_swap_extra.c
 
 SRC_PS		=	src/push_swap.c \
-				src/ps_operation.c \
+				src/core_operations.c \
 				src/shared_funcs.c \
 				src/push_swap_extra.c \
 				src/push_swap_main.c

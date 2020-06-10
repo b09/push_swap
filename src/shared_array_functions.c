@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   push_swap_extra.c                                  :+:    :+:            */
+/*   shared_array_functions.c                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:00:19 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/07 15:18:52 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/10 20:12:25 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-void			delete_sorted_array(t_ps *ps)
-{
-	if (ps->array != NULL)
-	{
-		free(ps->array);
-		ps->array = NULL;
-	}
-}
+
 
 void			create_and_srt_array(t_ps *ps, int i)
 {
@@ -77,32 +70,10 @@ int				repeats_in_sorted_array(t_ps *ps)
 	{
 		if (array[i] == array[i + 1])
 		{
-			ft_putstr("Error: Multiple integers with same value\n");
+			ft_putstr_fd("Error: Multiple integers with same value\n", 2);
 			return (1);
 		}
 		i++;
 	}
 	return (0);
-}
-
-/*
-**	should rewrite to traverse linked list up to specified point, which would be
-**	necessary for the divide_a && divide_b funcs to not interate over the entire
-**	linked list, rather just the sections that are unsorted
-*/
-
-void			navigate_thru_lnkd_lst(t_node **node, char go_to_end)
-{
-	if (go_to_end)
-	{
-		while ((*node)->next != NULL)
-			*node = (*node)->next;
-		return ;
-	}
-	else
-	{
-		while ((*node)->previous != NULL)
-			*node = (*node)->previous;
-		return ;
-	}
 }

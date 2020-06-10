@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/29 17:27:40 by bprado        #+#    #+#                 */
-/*   Updated: 2020/04/09 12:50:23 by macbook       ########   odam.nl         */
+/*   Updated: 2020/06/10 15:11:10 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct		s_list
 }					t_list;
 
 int					ft_atoi(const char *str);
+long				ft_atol(const char *str);
 int					ft_atoi_base(const char *str, int str_base);
 int					ft_isalnum(int c);
 int					ft_isa(int c);

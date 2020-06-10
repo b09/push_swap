@@ -1,39 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shared_funcs.c                                     :+:    :+:            */
+/*   shared_input_validation.c                          :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 19:32:58 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/10 13:00:06 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/10 19:02:42 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-/*
-** add everything to stack_a in order to delete all links
-** it is possible to create the linked list and have invalid instructions
-** from stdin, in which case, all nodes should be added back to stack_a
-** in order to
-*/
-
-void			delete_lnkd_list(t_ps *ps, t_node **list)
+int				check_length_of_input(char *str)
 {
-	while (ps->stck_b != NULL)
+	int			i;
+	int			j;
+
+	i = 0;
+	j = 0;
+	while (str[i] && !ft_isdigit(str[i]))
+		++i;
+	while (str[i] && ft_isdigit(str[i]) && j < 12)
 	{
-		push(&ps->stck_b, &ps->stck_a, ps);
-		navigate_thru_lnkd_lst(&ps->stck_a, 0);
-		navigate_thru_lnkd_lst(&ps->stck_b, 0);
+		++i;
+		++j;
 	}
-	if (*list != NULL)
-	{
-		if ((*list)->next)
-			delete_lnkd_list(ps, &(*list)->next);
-		free(*list);
-		*list = NULL;
-	}
+	if (j > 10)
+		return (0);
+	else if (ft_atol(&str[i - j]) > INT32_MAX || ft_atol(&str[i - j]) < INT32_MIN)
+		return (0);
+	return (1);
 }
 
 /*
@@ -57,6 +54,8 @@ int				validate_argv(int argc, char **argv)
 				return (0);
 			++j;
 		}
+		if (check_length_of_input(argv[i]) == 0)
+			return (0);
 		++i;
 	}
 	if (i == 1 && j == 0)
@@ -69,6 +68,9 @@ static int		remove_spaces_digits_minus(char *str)
 	int			i;
 
 	i = 0;
+
+	while (str[i] == ' ')
+		++i;
 	if (str[i] == '-')
 		++i;
 	while (ft_isdigit(str[i]))

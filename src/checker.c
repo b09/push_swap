@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/10 13:03:00 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/10 19:14:20 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,8 +126,7 @@ int				main(int argc, char **argv)
 	ps.len = argc - 1;
 	ps.argv = argv;
 	ps.stck_a = create_lnkd_lst(&ps, argc - 1, head);
-	if (!manipulate_stacks(&ps))
-		return (0);
-	verify_order_of_data(&ps);
+	if (manipulate_stacks(&ps))
+		verify_order_of_data(&ps);
 	delete_lnkd_list(&ps, &(ps.stck_a));
 }

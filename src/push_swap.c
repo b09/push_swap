@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:58:41 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/10 12:59:23 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/10 19:15:54 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,33 +70,6 @@ static void		sort_three_or_less(t_ps *ps)
 	}
 }
 
-static int		helper_for_divide(t_ps *ps, t_node **node, char io)
-{
-	if (io)
-	{
-		if (((node == &ps->stck_a && (*node)->data < ps->pivot) || \
-		(node == &ps->stck_b && (*node)->data >= ps->pivot)))
-		{
-			push(node, node == &ps->stck_a ? &ps->stck_b : &ps->stck_a, ps);
-			return (1);
-		}
-		return (0);
-	}
-	else
-	{
-		if ((ps->unsrt_btm_a == ps->len ||\
-		ps->unsrt_btm_b == ps->len_b))
-		{
-			if (node == &ps->stck_a)
-				ps->unsrt_btm_a = 0;
-			else if (node == &ps->stck_b)
-				ps->unsrt_btm_b = 0;
-			return (1);
-		}
-		return (0);
-	}
-}
-
 static void		dvid(t_ps *ps, char one_zro, t_node **node)
 {
 	int			length;
@@ -121,7 +94,7 @@ static void		dvid(t_ps *ps, char one_zro, t_node **node)
 	}
 }
 
-void			sort_lnkd_lst(t_ps *ps)
+static void		sort_lnkd_lst(t_ps *ps)
 {
 	int			current_len;
 
@@ -148,4 +121,35 @@ void			sort_lnkd_lst(t_ps *ps)
 			ps->unsrt_btm_b = 0;
 		}
 	}
+}
+
+/*
+**	argv may contain a single string of multiple ints, in which case
+**	ps.len will be reassigned by create_lnkd_lst_single_string() later on
+*/
+
+int				main(int argc, char **argv)
+{
+	t_ps		ps;
+	t_node		*head;
+
+	head = NULL;
+	ft_bzero(&ps, sizeof(ps));
+	if (argc < 2 || !argv || !validate_argv(argc, argv))
+	{
+		ft_putstr_fd("Error\n", 2);
+		return (-1);
+	}
+	ps.len = argc - 1;
+	ps.argv = argv;
+	ps.stck_a = create_lnkd_lst(&ps, argc - 1, head);
+	if (check_if_unsorted(&ps, 0))
+	{
+		create_and_srt_array(&ps, 0);
+		if (!repeats_in_sorted_array(&ps))
+			sort_lnkd_lst(&ps);
+	}
+	delete_sorted_array(&ps);
+	delete_lnkd_list(&ps, &(ps.stck_a));
+	return (0);
 }

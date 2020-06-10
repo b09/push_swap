@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   push_swap_main.c                                   :+:    :+:            */
+/*   push_swap_helpers.c                                :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/05 18:47:24 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/10 12:58:50 by bprado        ########   odam.nl         */
+/*   Created: 2020/06/10 18:46:27 by bprado        #+#    #+#                 */
+/*   Updated: 2020/06/10 19:17:44 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,29 @@ void			helper_sort_three(t_ps *ps, t_node *temp)
 	rotate(&ps->stck_a, 0, ps);
 }
 
-/*
-**	argv may contain a single string of multiple ints, in which case
-**	ps.len will be reassigned by create_lnkd_lst_single_string() later on
-*/
-
-int				main(int argc, char **argv)
+int	        	helper_for_divide(t_ps *ps, t_node **node, char io)
 {
-	t_ps		ps;
-	t_node		*head;
-
-	head = NULL;
-	ft_bzero(&ps, sizeof(ps));
-	if (argc < 2 || !argv || !validate_argv(argc, argv))
+	if (io)
 	{
-		ft_putstr_fd("Error\n", 2);
-		return (-1);
+		if (((node == &ps->stck_a && (*node)->data < ps->pivot) || \
+		(node == &ps->stck_b && (*node)->data >= ps->pivot)))
+		{
+			push(node, node == &ps->stck_a ? &ps->stck_b : &ps->stck_a, ps);
+			return (1);
+		}
+		return (0);
 	}
-	ps.len = argc - 1;
-	ps.argv = argv;
-	ps.stck_a = create_lnkd_lst(&ps, argc - 1, head);
-	if (check_if_unsorted(&ps, 0))
+	else
 	{
-		create_and_srt_array(&ps, 0);
-		if (!repeats_in_sorted_array(&ps))
-			sort_lnkd_lst(&ps);
+		if ((ps->unsrt_btm_a == ps->len ||\
+		ps->unsrt_btm_b == ps->len_b))
+		{
+			if (node == &ps->stck_a)
+				ps->unsrt_btm_a = 0;
+			else if (node == &ps->stck_b)
+				ps->unsrt_btm_b = 0;
+			return (1);
+		}
+		return (0);
 	}
-	delete_sorted_array(&ps);
-	delete_lnkd_list(&ps, &(ps.stck_a));
-	return (0);
 }
