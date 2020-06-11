@@ -6,7 +6,7 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/06/03 16:52:44 by bprado        #+#    #+#                  #
-#    Updated: 2020/06/10 18:41:59 by bprado        ########   odam.nl          #
+#    Updated: 2020/06/11 17:34:11 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,15 +17,16 @@ CFLAGS		= 	-Wall -Wextra -Werror
 NAME_PS 	= 	push_swap
 
 SRC_C 		=	src/checker.c \
-				src/core_operations.c \
-				src/shared_funcs.c \
-				src/push_swap_extra.c
+				src/shared_core_operations.c \
+				src/shared_input_validation.c \
+				src/shared_array_delete_funcs.c
 
 SRC_PS		=	src/push_swap.c \
-				src/core_operations.c \
-				src/shared_funcs.c \
-				src/push_swap_extra.c \
-				src/push_swap_main.c
+				src/push_swap_helpers.c \
+				src/shared_core_operations.c \
+				src/shared_input_validation.c \
+				src/shared_array_delete_funcs.c\
+				src/print_functions.c
 
 LIB 		= 	./libft
 

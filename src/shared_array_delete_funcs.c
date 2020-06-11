@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   shared_array_functions.c                           :+:    :+:            */
+/*   shared_array_delete_funcs.c                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:00:19 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/10 20:12:25 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/11 17:32:41 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
-
-
 
 void			create_and_srt_array(t_ps *ps, int i)
 {
@@ -76,4 +74,49 @@ int				repeats_in_sorted_array(t_ps *ps)
 		i++;
 	}
 	return (0);
+}
+
+/*
+** add everything to stack_a in order to delete all links
+** it is possible to create the linked list and have invalid instructions
+** from stdin, in which case, all nodes should be added back to stack_a
+** in order to
+*/
+
+void			delete_everything(t_ps *ps, t_node **list)
+{
+	if (ps->array != NULL)
+	{
+		free(ps->array);
+		ps->array = NULL;
+	}
+	while (ps->stck_b != NULL)
+	{
+		push(&ps->stck_b, &ps->stck_a, ps);
+		navigate_thru_lnkd_lst(&ps->stck_a, 0);
+		navigate_thru_lnkd_lst(&ps->stck_b, 0);
+	}
+	if (*list != NULL)
+	{
+		if ((*list)->next)
+			delete_everything(ps, &(*list)->next);
+		free(*list);
+		*list = NULL;
+	}
+}
+
+void			navigate_thru_lnkd_lst(t_node **node, char go_to_end)
+{
+	if (go_to_end)
+	{
+		while ((*node)->next != NULL)
+			*node = (*node)->next;
+		return ;
+	}
+	else
+	{
+		while ((*node)->previous != NULL)
+			*node = (*node)->previous;
+		return ;
+	}
 }

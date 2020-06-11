@@ -6,13 +6,21 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 19:32:58 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/10 19:02:42 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/11 17:33:47 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-int				check_length_of_input(char *str)
+/*
+**	func() will ensure that string of ints is not more characters than what
+**	INT_MAX and INT_MIN could be. It also ensures that there is at least one
+**	character which is a number. func() is recursive until it reaches the end
+**	of string, as multiple ints could be in a string
+**	ex: "434384 222222222222" <== second int in str exceeds permitted length
+*/
+
+int				check_length_of_input(char *str, int iterations)
 {
 	int			i;
 	int			j;
@@ -26,10 +34,12 @@ int				check_length_of_input(char *str)
 		++i;
 		++j;
 	}
-	if (j > 10)
+	if ((j > 10) || (j == 0 && !str[i] && iterations == 0))
 		return (0);
-	else if (ft_atol(&str[i - j]) > INT32_MAX || ft_atol(&str[i - j]) < INT32_MIN)
+	if (ft_atol(&str[i - j]) > INT32_MAX || ft_atol(&str[i - j]) < INT32_MIN)
 		return (0);
+	if (str[i])
+		return (check_length_of_input(&str[i], iterations + 1));
 	return (1);
 }
 
@@ -54,7 +64,7 @@ int				validate_argv(int argc, char **argv)
 				return (0);
 			++j;
 		}
-		if (check_length_of_input(argv[i]) == 0)
+		if (check_length_of_input(argv[i], 0) == 0)
 			return (0);
 		++i;
 	}
@@ -63,35 +73,51 @@ int				validate_argv(int argc, char **argv)
 	return (1);
 }
 
-static int		remove_spaces_digits_minus(char *str)
+static int		assign_data(char *str, t_ps *ps)
 {
 	int			i;
 
 	i = 0;
-
 	while (str[i] == ' ')
 		++i;
+	if (str[i] == '-' || ft_isdigit(str[i]))
+		ps->stck_a->data = ft_atoi(&str[i]);
 	if (str[i] == '-')
 		++i;
 	while (ft_isdigit(str[i]))
 		++i;
-	while (str[i] == ' ' || str[i] == '\t')
+	while (str[i] == ' ')
 		++i;
 	return (i);
 }
 
-static void		create_lnkd_list_help(t_ps *ps)
+static void		create_lnkd_list_help(t_ps *ps, char *str)
 {
 	t_node		*temp;
+	int			i;
 
-	++ps->len;
-	temp = ft_memalloc(sizeof(t_node));
-	ps->stck_a->next = temp;
-	temp->previous = ps->stck_a;
-	ps->stck_a = ps->stck_a->next;
+	i = 0;
+	while (str[i] == ' ')
+		++i;
+	if (str[i])
+	{
+		++ps->len;
+		temp = ft_memalloc(sizeof(t_node));
+		ps->stck_a->next = temp;
+		temp->previous = ps->stck_a;
+		ps->stck_a = ps->stck_a->next;
+	}
 }
 
-t_node			*create_lnkd_lst(t_ps *ps, int k, t_node *head)
+/*
+**	validate_argv() has ensured that at least one character is every str is
+**	an int, if statement in main has ensured that there is at least one str
+**	(represented by argument argv_lines if func()), so the malloced 'head'
+**	will always go through both while loops  on its first iteration and reach
+**	assign_data(), where the head's final member 'data' will be assigned.
+*/
+
+t_node			*create_lnkd_lst(t_ps *ps, int argv_lines, t_node *head)
 {
 	int			i;
 	int			j;
@@ -101,20 +127,19 @@ t_node			*create_lnkd_lst(t_ps *ps, int k, t_node *head)
 	ps->stck_a->previous = NULL;
 	i = 1;
 	ps->len = 1;
-	while (i <= k)
+	while (i <= argv_lines)
 	{
 		j = 0;
 		while (ps->argv[i][j] != 0)
 		{
-			ps->stck_a->data = ft_atoi(&ps->argv[i][j]);
-			j += remove_spaces_digits_minus(&ps->argv[i][j]);
+			j += assign_data(&ps->argv[i][j], ps);
 			ps->stck_a->next = NULL;
 			if (ps->argv[i][j])
-				create_lnkd_list_help(ps);
+				create_lnkd_list_help(ps, &ps->argv[i][j]);
 		}
 		++i;
-		if (i <= k && ps->argv[i])
-			create_lnkd_list_help(ps);
+		if (i <= argv_lines && ps->argv[i])
+			create_lnkd_list_help(ps, ps->argv[i]);
 	}
 	ps->stck_a->next = NULL;
 	return (head);

@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/10 18:46:27 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/10 19:17:44 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/11 17:32:25 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void			helper_sort_three(t_ps *ps, t_node *temp)
 	rotate(&ps->stck_a, 0, ps);
 }
 
-int	        	helper_for_divide(t_ps *ps, t_node **node, char io)
+int				helper_for_divide(t_ps *ps, t_node **node, char io)
 {
 	if (io)
 	{

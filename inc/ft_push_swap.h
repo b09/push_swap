@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/10 20:12:26 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/11 17:25:04 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,31 @@ typedef struct		s_ps
 }					t_ps;
 
 /*
-**	ps_operation.c
+**	print_functions.c
+*/
+
+void				print_content_lnkd_list(t_ps *ps);
+
+/*
+**	push_swap_helpers.c
+*/
+
+void				helper_sort_lnkd_lst(t_ps *ps);
+void				helper_sort_three(t_ps *ps, t_node *temp);
+int		        	helper_for_divide(t_ps *ps, t_node **node, char io);
+
+/*
+**	shared_array_delete_funcs.c
+*/
+
+void				create_and_srt_array(t_ps *ps, int i);
+int					check_if_unsorted(t_ps *ps, int i);
+int					repeats_in_sorted_array(t_ps *ps);
+void				delete_everything(t_ps *ps, t_node **list);
+void				navigate_thru_lnkd_lst(t_node **node, char go_to_end);
+
+/*
+**	shared_core_operations.c
 */
 
 int					swap(t_node *stack, char swap_going_down_list, t_ps *ps);
@@ -60,34 +84,11 @@ void				push(t_node **src, t_node **dest, t_ps *ps);
 int					rotate(t_node **node, char insert_at_end, t_ps *ps);
 
 /*
-**	push_swap_extra.c
+**	shared_input_validation.c
 */
 
-// void				delete_sorted_array(t_ps *ps);
-void				create_and_srt_array(t_ps *ps, int i);
-int					check_if_unsorted(t_ps *ps, int i);
-int					repeats_in_sorted_array(t_ps *ps);
-void				navigate_thru_lnkd_lst(t_node **node, char go_to_end);
-
-/*
-**	shared_funcs.c
-*/
-
-// void				sort_lnkd_lst(t_ps *ps);
-void				delete_everything(t_ps *ps, t_node **list);
+int					check_length_of_input(char *str, int iterations);
 int					validate_argv(int argc, char **argv);
 t_node				*create_lnkd_lst(t_ps *ps, int size, t_node *head);
-
-/*
-**	push_swap_main.c
-*/
-
-void				helper_sort_lnkd_lst(t_ps *ps);
-void				print_content_lnkd_list(t_ps *ps);
-void				helper_sort_three(t_ps *ps, t_node *temp);
-int					check_length_of_input(char *str);
-int		        	helper_for_divide(t_ps *ps, t_node **node, char io);
-
-
 
 #endif

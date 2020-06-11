@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:58:41 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/10 19:15:54 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/11 17:30:50 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,8 @@ int				main(int argc, char **argv)
 	ft_bzero(&ps, sizeof(ps));
 	if (argc < 2 || !argv || !validate_argv(argc, argv))
 	{
-		ft_putstr_fd("Error\n", 2);
+		if (argc != 1)
+			ft_putstr_fd("Error\n", 2);
 		return (-1);
 	}
 	ps.len = argc - 1;
@@ -149,7 +150,6 @@ int				main(int argc, char **argv)
 		if (!repeats_in_sorted_array(&ps))
 			sort_lnkd_lst(&ps);
 	}
-	delete_sorted_array(&ps);
-	delete_lnkd_list(&ps, &(ps.stck_a));
+	delete_everything(&ps, &(ps.stck_a));
 	return (0);
 }

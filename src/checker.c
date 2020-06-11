@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/10 19:14:20 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/11 16:13:45 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int		manipulate_stacks(t_ps *ps)
 		ft_memdel((void*)&operation);
 	if (i == 0)
 	{
-		delete_lnkd_list(ps, &ps->stck_a);
+		delete_everything(ps, &ps->stck_a);
 		ft_putstr_fd("Error\n", 2);
 		return (0);
 	}
@@ -120,7 +120,8 @@ int				main(int argc, char **argv)
 	ft_bzero(&ps, sizeof(ps));
 	if (argc < 2 || !argv || !validate_argv(argc, argv))
 	{
-		ft_putstr_fd("Error\n", 2);
+		if (argc != 1)
+			ft_putstr_fd("Error\n", 2);
 		return (-1);
 	}
 	ps.len = argc - 1;
@@ -128,5 +129,5 @@ int				main(int argc, char **argv)
 	ps.stck_a = create_lnkd_lst(&ps, argc - 1, head);
 	if (manipulate_stacks(&ps))
 		verify_order_of_data(&ps);
-	delete_lnkd_list(&ps, &(ps.stck_a));
+	delete_everything(&ps, &(ps.stck_a));
 }
