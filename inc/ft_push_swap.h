@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:13:22 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/11 17:25:04 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/11 17:38:43 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void				print_content_lnkd_list(t_ps *ps);
 
 void				helper_sort_lnkd_lst(t_ps *ps);
 void				helper_sort_three(t_ps *ps, t_node *temp);
-int		        	helper_for_divide(t_ps *ps, t_node **node, char io);
+int					helper_for_divide(t_ps *ps, t_node **node, char io);
 
 /*
 **	shared_array_delete_funcs.c

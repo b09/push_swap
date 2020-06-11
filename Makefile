@@ -6,7 +6,7 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/06/03 16:52:44 by bprado        #+#    #+#                  #
-#    Updated: 2020/06/11 17:34:11 by bprado        ########   odam.nl          #
+#    Updated: 2020/06/11 17:46:51 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,6 @@ SRC_PS		=	src/push_swap.c \
 				src/shared_core_operations.c \
 				src/shared_input_validation.c \
 				src/shared_array_delete_funcs.c\
-				src/print_functions.c
 
 LIB 		= 	./libft
 
