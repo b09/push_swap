@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 19:32:58 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/11 17:33:47 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/16 19:26:33 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,16 @@ int				check_length_of_input(char *str, int iterations)
 
 	i = 0;
 	j = 0;
-	while (str[i] && !ft_isdigit(str[i]))
+	while (str[i] && !ft_isdigit(str[i]) && str[i] != '-')
 		++i;
-	while (str[i] && ft_isdigit(str[i]) && j < 12)
+	j += str[i] == '-' ? 1 : 0;
+	i += str[i] == '-' ? 1 : 0;
+	while (str[i] && ft_isdigit(str[i]) && j < 13)
 	{
 		++i;
 		++j;
 	}
-	if ((j > 10) || (j == 0 && !str[i] && iterations == 0))
+	if ((j > 11) || (j == 0 && !str[i] && iterations == 0))
 		return (0);
 	if (ft_atol(&str[i - j]) > INT32_MAX || ft_atol(&str[i - j]) < INT32_MIN)
 		return (0);
@@ -46,6 +48,10 @@ int				check_length_of_input(char *str, int iterations)
 /*
 **	must be able to take in a single string containing all args
 **	argc is at least 2 at this point
+**	the first while has to check whether the current line is nothing(ex: "")
+**	an escape if so, but if not, continue checking subsequent lines
+**	this means the assigment of j = 0 should be at the end of the first while
+**	loop instead of right after it.
 */
 
 int				validate_argv(int argc, char **argv)
@@ -54,9 +60,9 @@ int				validate_argv(int argc, char **argv)
 	int			j;
 
 	i = 1;
+	j = 0;
 	while (i < argc && argv[i][j] != 0)
 	{
-		j = 0;
 		while (argv[i][j] != 0)
 		{
 			if ((!ft_isdigit(argv[i][j]) && argv[i][j] != ' ' && argv[i][j] !=\
@@ -67,6 +73,7 @@ int				validate_argv(int argc, char **argv)
 		if (check_length_of_input(argv[i], 0) == 0)
 			return (0);
 		++i;
+		j = 0;
 	}
 	if (i == 1 && j == 0)
 		return (0);

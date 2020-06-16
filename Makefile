@@ -6,7 +6,7 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/06/03 16:52:44 by bprado        #+#    #+#                  #
-#    Updated: 2020/06/11 17:46:51 by bprado        ########   odam.nl          #
+#    Updated: 2020/06/16 19:54:11 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,11 @@ all: $(NAME) $(NAME_PS)
 begin_statement:
 	@printf "$(BOLD) *** Compiling $(NAME) & $(NAME_PS) ***$(END_TPUT)\n"
 
-$(NAME): begin_statement $(OBJ) libft/libft.a
+# $(NAME): begin_statement $(OBJ) libft/libft.a
+# the above line has begin_statment as prerequisite, and if any prerequisite
+# needs to execute, then the rule will execute
+# in other words, the way the above rule was written, it will always be true
+$(NAME): $(OBJ) libft/libft.a
 	@$(CC) -o $@ $(CFLAGS) $(INC) $(OBJ) $(LIB_A)
 	@printf " $(CYAN)$(BOLD)$(UNDERLINE)./$(NAME)$(END)$(END_TPUT) created\n"
 

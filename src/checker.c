@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/16 15:26:50 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/16 19:31:47 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,10 @@ static void		verify_order_of_data(t_ps *ps)
 /*
 **	must validate strings of input; "1 2 3 4" as well as "1" "2" "3" "4"
 **	print_content_lnkd_list(&obj);
+**	notes:
+**		min int				// done
+**		valgrind leaking 24 bytes
+**		./checker 22 32 asdf    not catching error   // done
 */
 
 int				main(int argc, char **argv)
