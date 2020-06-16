@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ps_operation.c                                     :+:    :+:            */
+/*   shared_core_operations.c                           :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/20 17:54:11 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/07 17:40:08 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/16 14:34:02 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ static void		insert_node(t_node *loose_node, t_node **dest, char add_to_end)
 
 void			push(t_node **src, t_node **dest, t_ps *ps)
 {
+	if (*src == NULL)
+		return ;
 	insert_node(unlink_node(src, 1), dest, 0);
 	if (*src == ps->stck_a)
 	{

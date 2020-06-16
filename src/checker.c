@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/11 16:13:45 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/16 15:26:50 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,16 +72,16 @@ static int		manipulate_stacks(t_ps *ps)
 	while (get_next_line(0, &operation) > 0 && i)
 	{
 		i = execute_op_code(operation, ps);
+		if (i == 0)
+		{
+			delete_everything(ps, &ps->stck_a);
+			ft_putstr_fd("Error\n", 2);
+			return (0);
+		}
 		ft_memdel((void*)&operation);
 	}
 	if (operation)
 		ft_memdel((void*)&operation);
-	if (i == 0)
-	{
-		delete_everything(ps, &ps->stck_a);
-		ft_putstr_fd("Error\n", 2);
-		return (0);
-	}
 	return (1);
 }
 
@@ -89,8 +89,10 @@ static void		verify_order_of_data(t_ps *ps)
 {
 	int			i;
 
-	i = ps->stck_a->data;
-	while (ps->stck_a->next != NULL)
+	i = 0;
+	if (ps->stck_a)
+		i = ps->stck_a->data;
+	while (ps->stck_a && ps->stck_a->next != NULL)
 	{
 		if (i >= ps->stck_a->next->data)
 		{
@@ -127,7 +129,8 @@ int				main(int argc, char **argv)
 	ps.len = argc - 1;
 	ps.argv = argv;
 	ps.stck_a = create_lnkd_lst(&ps, argc - 1, head);
-	if (manipulate_stacks(&ps))
+	create_and_srt_array(&ps, 0);
+	if (!repeats_in_sorted_array(&ps) && manipulate_stacks(&ps))
 		verify_order_of_data(&ps);
 	delete_everything(&ps, &(ps.stck_a));
 }

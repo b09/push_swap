@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 19:00:19 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/11 17:32:41 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/16 15:26:24 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,7 @@ void			delete_everything(t_ps *ps, t_node **list)
 		ps->array = NULL;
 	}
 	while (ps->stck_b != NULL)
-	{
 		push(&ps->stck_b, &ps->stck_a, ps);
-		navigate_thru_lnkd_lst(&ps->stck_a, 0);
-		navigate_thru_lnkd_lst(&ps->stck_b, 0);
-	}
 	if (*list != NULL)
 	{
 		if ((*list)->next)

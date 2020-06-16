@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 18:58:41 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/11 17:30:50 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/16 15:27:24 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,12 +144,9 @@ int				main(int argc, char **argv)
 	ps.len = argc - 1;
 	ps.argv = argv;
 	ps.stck_a = create_lnkd_lst(&ps, argc - 1, head);
-	if (check_if_unsorted(&ps, 0))
-	{
-		create_and_srt_array(&ps, 0);
-		if (!repeats_in_sorted_array(&ps))
-			sort_lnkd_lst(&ps);
-	}
+	create_and_srt_array(&ps, 0);
+	if (!repeats_in_sorted_array(&ps) && check_if_unsorted(&ps, 0))
+		sort_lnkd_lst(&ps);
 	delete_everything(&ps, &(ps.stck_a));
 	return (0);
 }
