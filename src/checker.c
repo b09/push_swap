@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 13:05:02 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/16 19:31:47 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/19 15:01:30 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static int		manipulate_stacks(t_ps *ps)
 		i = execute_op_code(operation, ps);
 		if (i == 0)
 		{
+			ft_memdel((void*)&operation);
 			delete_everything(ps, &ps->stck_a);
 			ft_putstr_fd("Error\n", 2);
 			return (0);
@@ -113,7 +114,7 @@ static void		verify_order_of_data(t_ps *ps)
 **	print_content_lnkd_list(&obj);
 **	notes:
 **		min int				// done
-**		valgrind leaking 24 bytes
+**		valgrind leaking 24 bytes		// done
 **		./checker 22 32 asdf    not catching error   // done
 */
 

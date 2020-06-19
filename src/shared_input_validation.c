@@ -6,7 +6,7 @@
 /*   By: bprado <bprado@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/26 19:32:58 by bprado        #+#    #+#                 */
-/*   Updated: 2020/06/16 19:26:33 by bprado        ########   odam.nl         */
+/*   Updated: 2020/06/18 19:29:08 by bprado        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int				validate_argv(int argc, char **argv)
 		++i;
 		j = 0;
 	}
-	if (i == 1 && j == 0)
+	if (i != argc)
 		return (0);
 	return (1);
 }

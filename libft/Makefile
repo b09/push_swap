@@ -6,7 +6,7 @@
 #    By: bprado <bprado@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/01/29 17:19:55 by bprado        #+#    #+#                  #
-#    Updated: 2020/06/10 13:15:36 by bprado        ########   odam.nl          #
+#    Updated: 2020/06/19 15:00:25 by bprado        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,21 +37,28 @@ BOLD := `tput bold`
 UNDERLINE := `tput smul`
 END_TPUT := `tput sgr0`
 
+mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
+current_dir := $(notdir $(patsubst %/,%,$(dir $(mkfile_path))))
+
 
 all: $(NAME)
 
-begin_statement:
-	@printf "$(BOLD) *** Compiling $(NAME) ***$(END_TPUT)\n"
+# end_statement:
+# 	@printf "$(BOLD) *** Compiling of $(NAME) complete ***$(END_TPUT)\n\n"
 
-$(NAME): begin_statement $(OBJ)
-	@printf " -- libft obj files done. --\n"
+# $(NAME): begin_statement $(OBJ)
+# $(NAME): $(OBJ) | end_statement
+$(NAME): $(OBJ)
 	@ar rcs $(NAME) $(OBJ)
 	@printf " $(CYAN)$(BOLD)$(UNDERLINE)$(NAME)$(END)$(END_TPUT) created\n"
+#	@printf " -- libft obj files done. --\n"
 
-obj/%.o: src/%.c inc/libft.h
+obj:
 	@mkdir -p obj
+
+obj/%.o: src/%.c inc/libft.h | obj
 	@printf " $(GREEN)$(BOLD)✔$(END)$(END_TPUT) Object file for \
-	$(PURPLE)$<$(END)\n"
+	$(PURPLE)$(current_dir)/$<$(END)\n"
 	@$(CC) -o $@ -c $< $(CFLAGS) -I inc -I .
 
 clean:
